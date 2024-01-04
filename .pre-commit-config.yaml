@@ -1,0 +1,10 @@
+repos:
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v2.2.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args: []
+ci:
+  autofix-commit-msg: "fix: auto fixes from pre-commit hooks"
+  autoupdate-commit-msg: "chore: pre-commit autoupdate"
