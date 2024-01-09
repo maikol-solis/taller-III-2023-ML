@@ -1,0 +1,6 @@
+# Día #2
+
+## Regresión Lineal 
+
+## Regresión Logística
+
