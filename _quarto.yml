@@ -1,0 +1,32 @@
+project:
+  type: book
+  output-dir: "docs"
+  # pre-render: "./_common.R"
+
+lang: es
+
+book:
+  title: "Taller de Verano: 100 páginas de Machine Learning"
+  author: "Maikol Solís"
+  date: today
+  site-url: none.com
+  twitter-card: true
+  open-graph: true
+  chapters:
+    - "index.md"
+    - "1_introduccion.qmd"
+    - "2_algoritmos_fundamentales.qmd"
+format:
+  html:
+    theme: litera
+    mainfont: '"Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif'
+    css: custom_style.css
+  pdf:
+    documentclass: scrreprt
+
+execute:
+  freeze: true
+  cache: true
+
+from: markdown+tex_math_single_backslash+emoji
+link-external-newwindow: true
