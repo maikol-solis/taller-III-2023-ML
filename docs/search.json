@@ -4,10 +4,42 @@
     "href": "index.html",
     "title": "Taller de Verano: 100 páginas de Machine Learning",
     "section": "",
-    "text": "1 Taller de verano",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Taller de verano</span>"
-    ]
+    "text": "1 Taller de verano"
+  },
+  {
+    "objectID": "2_algoritmos_fundamentales.html#regresión-lineal",
+    "href": "2_algoritmos_fundamentales.html#regresión-lineal",
+    "title": "3  Algoritmos fundamentales",
+    "section": "3.1 Regresión Lineal",
+    "text": "3.1 Regresión Lineal"
+  },
+  {
+    "objectID": "2_algoritmos_fundamentales.html#regresión-logística",
+    "href": "2_algoritmos_fundamentales.html#regresión-logística",
+    "title": "3  Algoritmos fundamentales",
+    "section": "3.2 Regresión Logística",
+    "text": "3.2 Regresión Logística"
+  },
+  {
+    "objectID": "2_algoritmos_fundamentales.html#decision-trees",
+    "href": "2_algoritmos_fundamentales.html#decision-trees",
+    "title": "3  Algoritmos fundamentales",
+    "section": "3.3 Decision Trees",
+    "text": "3.3 Decision Trees\n\n3.3.1 Definición\nUn árbol de decisión (DT) es un grafo no cíclico que se utiliza para tomar decisiones (clasificar). En cada nodo (rama) del grafo se evalúa uno de los features. Si el resultado de la evaluación es cierto (o está debajo de un umbral), se sigue la rama de la izquierda, si no se va a la derecha.\n\n\n\n\n\nPor lo tanto, los DT son un modelo no paramétrico.\nPara crear el DT, se intenta optimizar el promedio de la máxima verosimilitud: \\[\n    \\frac{1}{N} \\sum_{i=1}^{N}\\left( y_i \\ln{f_{ID3}(x_i)} + (1-y_i) \\ln{(1-f_{ID3}(x_i))}\\right)\n\\] donde \\(f_{ID3}\\) es un DT y \\(f_{ID3}(x) \\stackrel{\\text{def}}{=} Pr(y=1|x)\\)\n\n\n3.3.2 Construcción\nPara construir el árbol, en cada nodo de decisión, se intenta minimizar la entropía de la información.\nLa entropía de un conjunto \\(\\cal{S}\\) viene dada por: \\[\nH(S) \\stackrel{\\text{def}}{=} -f_{ID3}^{S} \\log_2 (f_{ID3}^{S}) - (1-f_{ID3}^{S}) \\log_2 (1-f_{ID3}^{S})\n\\]\nY si un grupo se divide en dos, la entropía es la suma ponderada de cada subconjunto: \\[\n  H(S_-, S_+) \\stackrel{\\text{def}}{=} \\frac{|S_-|}{|S|}H(S_-) + \\frac{|S_+|}{|S|}H(S_+)\n\\]\n\n\n3.3.3 Ejemplo\nConsideremos los siguientes datos:\nAtributos:\n\nEdad: viejo (v), media-vida(m), nuevo (nv)\nCompetencia: no(n), sí(s)\nTipo: software (swr), hardware (hwr)\n\n\n\n\nEdad\nCompetencia\nTipo\nGanancia\n\n\n\n\nv\ns\nswr\nbaja\n\n\nv\nn\nswr\nbaja\n\n\nv\nn\nhwr\nbaja\n\n\nm\ns\nswr\nbaja\n\n\nm\ns\nhwr\nbaja\n\n\nm\nn\nhwr\nsube\n\n\nm\nn\nswr\nsube\n\n\nnv\ns\nswr\nsube\n\n\nnv\nn\nhwr\nsube\n\n\nnv\nn\nswr\nsube\n\n\n\nCálculo de las entropías: Primero se tiene que probar todos los features para ver cuál tiene mayor ganancia de información (reduce la entropía)\nEntropía total: \\[\nH(S) = \\text{Entropía de los casos baja} + \\text{Entropía de los casos sube}\n\\]\n\\[\nH(s) = -\\frac{5}{10}*\\log_2(\\frac{5}{10}) - \\frac{5}{10}*\\log_2(\\frac{5}{10}) = 1\n\\]\nAhora vamos a decidir la primera separación con las edades  \\(H = \\frac{3}{10} \\cdot 0 + \\frac{4}{10} \\cdot 1 + \\frac{3}{10} \\cdot 0 = 0.4\\)\nAhora vamos a decidir la primera separación con la competencia  \\(H = \\frac{4}{10} \\cdot 0.811 + \\frac{6}{10} \\cdot 0.918 = 0.8752\\)\nAhora vamos a decidir la primera separación con las edades  \\(H = \\frac{4}{10} \\cdot 0.811 + \\frac{6}{10} \\cdot 0.918 = 0.8752\\)\nAhora vamos a decidir la primera separación con el tipo  \\(H = \\frac{6}{10} \\cdot 1 + \\frac{4}{10} \\cdot 1 = 1\\)\nConcluimos que lo que nos da la máxima ganancia de información es primero decidir por edades, eso nos deja dos nodos hoja y un nodo rama que debemos volver a separar.\nAhora vamos a buscar el segundo nivel, donde vamos a separar el grupo que tiene edades medias por competencia:\n \\(H = \\frac{2}{4} \\cdot 0 + \\frac{2}{4} \\cdot 0 = 0\\)\nCon esto ya se clasificaron todos los datos, puesto que terminamos solo con nodos hojas: \nEsto también se puede hacer con valores numéricos, que de hecho, es lo que se puede hacer con scikit learn \ny con esto se obtiene este árbol de decisión: \n\n\n3.3.4 Comandos básicos en python\nEstos son los comandos básicos en python\n#| label: dibujoArbol01\n#| fig-cap: \"Árbol de decisión\"\nfrom sklearn import tree\nX = # Lista con los features (lista de listas)\nY = # Lista con los labels\n# Se define la variable que tendrá el árbol\nclf = tree.DecisionTreeClassifier()\n# Se calcula el árbol\nclf = clf.fit(X, Y)\n# Se utiliza el árbol para predecir el label de un dato nuevo\nclf.predict_proba(X0)\n# Se dibuja el árbol\ntree.plot_tree(clf)\ny este sería un ejemplo sencillo en python:\nPrimero creamos los datos\n\nfrom sklearn import tree\nfrom sklearn.datasets import make_blobs\nfrom sklearn.inspection import DecisionBoundaryDisplay\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# Creación de los datos\nX, Y = make_blobs(n_samples=200, centers=4, random_state=6)\nplt.scatter(X[:, 0], X[:, 1], c=Y, s=30)\nplt.title(\"Datos originales\")\nplt.xlabel(\"x1\")\nplt.ylabel(\"x2\")\nplt.show()\n\n\n\n\nEjemplo hecho en python: datos\n\n\n\n\nLuego se crea el arbol\n\nclf = tree.DecisionTreeClassifier()\nclf = clf.fit(X, Y)\ntree.plot_tree(clf)\nplt.show()\n\n\n\n\nEjemplo hecho en python: arbol\n\n\n\n\ny por último, dibujamos las separaciones\n\nDecisionBoundaryDisplay.from_estimator(clf, X, response_method=\"predict\")\nplt.scatter(X[:, 0], X[:, 1], c=Y, s=30)\nplt.show()\n\n\n\n\nEjemplo hecho en python: separación\n\n\n\n\ny con esto se puede aplicar el árbol\n\nprint(clf.predict([[5.0, 1.0]]))\nprint(clf.predict([[-2.0, -1.0]]))\nprint(clf.predict([[6.0, -6.0]]))\n\n[0]\n[3]\n[0]\n\n\ny lo que devuelve es el número de grupo al que pertene el dato"
+  },
+  {
+    "objectID": "2_algoritmos_fundamentales.html",
+    "href": "2_algoritmos_fundamentales.html",
+    "title": "3  Algoritmos fundamentales",
+    "section": "",
+    "text": "4 Cargas datos"
+  },
+  {
+    "objectID": "2_algoritmos_fundamentales.html#k-nearest-neighbors-knn",
+    "href": "2_algoritmos_fundamentales.html#k-nearest-neighbors-knn",
+    "title": "3  Algoritmos fundamentales",
+    "section": "3.4 K-Nearest Neighbors (KNN)",
+    "text": "3.4 K-Nearest Neighbors (KNN)\n\n3.4.1 Carga de paquetes\n\nimport matplotlib.pyplot as plt\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.neighbors import KNeighborsClassifier\nfrom sklearn.metrics import accuracy_score\nfrom sklearn.inspection import DecisionBoundaryDisplay\n\nimport pandas as pd\nimport seaborn as sns\nfrom sklearn.datasets import make_blobs"
   },
   {
     "objectID": "1_introduccion.html",
@@ -15,36 +47,5 @@
     "title": "2  Cómo funciona el aprendizaje supervisado",
     "section": "",
     "text": "Veremos el caso de las máquinas de soporte vectorial (SVM) para clasificación.\n\nPaso #1: Cargar librerías\n\n\nimport matplotlib.pyplot as plt\n\nfrom sklearn import svm\nfrom sklearn.datasets import make_blobs\nfrom sklearn.inspection import DecisionBoundaryDisplay\n\nfrom scipy.stats import distributions\nfrom numpy import sum\nimport numpy as np\n\n\nPaso #2: Crear datos\n\nSe crean 40 puntos usando la función make_blobs. Esta crea un conjunto de puntos separados en dos grupos.\n\nX, y = make_blobs(n_samples=40, centers=2, random_state=6)\n\n\nPaso #3: Crear el modelo\n\n\nclf = svm.SVC(kernel=\"linear\", C=1000)\n\n\nPaso #4: Entrenar el modelo\n\n\nclf.fit(X, y)\n\nSVC(C=1000, kernel='linear')In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.SVCSVC(C=1000, kernel='linear')\n\n\n\nPaso #5: Visualizar el modelo\n\n\nplt.scatter(X[:, 0], X[:, 1], c=y, s=30, cmap=plt.cm.Paired)\n\n# plot the decision function\nax = plt.gca()\nDecisionBoundaryDisplay.from_estimator(\n    clf,\n    X,\n    plot_method=\"contour\",\n    colors=\"k\",\n    levels=[-1, 0, 1],\n    alpha=0.5,\n    linestyles=[\"--\", \"-\", \"--\"],\n    ax=ax,\n)\n# plot support vectors\nax.scatter(\n    clf.support_vectors_[:, 0],\n    clf.support_vectors_[:, 1],\n    s=100,\n    linewidth=1,\n    facecolors=\"none\",\n    edgecolors=\"k\",\n)\nplt.show()\n\n\n\n\n\nReferencias\n\nhttps://scikit-learn.org/stable/modules/svm.html#\nhttps://scikit-learn.org/stable/auto_examples/svm/plot_separating_hyperplane.html#sphx-glr-auto-examples-svm-plot-separating-hyperplane-py\n\n\n\n3 Estimación de parametros bayesiano\n\nalpha = 10\nbeta = 10\nn = 20\nNsamp = 201  # no of points to sample at\np = np.linspace(0, 1, Nsamp)\ndeltap = 1./(Nsamp-1)  # step size between samples of p\n\nprior = distributions.beta.pdf(p, alpha, beta)\n\nfor i in range(1, 9):\n\n    r = 2**i\n    n = (3.0/2.0)*r\n    like = distributions.binom.pmf(r, n, p)\n    like = like/(deltap*sum(like))  # for plotting convenience only\n    post = distributions.beta.pdf(p, alpha+r, beta+n-r)\n\n    # make the figure\n    plt.figure()\n    plt.plot(p, post, 'k', label='posterior')\n    plt.plot(p, like, 'r', label='likelihood')\n    plt.plot(p, prior, 'b', label='prior')\n    plt.xlabel('p')\n    plt.ylabel('PDF')\n    plt.legend(loc='best')\n    plt.title('r/n={}/{:.0f}'.format(r, n))\n    plt.show()"
-  },
-  {
-    "objectID": "2_algoritmos_fundamentales.html#regresión-lineal",
-    "href": "2_algoritmos_fundamentales.html#regresión-lineal",
-    "title": "3  Día 2",
-    "section": "3.1 Regresión Lineal",
-    "text": "3.1 Regresión Lineal"
-  },
-  {
-    "objectID": "2_algoritmos_fundamentales.html#regresión-logística",
-    "href": "2_algoritmos_fundamentales.html#regresión-logística",
-    "title": "3  Día 2",
-    "section": "3.2 Regresión Logística",
-    "text": "3.2 Regresión Logística"
-  },
-  {
-    "objectID": "2_algoritmos_fundamentales.html",
-    "href": "2_algoritmos_fundamentales.html",
-    "title": "3  Día 2",
-    "section": "",
-    "text": "3.1 Regresión Lineal",
-    "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Día 2</span>"
-    ]
-  },
-  {
-    "objectID": "2_algoritmos_fundamentales.html#decision-trees",
-    "href": "2_algoritmos_fundamentales.html#decision-trees",
-    "title": "3  Día 2",
-    "section": "3.3 Decision Trees",
-    "text": "3.3 Decision Trees\n\n3.3.1 Definición\nUn árbol de decisión (DT) es un grafo no cíclico que se utiliza para tomar decisiones (clasificar). En cada nodo (rama) del grafo se evalúa uno de los features. Si el resultado de la evaluación es cierto (o está debajo de un umbral), se sigue la rama de la izquierda, si no se va a la derecha.\n\n\n\n\n\nPor lo tanto, los DT son un modelo no paramétrico.\nPara crear el DT, se intenta optimizar el promedio de la máxima verosimilitud: \\[\n    \\frac{1}{N} \\sum_{i=1}^{N}\\left( y_i \\ln{f_{ID3}(x_i)} + (1-y_i) \\ln{(1-f_{ID3}(x_i))}\\right)\n\\] donde \\(f_{ID3}\\) es un DT y \\(f_{ID3}(x) \\stackrel{\\text{def}}{=} Pr(y=1|x)\\)\n\n\n3.3.2 Construcción\nPara construir el árbol, en cada nodo de decisión, se intenta minimizar la entropía de la información.\nLa entropía de un conjunto \\(\\cal{S}\\) viene dada por: \\[\nH(S) \\stackrel{\\text{def}}{=} -f_{ID3}^{S} \\log_2 (f_{ID3}^{S}) - (1-f_{ID3}^{S}) \\log_2 (1-f_{ID3}^{S})\n\\]\nY si un grupo se divide en dos, la entropía es la suma ponderada de cada subconjunto: \\[\n  H(S_-, S_+) \\stackrel{\\text{def}}{=} \\frac{|S_-|}{|S|}H(S_-) + \\frac{|S_+|}{|S|}H(S_+)\n\\]\n\n\n3.3.3 Ejemplo\nConsideremos los siguientes datos:\nAtributos:\n\nEdad: viejo (v), media-vida(m), nuevo (nv)\nCompetencia: no(n), sí(s)\nTipo: software (swr), hardware (hwr)\n\n\n\n\nEdad\nCompetencia\nTipo\nGanancia\n\n\n\n\nv\ns\nswr\nbaja\n\n\nv\nn\nswr\nbaja\n\n\nv\nn\nhwr\nbaja\n\n\nm\ns\nswr\nbaja\n\n\nm\ns\nhwr\nbaja\n\n\nm\nn\nhwr\nsube\n\n\nm\nn\nswr\nsube\n\n\nnv\ns\nswr\nsube\n\n\nnv\nn\nhwr\nsube\n\n\nnv\nn\nswr\nsube\n\n\n\nCálculo de las entropías: Primero se tiene que probar todos los features para ver cuál tiene mayor ganancia de información (reduce la entropía)\nEntropía total: \\[\nH(S) = \\text{Entropía de los casos baja} + \\text{Entropía de los casos sube}\n\\]\n\\[\nH(s) = -\\frac{5}{10}*\\log_2(\\frac{5}{10}) - \\frac{5}{10}*\\log_2(\\frac{5}{10}) = 1\n\\]\nAhora vamos a decidir la primera separación con las edades  \\(H = \\frac{3}{10} \\cdot 0 + \\frac{4}{10} \\cdot 1 + \\frac{3}{10} \\cdot 0 = 0.4\\)\nAhora vamos a decidir la primera separación con la competencia  \\(H = \\frac{4}{10} \\cdot 0.811 + \\frac{6}{10} \\cdot 0.918 = 0.8752\\)\nAhora vamos a decidir la primera separación con las edades  \\(H = \\frac{4}{10} \\cdot 0.811 + \\frac{6}{10} \\cdot 0.918 = 0.8752\\)\nAhora vamos a decidir la primera separación con el tipo  \\(H = \\frac{6}{10} \\cdot 1 + \\frac{4}{10} \\cdot 1 = 1\\)\nConcluimos que lo que nos da la máxima ganancia de información es primero decidir por edades, eso nos deja dos nodos hoja y un nodo rama que debemos volver a separar.\nAhora vamos a buscar el segundo nivel, donde vamos a separar el grupo que tiene edades medias por competencia:\n \\(H = \\frac{2}{4} \\cdot 0 + \\frac{2}{4} \\cdot 0 = 0\\)\nCon esto ya se clasificaron todos los datos, puesto que terminamos solo con nodos hojas: \nEsto también se puede hacer con valores numéricos, que de hecho, es lo que se puede hacer con scikit learn \ny con esto se obtiene este árbol de decisión: \n\n\n3.3.4 Comandos básicos en python\nEstos son los comandos básicos en python\n#| label: dibujoArbol01\n#| fig-cap: \"Árbol de decisión\"\nfrom sklearn import tree\nX = # Lista con los features (lista de listas)\nY = # Lista con los labels\n# Se define la variable que tendrá el árbol\nclf = tree.DecisionTreeClassifier()\n# Se calcula el árbol\nclf = clf.fit(X, Y)\n# Se utiliza el árbol para predecir el label de un dato nuevo\nclf.predict_proba(X0)\n# Se dibuja el árbol\ntree.plot_tree(clf)\ny este sería un ejemplo sencillo en python:\nPrimero creamos los datos\n\nfrom sklearn import tree\nfrom sklearn.datasets import make_blobs\nfrom sklearn.inspection import DecisionBoundaryDisplay\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# Creación de los datos\nX, Y = make_blobs(n_samples=200, centers=4, random_state=6)\nplt.scatter(X[:, 0], X[:, 1], c=Y, s=30)\nplt.title(\"Datos originales\")\nplt.xlabel(\"x1\")\nplt.ylabel(\"x2\")\nplt.show()\n\n\n\n\nEjemplo hecho en python: datos\n\n\n\n\nLuego se crea el arbol\n\nclf = tree.DecisionTreeClassifier()\nclf = clf.fit(X, Y)\ntree.plot_tree(clf)\nplt.show()\n\n\n\n\nEjemplo hecho en python: arbol\n\n\n\n\ny por último, dibujamos las separaciones\n\nDecisionBoundaryDisplay.from_estimator(clf, X, response_method=\"predict\")\nplt.scatter(X[:, 0], X[:, 1], c=Y, s=30)\nplt.show()\n\n\n\n\nEjemplo hecho en python: separación\n\n\n\n\ny con esto se puede aplicar el árbol\n\nprint(clf.predict([[5.0, 1.0]]))\nprint(clf.predict([[-2.0, -1.0]]))\nprint(clf.predict([[6.0, -6.0]]))\n\n[0]\n[3]\n[0]\n\n\ny lo que devuelve es el número de grupo al que pertene el dato"
   }
 ]

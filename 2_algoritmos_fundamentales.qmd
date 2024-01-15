@@ -1,4 +1,4 @@
-# Día 2
+# Algoritmos fundamentales
 
 ## Regresión Lineal 
 
@@ -167,3 +167,71 @@ print(clf.predict([[-2.0, -1.0]]))
 print(clf.predict([[6.0, -6.0]]))
 ```
 y lo que devuelve es el número de grupo al que pertene el dato
+
+
+
+## K-Nearest Neighbors (KNN)
+
+
+### Carga de paquetes
+```{python}
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.inspection import DecisionBoundaryDisplay
+
+import pandas as pd
+import seaborn as sns
+from sklearn.datasets import make_blobs
+```
+
+# Cargas datos
+
+```{python}
+X, y = make_blobs(n_samples=1000, centers=3, random_state=6)
+```
+
+# Visualizar los datos
+
+```{python}
+sns.scatterplot(x=X[:,0],y=X[:,1], hue=y)
+plt.show()
+```
+
+# Se normaliza y se divide los datos
+
+```{python}
+
+
+# Split the data into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, stratify=y)
+
+# Scale the features using StandardScaler
+scaler = StandardScaler()
+X = scaler.fit_transform(X)
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+```
+
+# Ajuste y evaluación del modelo
+
+```{python}
+knn = KNeighborsClassifier(n_neighbors=3)
+knn.fit(X_train, y_train)
+
+# predecir con el modelo
+y_pred = knn.predict(X_test)
+
+# evaluarlo
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+```
+
+
+```{python}
+DecisionBoundaryDisplay.from_estimator(knn, X_train)
+sns.scatterplot(x=X[:,0],y=X[:,1], hue=y)
+plt.show()
+```

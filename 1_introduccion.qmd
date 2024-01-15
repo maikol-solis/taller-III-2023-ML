@@ -105,3 +105,6 @@ for i in range(1, 9):
     plt.title('r/n={}/{:.0f}'.format(r, n))
     plt.show()
 ```
+
+
+

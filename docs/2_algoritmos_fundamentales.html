@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Taller de Verano: 100 páginas de Machine Learning - 3&nbsp; Día 2</title>
+<title>Taller de Verano: 100 páginas de Machine Learning - 3&nbsp; Algoritmos fundamentales</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -126,9 +126,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="custom_style.css">
-<meta property="og:title" content="Taller de Verano: 100 páginas de Machine Learning - 3&nbsp; Día 2">
+<meta property="og:title" content="Taller de Verano: 100 páginas de Machine Learning - 3&nbsp; Algoritmos fundamentales">
 <meta property="og:site-name" content="Taller de Verano: 100 páginas de Machine Learning">
-<meta name="twitter:title" content="Taller de Verano: 100 páginas de Machine Learning - 3&nbsp; Día 2">
+<meta name="twitter:title" content="Taller de Verano: 100 páginas de Machine Learning - 3&nbsp; Algoritmos fundamentales">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Día 2</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algoritmos fundamentales</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -173,7 +173,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_algoritmos_fundamentales.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Día 2</span></a>
+  <a href="./2_algoritmos_fundamentales.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algoritmos fundamentales</span></a>
   </div>
 </li>
     </ul>
@@ -194,6 +194,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo"><span class="toc-section-number">3.3.3</span>  Ejemplo</a></li>
   <li><a href="#comandos-básicos-en-python" id="toc-comandos-básicos-en-python" class="nav-link" data-scroll-target="#comandos-básicos-en-python"><span class="toc-section-number">3.3.4</span>  Comandos básicos en python</a></li>
   </ul></li>
+  <li><a href="#k-nearest-neighbors-knn" id="toc-k-nearest-neighbors-knn" class="nav-link" data-scroll-target="#k-nearest-neighbors-knn"><span class="toc-section-number">3.4</span>  K-Nearest Neighbors (KNN)</a>
+  <ul class="collapse">
+  <li><a href="#carga-de-paquetes" id="toc-carga-de-paquetes" class="nav-link" data-scroll-target="#carga-de-paquetes"><span class="toc-section-number">3.4.1</span>  Carga de paquetes</a></li>
+  </ul></li>
+  <li><a href="#cargas-datos" id="toc-cargas-datos" class="nav-link" data-scroll-target="#cargas-datos"><span class="toc-section-number">4</span>  Cargas datos</a></li>
+  <li><a href="#visualizar-los-datos" id="toc-visualizar-los-datos" class="nav-link" data-scroll-target="#visualizar-los-datos"><span class="toc-section-number">5</span>  Visualizar los datos</a></li>
+  <li><a href="#se-normaliza-y-se-divide-los-datos" id="toc-se-normaliza-y-se-divide-los-datos" class="nav-link" data-scroll-target="#se-normaliza-y-se-divide-los-datos"><span class="toc-section-number">6</span>  Se normaliza y se divide los datos</a></li>
+  <li><a href="#ajuste-y-evaluación-del-modelo" id="toc-ajuste-y-evaluación-del-modelo" class="nav-link" data-scroll-target="#ajuste-y-evaluación-del-modelo"><span class="toc-section-number">7</span>  Ajuste y evaluación del modelo</a></li>
   </ul>
 </nav>
     </div>
@@ -202,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Día 2</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algoritmos fundamentales</span></h1>
 </div>
 
 
@@ -429,9 +437,81 @@ H(s) = -\frac{5}{10}*\log_2(\frac{5}{10}) - \frac{5}{10}*\log_2(\frac{5}{10}) = 
 </div>
 </div>
 <p>y lo que devuelve es el número de grupo al que pertene el dato</p>
-
-
 </section>
+</section>
+<section id="k-nearest-neighbors-knn" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="k-nearest-neighbors-knn"><span class="header-section-number">3.4</span> K-Nearest Neighbors (KNN)</h2>
+<section id="carga-de-paquetes" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="carga-de-paquetes"><span class="header-section-number">3.4.1</span> Carga de paquetes</h3>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.inspection <span class="im">import</span> DecisionBoundaryDisplay</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_blobs</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="cargas-datos" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Cargas datos</h1>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_blobs(n_samples<span class="op">=</span><span class="dv">1000</span>, centers<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">6</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="visualizar-los-datos" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Visualizar los datos</h1>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span>X[:,<span class="dv">0</span>],y<span class="op">=</span>X[:,<span class="dv">1</span>], hue<span class="op">=</span>y)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="2_algoritmos_fundamentales_files/figure-html/cell-8-output-1.png" width="590" height="411"></p>
+</div>
+</div>
+</section>
+<section id="se-normaliza-y-se-divide-los-datos" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Se normaliza y se divide los datos</h1>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and test sets</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, stratify<span class="op">=</span>y)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale the features using StandardScaler</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> scaler.fit_transform(X_train)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> scaler.transform(X_test)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ajuste-y-evaluación-del-modelo" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Ajuste y evaluación del modelo</h1>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>knn.fit(X_train, y_train)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># predecir con el modelo</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> knn.predict(X_test)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># evaluarlo</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy: 1.0</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>DecisionBoundaryDisplay.from_estimator(knn, X_train)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span>X[:,<span class="dv">0</span>],y<span class="op">=</span>X[:,<span class="dv">1</span>], hue<span class="op">=</span>y)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="2_algoritmos_fundamentales_files/figure-html/cell-11-output-1.png" width="569" height="411"></p>
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
