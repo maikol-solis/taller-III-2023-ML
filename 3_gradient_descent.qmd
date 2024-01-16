@@ -1,0 +1,81 @@
+---
+title: "Anatomía de un algoritmo de aprendizaje"
+format: html
+---
+# Anatomía de un algoritmo de aprendizaje
+## Bloques de construcción de un algoritmo de aprendizaje
+
+En los algoritmos de aprendizaje que abarcamos en la sección anterior podemos observar los 3 bloques que se utilizan para construirlos:
+
++---------------------------+---------------------------------------------------------------------------------------------------+
+| Bloque                    | Descripción                                                                                       |
++===========================+===================================================================================================+
+| Función de pérdida        | - Método para evaluar que tan bien se ajusta  el modelo a los datos de entrenamiento              |
+|                           | - Si el modelo no predice adecuadamente, la función de pérdida da un resultado mayor              |
++---------------------------+---------------------------------------------------------------------------------------------------+
+| Criterio de optimización  | - Debe estar basado en la función de pérdida                                                      |
++---------------------------+---------------------------------------------------------------------------------------------------+
+| Rutina de optimización    | - Utiliza los valores de la función objetivo y los datos para ajustar los parámetros del modelo   |
++---------------------------+---------------------------------------------------------------------------------------------------+
+
+: Bloques de un algoritmo de aprendizaje.
+
+## Descenso de gradiente (GD)
+
+El *descenso de gradiente* es un algoritmo iterativo que permite encontrar el máximo o mínimo de una función dada, y se utiliza en los algoritmos de *machine learning (ML)* y *deep learning (DL)* para minimizar las funiciones de pérdida.
+
+En conjunto con el *descenso de gradiente estocástico*, son de los algoritmos más utilizados en *ML* y *DL*.
+
+### Requisitos de la función a optimizar
+
+- **Diferenciable:** tiene una derivada para cada punto en su dominio.
+ 
+![Funciones diferenciables](figuras/gd/dif.png){fig-alt="Funciones diferenciables." fig-align="left"}
+
+![Funciones no diferenciables](figuras/gd/nodif.png){fig-alt="Funciones no diferenciables." fig-align="left"}
+
+- **Convexa:** para una función univariada, una línea que conecta dos puntos de la función pasa sobre o encima de la función. Las funciones convexas solo tienen un mínimo, que es el mínimo global.
+
+![Funciones convexas](figuras/gd/convexa.png){fig-alt="Funciones convexas." fig-align="left"}
+
+Los criterios de optimización de muchos modelos (regresión lineal y logística, SVM, entre otros) son convexos, por lo que el *GD* es un método adecuado.
+
+Los criterios de optimización para las redes neuronales no son convexos (tienen mínimos locales y globales), pero en la práctica es suficiente encontrar mínimos globales, por lo que el *GD* también resulta un método útil.
+
+### Gradiente
+
+Es la **pendiente** de una curva en una dirección específica.
+
+En funciones univariadas la obtenemos evaluando la primera derivada en un punto de interés.
+
+En funciones multivariadas, es un vector de derivadas en cada dirección principal, lo que conocemos como **derivadas parciales**.
+
+El gradiente para una función $f(x)$ en un punto $p$ está dado por:
+$$
+\nabla f(p) = \begin{bmatrix} \frac{\partial f}{\partial x_1} (p) \\ \vdots \\ \frac{\partial f}{\partial x_n} (p) \end{bmatrix}
+$$
+
+### Algoritmo de descenso de gradiente
+
+El método se puede resumir mediante la siguiente ecuación:
+
+$$
+p_{n+1} = p_n - \alpha \nabla f(p_n)
+$$
+
+
+**Paso a paso:**
+
+1. Escoger un punto inicial: $p_n$
+   
+2. Calcular el gradiente en este punto: $\nabla f(p_n)$
+   
+3. Moverse en la dirección contraria al gradiente, a una distancia dada por la tasa de aprendizaje $\alpha$
+
+4. Repetir pasos 2 y 3 hasta que se cumpla lo siguiente:
+
+- Número máximo de iteraciones alcanzado
+
+- El tamaño del paso es más pequeño que la tolerancia definida (cambio en $\alpha$ o gradiente muy baja)
+
+### Ejemplo 1: función derivable no convexa
