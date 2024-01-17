@@ -166,3 +166,8 @@ cython_debug/
 .fls
 .fdb_latexmk
 .tex
+*.aux
+*.fdb_latexmk
+*.tex
+*.toc
+/.dir-locals.el
