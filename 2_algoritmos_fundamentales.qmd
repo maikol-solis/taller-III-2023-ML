@@ -4,6 +4,142 @@
 
 ## Regresión Logística
 
+La regresión logística no es una regresión como la regresión lineal, sino, es un método de clasificación. Acá queremos modelar $y_{i}$ como una función lineal de los $x_{i}$.
+
+Se definen las etiquetas negativas como 0 y las positivas como 1 (en el caso de la clasificación binaria). Así, si el valor dado por el modelo es cercano a 0 se le asigna la etiqueta negativa y si es cercano a 1, la positiva. Una función que cumple lo anterior es la **función sigmoide**, la cual está definida como:
+$$
+f(x) = \dfrac{1}{1+e^{-x}}
+$$
+
+```{python}
+import math
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+
+x = np.linspace(-6, 6, 500)
+y = 1 / (1 + np.exp(-x))
+sns.lineplot(x=x, y=y)
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.title("Función Sigmoide")
+plt.show()
+```
+
+Si se optimizan los valores de $\mathbb{x}$ y $b$ apropiadamente, podemos interpretar la salida de $f(x)$ como la probabilidad que $y_{i}$ sea positivo. Así, si esta es mayor o igual a $0.5$ podemos decir que la clase de $\mathbb{x}$ es positiva; en el caso contrario, negativa.
+
+Con base en lo anterior, se define el modelo de regresión logística como:
+$$
+f_{\mathbb{w}, b}(\mathbb{x})=\dfrac{1}{1+e^{-(\mathbb{w}\cdot\mathbb{x}+b)}}
+$$
+donde el término $\mathbb{w}\cdot\mathbb{x}+b$ es familiar de la regresión lineal.
+
+Para hallar los valores óptimos de la regresión logística, queremos maximizar la verosimilitud basados en los datos de entrenamiento de nuestro modelo. Como estamos en el aprendizaje supervisado, asumimos que tenemos datos etiquetados $(x_i, y_i)$.
+
+El criterio de optimización en la regresión logística es llamado **máxima verosimilitud**, entonces queremos maximizar:
+$$
+L_{\mathbb{w}, b} := \prod_{i=1}^{N}f_{\mathbb{w}, b}(\mathbb{x}_{i})^{y_i}(1-f_{\mathbb{w}, b}(\mathbb{x}_{i}))^{1-y_i}
+$$
+
+Para maximizar la ecuación anterior, es más sencillo con la *Log*-verosimilitud debido al uso de la función exponencial, la cual se define como:
+$$
+\log{L_{\mathbb{w}, b}}
+:= \ln(L_{\mathbb{w}, b})
+= \displaystyle\sum_{i=1}^{N}y_{i}\ln(f_{\mathbb{w}, b}(\mathbb{x}_{i}))+(1-y_{i})\ln(1-f_{\mathbb{w}, b}(\mathbb{x}_{i}))
+$$
+
+Una forma apropiada en la practica para solucionar el problema de optimizacción es usar el *descenso del gradiente*.
+
+### Ejemplo
+
+Lo primero es definir la base de datos:
+
+```{python}
+col_names = ['pregnant', 'glucose', 'bp', 'skin', 'insulin', 'bmi', 'pedigree', 'age', 'label']
+# load dataset
+pima = pd.read_csv("datos/diabetes.csv", header=None, names=col_names)
+pima = pima.drop(0)
+pima.head()
+```
+
+A continuación, tomamos las *features* o características y la etiqueta.
+
+```{python}
+feature_cols = ["pregnant", "insulin", "bmi", "age", "glucose", "bp", "pedigree"]
+X = pima[feature_cols]  # Features
+y = pima.label  # Target variable
+```
+
+Ahora, dividimos el dataset en set de entrenamiento y prueba.
+
+```{python}
+# split X and y into training and testing sets
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=16
+)
+```
+
+Creamos el objetivo de regresión logística, se entrena y se aplica para predecir los datos de prueba
+
+```{python}
+# import the class
+from sklearn.linear_model import LogisticRegression
+
+# instantiate the model (using the default parameters)
+logreg = LogisticRegression(random_state=16)
+
+# fit the model with data
+logreg.fit(X_train, y_train)
+
+y_pred = logreg.predict(X_test)
+```
+
+Para validar que tan bien (o mal) está nuestra predicción podemos verificarlo con una matriz de confunsión:
+
+```{python}
+# import the metrics class
+from sklearn import metrics
+
+cnf_matrix = metrics.confusion_matrix(y_test, y_pred)
+
+class_names = [0, 1]  # name  of classes
+fig, ax = plt.subplots()
+tick_marks = np.arange(len(class_names))
+plt.xticks(tick_marks, class_names)
+plt.yticks(tick_marks, class_names)
+# create heatmap
+sns.heatmap(pd.DataFrame(cnf_matrix), annot=True, cmap="YlGnBu", fmt="g")
+ax.xaxis.set_label_position("top")
+plt.tight_layout()
+plt.title("Confusion matrix", y=1.1)
+plt.ylabel("Actual label")
+plt.xlabel("Predicted label")
+plt.show()
+```
+
+Esta matriz nos dice que:
+
+* 115 variables fueron asignadas como 0 cuando inicialmente son 0.
+* 10 variables fueron asignadas como 1 cuando inicialmente son 0 (error tipo 1).
+* 24 variables fueron asignadas como 0 cuando inicialmente son 1 (error tipo 2).
+* 43 variables fueron asignadas como 1 cuando inicialmente son 1.
+
+### Ventajas
+
+* No requiere alta potencia computacional debido a la eficiencia y sencillez.
+* No requiere escalar las variables.
+
+### Desventajas
+
+* No es capaz de manejar una gran cantidad de características categóricas.
+* Es vulnerable al *overfitting*.
+* No se puede resolver problemas no lineales con esta regresión, se deben aplicar ciertas transformaciones.
+* No funciona con variables independientes o no correlacionadas con la variable a predecir.
+
 ## Decision Trees
 
 ### Definición
@@ -203,6 +339,7 @@ El truco del kernel consiste en transformar los datos a un espacio de mayor dime
 sujeto a que \(\alpha_i \geq 0\) y \(\sum_{i=1}^{N} \alpha_i y_i = 0\), donde \(<x_i, x_j>\) es el producto punto entre los vectores \(x_i\) y \(x_j\).
 
 En este caso los kernels \(<x_i, x_j>\) se pueden definir como:
+
 * Lineal: \(<x_i, x_j> = x_i^T x_j\)
 * Polinomial: \(<x_i, x_j> = (\gamma x_i^T x_j + r)^d\)
 * Gaussiano o RBF:  \(<x_i, x_j> = \exp{(-\gamma \Vert x_{i} - x_{j}\Vert^2)}\)
