@@ -83,8 +83,10 @@ $$
 ```{python}
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 from typing import Callable
+from sklearn import datasets
 ```
 
 ### Ejemplo 1: función univariada, derivable no convexa
@@ -162,3 +164,4 @@ gradient_descent(start, gradient, learn_rate, max_iter)
 ::: {.content-visible when-format="html"}
 ![Animación del ejemplo 1 (variación 3).](figuras/gd/ej1-4.gif){#fig-ej1-4}
 :::
+

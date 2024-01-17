@@ -52,7 +52,7 @@ line = ax.plot(x, y)
 x_gd = np.array(res_ej1[0])
 y_gd = f_ej1(x_gd)
 
-line_gd = ax.plot(res_ej1[0][0], f_ej1(res_ej1[0][0]), 'ro-', linewidth=0.5, markersize=2)[0]
+line_gd = ax.plot(res_ej1[0][0], f_ej1(res_ej1[0][0]), 'ro-', linewidth=0.75, markersize=2.5)[0]
 
 ani = animation.FuncAnimation(fig=fig, func=update, frames=102, interval=200)
 
@@ -88,7 +88,7 @@ line = ax.plot(x, y)
 x_gd = np.array(res_ej1[0])
 y_gd = f_ej1(x_gd)
 
-line_gd = ax.plot(res_ej1[0][0], f_ej1(res_ej1[0][0]), 'ro-', linewidth=0.5, markersize=2)[0]
+line_gd = ax.plot(res_ej1[0][0], f_ej1(res_ej1[0][0]), 'ro-', linewidth=0.75, markersize=2.5)[0]
 
 ani = animation.FuncAnimation(fig=fig, func=update, frames=9, interval=500)
 
@@ -124,9 +124,9 @@ line = ax.plot(x, y)
 x_gd = np.array(res_ej1[0])
 y_gd = f_ej1(x_gd)
 
-line_gd = ax.plot(res_ej1[0][0], f_ej1(res_ej1[0][0]), 'ro-', linewidth=0.5, markersize=2)[0]
+line_gd = ax.plot(res_ej1[0][0], f_ej1(res_ej1[0][0]), 'ro-', linewidth=0.75, markersize=2.5)[0]
 
-ani = animation.FuncAnimation(fig=fig, func=update, frames=4, interval=200)
+ani = animation.FuncAnimation(fig=fig, func=update, frames=4, interval=500)
 
 plt.grid(True)
 plt.title('Inicio=2, alpha=0.3')
@@ -161,7 +161,7 @@ line = ax.plot(x, y)
 x_gd = np.array(res_ej1[0])
 y_gd = f_ej1(x_gd)
 
-line_gd = ax.plot(res_ej1[0][0], f_ej1(res_ej1[0][0]), 'ro-', linewidth=0.5, markersize=2)[0]
+line_gd = ax.plot(res_ej1[0][0], f_ej1(res_ej1[0][0]), 'ro-', linewidth=0.75, markersize=2.5)[0]
 
 ani = animation.FuncAnimation(fig=fig, func=update, frames=6, interval=500)
 
