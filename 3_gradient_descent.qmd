@@ -1,8 +1,5 @@
----
-title: "Anatomía de un algoritmo de aprendizaje"
-format: html
----
 # Anatomía de un algoritmo de aprendizaje
+
 ## Bloques de construcción de un algoritmo de aprendizaje
 
 En los algoritmos de aprendizaje que abarcamos en la sección anterior podemos observar los 3 bloques que se utilizan para construirlos:
@@ -29,7 +26,7 @@ En conjunto con el *descenso de gradiente estocástico*, son de los algoritmos m
 ### Requisitos de la función a optimizar
 
 - **Diferenciable:** tiene una derivada para cada punto en su dominio.
- 
+
 ![Funciones diferenciables](figuras/gd/dif.png){fig-alt="Funciones diferenciables." fig-align="left"}
 
 ![Funciones no diferenciables](figuras/gd/nodif.png){fig-alt="Funciones no diferenciables." fig-align="left"}
@@ -63,13 +60,12 @@ $$
 p_{n+1} = p_n - \alpha \nabla f(p_n)
 $$
 
-
 **Paso a paso:**
 
 1. Escoger un punto inicial: $p_n$
-   
+
 2. Calcular el gradiente en este punto: $\nabla f(p_n)$
-   
+
 3. Moverse en la dirección contraria al gradiente, a una distancia dada por la tasa de aprendizaje $\alpha$
 
 4. Repetir pasos 2 y 3 hasta que se cumpla lo siguiente:
@@ -90,17 +86,17 @@ from typing import Callable
 ### Ejemplo 1: función univariada, derivable no convexa
 
 **Función a optimizar:**
-$$
+\begin{equation*}
 f(x) = x^4 - 2x^3 + 2
-$$
-
+\end{equation*}
 Y su gradiente:
 
-$$
+\begin{equation*}
 \frac{df(x)}{dx} = 4x^3-6x^2
-$$
+\end{equation*}
 
 **Definiendo $f(x)$ y $\frac{df(x)}{dx}$ en python**
+
 ```{python}
 # f(x)
 def f_ej1(x:float):
@@ -111,7 +107,8 @@ def dfdx_ej1(x:float):
   return 4*x**3-6*x**2
 ```
 
-### Gráfica de $f(x)$:
+### Gráfica de $f(x)$
+
 ```{python}
 x = np.linspace(-0.8, 2.2, 100)
 y = f_ej1(x)
@@ -121,6 +118,7 @@ plt.plot(x,y)
 ```
 
 **Definiendo algoritmo `gradient_descent`**
+
 ```{python}
 def gradient_descent(start: float, gradient: Callable[[float], float],
                      learn_rate: float, max_iter: int, tol: float = 0.01):
@@ -136,7 +134,9 @@ def gradient_descent(start: float, gradient: Callable[[float], float],
   
     return steps, x
 ```
+
 **Llamando a `gradient_descent` para el ejemplo 1**
+
 ```{python}
 start = 2
 gradient = dfdx_ej1
@@ -145,6 +145,7 @@ max_iter = 100
 
 gradient_descent(start, gradient, learn_rate, max_iter)
 ```
+
 ::: {.content-visible when-format="html"}
 ![Animación del ejemplo 1.](figuras/gd/ej1-1.gif){#fig-ej1-1}
 :::
@@ -162,3 +163,209 @@ gradient_descent(start, gradient, learn_rate, max_iter)
 ::: {.content-visible when-format="html"}
 ![Animación del ejemplo 1 (variación 3).](figuras/gd/ej1-4.gif){#fig-ej1-4}
 :::
+
+### Códigos usados para esta sección
+```{python} 
+#| eval: false
+# Gradient Descent
+# gcorazzari
+
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import numpy as np
+
+from typing import Callable
+
+
+def update(frame):
+    x = x_gd[:frame]
+    y = y_gd[:frame]
+    line_gd.set_xdata(x)
+    line_gd.set_ydata(y)
+    return line_gd
+
+
+def gradient_descent(
+    start: float,
+    gradient: Callable[[float], float],
+    learn_rate: float,
+    max_iter: int,
+    tol: float = 0.01,
+):
+    x = start
+    steps = [start]  # history tracking
+
+    for _ in range(max_iter):
+        diff = learn_rate * gradient(x)
+        if np.abs(diff) < tol:
+            break
+        x = x - diff
+        steps.append(x)  # history tracing
+
+    return steps, x
+
+
+# EJ1-4
+def f_ej1(x: float):
+    return x**4 - 2 * x**3 + 2
+
+
+def dfdx_ej1(x: float):
+    return 4 * x**3 - 6 * x**2
+
+
+start = -0.5
+gradient = dfdx_ej1
+learn_rate = 0.3
+max_iter = 100
+
+res_ej1 = gradient_descent(start, gradient, learn_rate, max_iter)
+
+fig, ax = plt.subplots()
+
+x = np.linspace(-0.8, 2.2, 100)
+y = f_ej1(x)
+
+line = ax.plot(x, y)
+
+x_gd = np.array(res_ej1[0])
+y_gd = f_ej1(x_gd)
+
+line_gd = ax.plot(
+    res_ej1[0][0], f_ej1(res_ej1[0][0]), "ro-", linewidth=0.5, markersize=2
+)[0]
+
+ani = animation.FuncAnimation(fig=fig, func=update, frames=102, interval=200)
+
+plt.grid(True)
+plt.title("Inicio=-0.5, alpha=0.3")
+
+writer = animation.PillowWriter(fps=5)
+
+plt.show()
+ani.save("ej1-4.gif", writer=writer)
+
+
+# EJ1-3
+def f_ej1(x: float):
+    return x**4 - 2 * x**3 + 2
+
+
+def dfdx_ej1(x: float):
+    return 4 * x**3 - 6 * x**2
+
+
+start = -0.5
+gradient = dfdx_ej1
+learn_rate = 0.1
+max_iter = 100
+
+res_ej1 = gradient_descent(start, gradient, learn_rate, max_iter)
+
+fig, ax = plt.subplots()
+
+x = np.linspace(-0.8, 2.2, 100)
+y = f_ej1(x)
+
+line = ax.plot(x, y)
+
+x_gd = np.array(res_ej1[0])
+y_gd = f_ej1(x_gd)
+
+line_gd = ax.plot(
+    res_ej1[0][0], f_ej1(res_ej1[0][0]), "ro-", linewidth=0.5, markersize=2
+)[0]
+
+ani = animation.FuncAnimation(fig=fig, func=update, frames=9, interval=500)
+
+plt.grid(True)
+plt.title("Inicio=-0.5, alpha=0.1")
+
+writer = animation.PillowWriter(fps=5)
+
+plt.show()
+ani.save("ej1-3.gif", writer=writer)
+
+
+# EJ1-2
+def f_ej1(x: float):
+    return x**4 - 2 * x**3 + 2
+
+
+def dfdx_ej1(x: float):
+    return 4 * x**3 - 6 * x**2
+
+
+start = 2
+gradient = dfdx_ej1
+learn_rate = 0.3
+max_iter = 100
+
+res_ej1 = gradient_descent(start, gradient, learn_rate, max_iter)
+
+fig, ax = plt.subplots()
+
+x = np.linspace(-0.8, 2.2, 100)
+y = f_ej1(x)
+
+line = ax.plot(x, y)
+
+x_gd = np.array(res_ej1[0])
+y_gd = f_ej1(x_gd)
+
+line_gd = ax.plot(
+    res_ej1[0][0], f_ej1(res_ej1[0][0]), "ro-", linewidth=0.5, markersize=2
+)[0]
+
+ani = animation.FuncAnimation(fig=fig, func=update, frames=4, interval=200)
+
+plt.grid(True)
+plt.title("Inicio=2, alpha=0.3")
+
+writer = animation.PillowWriter(fps=5)
+
+plt.show()
+ani.save("ej1-2.gif", writer=writer)
+
+
+# EJ1-1
+def f_ej1(x: float):
+    return x**4 - 2 * x**3 + 2
+
+
+def dfdx_ej1(x: float):
+    return 4 * x**3 - 6 * x**2
+
+
+start = 2
+gradient = dfdx_ej1
+learn_rate = 0.1
+max_iter = 100
+
+res_ej1 = gradient_descent(start, gradient, learn_rate, max_iter)
+
+fig, ax = plt.subplots()
+
+x = np.linspace(-0.8, 2.2, 100)
+y = f_ej1(x)
+
+line = ax.plot(x, y)
+
+x_gd = np.array(res_ej1[0])
+y_gd = f_ej1(x_gd)
+
+line_gd = ax.plot(
+    res_ej1[0][0], f_ej1(res_ej1[0][0]), "ro-", linewidth=0.5, markersize=2
+)[0]
+
+ani = animation.FuncAnimation(fig=fig, func=update, frames=6, interval=500)
+
+plt.grid(True)
+plt.title("Inicio=2, alpha=0.1")
+
+writer = animation.PillowWriter(fps=5)
+
+plt.show()
+ani.save("ej1-1.gif", writer=writer)
+
+```

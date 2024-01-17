@@ -16,6 +16,7 @@ book:
     - "index.md"
     - "1_introduccion.qmd"
     - "2_algoritmos_fundamentales.qmd"
+    - "3_gradient_descent.qmd"
 format:
   html:
     theme: litera
