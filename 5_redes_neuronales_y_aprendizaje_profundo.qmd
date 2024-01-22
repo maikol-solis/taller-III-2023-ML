@@ -1,0 +1,67 @@
+# Redes neurales
+
+## Perceptrón y redes neuronales
+
+El perceptrón en el modelo más secillo de las neuronas. Se le llama también *neurona artificial*.
+
+![](./figuras/MLP01.svg){fig-align="center"}
+
+La idea es que cada uno de los *features* se multiplica por un peso $w_k$, se le suma un *bias* $b$ y al resultado de esta operación se le aplica la función de activación, que finalmente produce la salida $y$. Esta función de activación preferiblemente debe ser diferenciable y tres de las funciones más comunes son la función logística, la función tangente hiperbólica y la función lineal rectificada unitaria (ReLU):
+
+\begin{equation*}
+\text{logística: } f(x) = \frac{1}{1+e^{-x}}
+\end{equation*}
+
+\begin{equation*}
+\text{tangente hiperbólica: } f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
+\end{equation*}
+
+\begin{equation*}
+\text{ReLU: } f(x) = \begin{cases}
+    0, & \text{si } x < 0 \\
+    x, & \text{en otro caso}
+\end{cases}
+\end{equation*}
+
+En sí, el perceptrón es clasificador muy similar a la regresión logística. Sin embargo, es muy poco común que se utilice un solo perceptrón, sino que se utiliza varias capas (*layers*) de múltiples perceptrones, de manera que se pueda clasificar casos más complejos, a esto se le llama Perceptrón de capas múltiples (*Multiple Layer Perceptron*, MLP).
+
+Una capa está compuesta por varios perceptrones que están conectados con las entradas o con las salidas de la capa anterior, tal y como se muestra en la figura siguiente:
+
+![](./figuras/MLP02.svg){fig-align="center"}
+
+cada uno de los bloques $P_{ij}$ es un perceptrón. En la figura, solo se tiene una salida, pero bien podría tenerse más, por lo que la capa de salida podría tener más de un perceptrón. De igual manera, se puede tener más de una capa escondida.
+
+Lo que se debe hacer ahora es que, a partir de los datos que se tienen, encontrar los valores de los pesos $w_k$ y $b_k$, es decir, entrenar a la red.
+
+## Entrenamiento de la red neuronal
+
+Para entrenar la red, se debe buscar los valores. Para ello se minimiza una función de costo, como por ejemplo el error cuadrático medio.
+
+ Para lograr la optimización se suele utilizar el descenso del gradiente, en un algoritmo llamado *Backpropagation*. Con el Backpropagation se calcula  el gradiente de la función de costo con respecto a los pesos de la red, de una manera eficiente. Se calculan el gradiente una capa a la vez , iterando hacia atrás desde la última capa.
+
+## Comandos en python
+
+Con la libraría scikit se puede crear y entrenar fácilmente una red neuronal.
+
+```{python}
+from sklearn.neural_network import MLPClassifier
+
+# Acá se cargan los datos
+X = [[0., 0.], [1., 1.]] # acá se pondría una lista de listas con los featrures
+Y = [0, 1] # acá los labels
+
+# Acá se crea la red
+clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
+
+# Acá se entrena la red
+clf.fit(X, Y)
+
+# Y acá se utiliza la red para predecir el valor de la salida para una nueva entrada
+clf.predict([[-1., -2.]])
+```
+
+en la variable **hidden_layer_sizes** se pone el número de perceptrones para cada una de las capas escondidas. **alpha** es la fuerza del término de regularización L2. El solver es el algoritmo de optimización:
+
+* `lbfgs` es un optimizador de la familia de métodos cuasi-Newton.
+* `sgd` se refiere al descenso estocástico del gradiente.
+* `adam` se refiere al optimizador estocástico del gradiente propuesto por Kingma, Diederik, and Jimmy Ba.
