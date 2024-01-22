@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.256">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Taller de Verano: 100 páginas de Machine Learning - 5&nbsp; Capítulo 5</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./5_redes_neuronales_y_aprendizaje_profundo.html" rel="next">
+<link href="./3_descenso_del_gradiente.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="custom_style.css">
+<meta property="og:title" content="Taller de Verano: 100 páginas de Machine Learning - 5&nbsp; Capítulo 5">
+<meta property="og:description" content="Elegir un algoritmo puede ser una tarea difícil.">
+<meta property="og:site-name" content="Taller de Verano: 100 páginas de Machine Learning">
+<meta name="twitter:title" content="Taller de Verano: 100 páginas de Machine Learning - 5&nbsp; Capítulo 5">
+<meta name="twitter:description" content="Elegir un algoritmo puede ser una tarea difícil.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capítulo 5</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Taller de Verano: 100 páginas de Machine Learning</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Taller de verano</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1_introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cómo funciona el aprendizaje supervisado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2_algoritmos_fundamentales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algoritmos fundamentales</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3_descenso_del_gradiente.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Anatomía de un algoritmo de aprendizaje</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4_practica_basica.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capítulo 5</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5_redes_neuronales_y_aprendizaje_profundo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Redes neurales</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#selección-de-algoritmos" id="toc-selección-de-algoritmos" class="nav-link active" data-scroll-target="#selección-de-algoritmos"><span class="toc-section-number">5.1</span>  5.2:Selección de algoritmos</a>
+  <ul class="collapse">
+  <li><a href="#explicabilidad-o-interpretabilidad" id="toc-explicabilidad-o-interpretabilidad" class="nav-link" data-scroll-target="#explicabilidad-o-interpretabilidad"><span class="toc-section-number">5.1.1</span>  Explicabilidad o interpretabilidad</a></li>
+  <li><a href="#requisitos-de-memoria" id="toc-requisitos-de-memoria" class="nav-link" data-scroll-target="#requisitos-de-memoria"><span class="toc-section-number">5.1.2</span>  Requisitos de memoria</a></li>
+  <li><a href="#número-de-funciones-y-característica" id="toc-número-de-funciones-y-característica" class="nav-link" data-scroll-target="#número-de-funciones-y-característica"><span class="toc-section-number">5.1.3</span>  Número de funciones y característica</a></li>
+  <li><a href="#características-categóricas-frente-a-numéricas" id="toc-características-categóricas-frente-a-numéricas" class="nav-link" data-scroll-target="#características-categóricas-frente-a-numéricas"><span class="toc-section-number">5.1.4</span>  Características categóricas frente a numéricas</a></li>
+  <li><a href="#linealidad-de-los-datos" id="toc-linealidad-de-los-datos" class="nav-link" data-scroll-target="#linealidad-de-los-datos"><span class="toc-section-number">5.1.5</span>  linealidad de los datos</a></li>
+  <li><a href="#velocidad-de-entrenamiento" id="toc-velocidad-de-entrenamiento" class="nav-link" data-scroll-target="#velocidad-de-entrenamiento"><span class="toc-section-number">5.1.6</span>  Velocidad de entrenamiento</a></li>
+  <li><a href="#velocidad-de-predicción" id="toc-velocidad-de-predicción" class="nav-link" data-scroll-target="#velocidad-de-predicción"><span class="toc-section-number">5.1.7</span>  Velocidad de predicción</a></li>
+  </ul></li>
+  <li><a href="#three-sets" id="toc-three-sets" class="nav-link" data-scroll-target="#three-sets"><span class="toc-section-number">5.2</span>  5.3:Three sets</a></li>
+  <li><a href="#ajuste-de-hiperparámetros" id="toc-ajuste-de-hiperparámetros" class="nav-link" data-scroll-target="#ajuste-de-hiperparámetros"><span class="toc-section-number">6</span>  Ajuste de hiperparámetros</a>
+  <ul class="collapse">
+  <li><a href="#validación-cruzada" id="toc-validación-cruzada" class="nav-link" data-scroll-target="#validación-cruzada"><span class="toc-section-number">6.1</span>  Validación Cruzada</a></li>
+  <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo"><span class="toc-section-number">6.2</span>  Ejemplo</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capítulo 5</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="selección-de-algoritmos" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="selección-de-algoritmos"><span class="header-section-number">5.1</span> 5.2:Selección de algoritmos</h2>
+<p>Elegir un algoritmo puede ser una tarea difícil. En el caso de que se disponga de mucho tiempo se pueden probar varios, sin embargo no siempre es el caso, por lo que hay una serie de preguntas que se pueden realizar con el fin de hacer el proceso más eficiente.</p>
+<section id="explicabilidad-o-interpretabilidad" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="explicabilidad-o-interpretabilidad"><span class="header-section-number">5.1.1</span> Explicabilidad o interpretabilidad</h3>
+<p>Con que facilidad el algoritmo logra explicar las predicciones que realiza, por lo general un modelo que realiza una predicción específica es dificíl de entender y aún más de explicar. Algunos ejemplos son los modelos de redes neuronales o el método de emsamble. Estos algoritmos que carecen de tal explicación se llaman algoritmo de caja negra.Por otro lado, los algoritmos de aprendizaje kNN, regresión lineal o árbol de decisión producen modelos que no siempre son los más precisos, sin embargo, la forma en que hacen su predicción es muy sencilla.</p>
+<p><strong>Ejemplo</strong></p>
+<style>
+  /* Estilo para centrar la imagen */
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+ 
+  /* Estilo para centrar el nombre de la imagen */
+  figcaption {
+    text-align: center;
+  }
+ </style>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://machinelearningmastery.com/wp-content/uploads/2020/07/Example-of-Combining-Decision-Boundaries-Using-an-Ensemble-768x573.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figura 1</strong>. Método de emsamble</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="red.ppm" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figura 2</strong>. Método redes neuronales</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="requisitos-de-memoria" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="requisitos-de-memoria"><span class="header-section-number">5.1.2</span> Requisitos de memoria</h3>
+<p>Si el conjunto de datos se puede cargar de forma completa en la memoria RAM del servidor o computador, entonces la disponibilidad de logaritmos es amplia. Sin embargo, si ese no es el caso, se debe optar por logaritmos de aprendizaje incremental, estos pueden mejorar el modelo añadiendo más datos gradualmente, básicamente se adaptan a nuevos nuevos sin el olvidar la información ya existente.</p>
+</section>
+<section id="número-de-funciones-y-característica" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="número-de-funciones-y-característica"><span class="header-section-number">5.1.3</span> Número de funciones y característica</h3>
+<p>Algunos algoritmos, como las redes neuronales y el descenso de gradiente, pueden manejar un gran número de ejemplos y millones de características. Otros, como SVM, pueden ser muy modestos en su capacidad. Entonces, a la hora de escoger un logaritmo se debe considerar el tamaño de los datos y la cantidad de funciones.</p>
+</section>
+<section id="características-categóricas-frente-a-numéricas" class="level3" data-number="5.1.4">
+<h3 data-number="5.1.4" class="anchored" data-anchor-id="características-categóricas-frente-a-numéricas"><span class="header-section-number">5.1.4</span> Características categóricas frente a numéricas</h3>
+<p>Algunos algoritmos solo pueden funcionar con datos numéricos, por lo que si se tienen datos en un formato categórico o no numérico, se deberá considerar un proceso para convertirlos en datos numéricos mediante técnicas como la codificación one-hot.</p>
+</section>
+<section id="linealidad-de-los-datos" class="level3" data-number="5.1.5">
+<h3 data-number="5.1.5" class="anchored" data-anchor-id="linealidad-de-los-datos"><span class="header-section-number">5.1.5</span> linealidad de los datos</h3>
+<p>Si los datos son linealmente separables o pueden modelarse mediante un modelo lineal, se puede utilizar SVM, regresión logística o la regresión lineal, si no es el caso las redes neuronales o los algoritmos de conjunto, son una mejor opción.</p>
+<p><strong>Ejemplo</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Lineal.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figura 3</strong>. Métodos lineales</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="nolineal.ppm" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figura 4</strong>. No linealidad datos</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="velocidad-de-entrenamiento" class="level3" data-number="5.1.6">
+<h3 data-number="5.1.6" class="anchored" data-anchor-id="velocidad-de-entrenamiento"><span class="header-section-number">5.1.6</span> Velocidad de entrenamiento</h3>
+<p>Es el tiempo que tarda un algoritmo en aprender y crear un modelo. Las redes neuronales son conocidas por la considerable cantidad de tiempo que requieren para entrenar un modelo. Los algoritmos de máquina tradicionales como K-Vecinos más cercanos y Regresión logística toman mucho menos tiempo. Algunos algoritmos, como Bosque aleatorio, requieren diferentes tiempos de entrenamiento según los núcleos de CPU que se utilizan.</p>
+<p><strong>Ejemplo</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="forest.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figura 5</strong>. Bosque aleatorio</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="velocidad-de-predicción" class="level3" data-number="5.1.7">
+<h3 data-number="5.1.7" class="anchored" data-anchor-id="velocidad-de-predicción"><span class="header-section-number">5.1.7</span> Velocidad de predicción</h3>
+<p>Tiempo que le toma a un modelo hacer sus predicciones, en este caso se debe considerar qué tan rápido debe ser el modelo a la hora de generar predicciones y para que función se está utilizando el modelo escogido. Si no se quiere adivinar cuál es el mejor algoritmo para los datos, una forma de elegir es utilizar la prueba de validación.</p>
+<p><strong>Ejemplo</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://miro.medium.com/v2/resize:fit:640/1*2NR51X0FDjLB13u4WdYc4g.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figura 6</strong>. Diagrama Selección del algoritmo</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="three-sets" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="three-sets"><span class="header-section-number">5.2</span> 5.3:Three sets</h2>
+<p>En Machine Learning, para el estudio y construcción de algoritmos que sean capaces de aprender de los datos y hacer predicciones utilizando esa información, se utiliza la construcción de un modelo matemático a partir de datos de entrada y estos datos para ser utilizados se dividen en conjuntos de datos, estos son:</p>
+<ol type="1">
+<li>Conjunto de entrenamiento</li>
+<li>Conjunto de validación</li>
+<li>Conjunto de prueba</li>
+</ol>
+<p>El conjunto de entrenamiento, suele ser el conjunto más grande y es el que se utiliza para construir el modelo, los conjuntos de validación y prueba suelen tener el mismo tamaño y esto son menores que en el conjunto de entrenamiento , tanto los conjuntos de validación y prueba no son usados para construir el modelo. A estos conjuntos se les suele llamar conjuntos esfera.</p>
+<p><strong>Ejemplo</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Gráfico.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figura 7</strong>. Gráfico de proporciones</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://enriquecatala.com/img/posts/IOB_train_test_split/train_test.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figura 8</strong>. Solución problemas</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="ajuste-de-hiperparámetros" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Ajuste de hiperparámetros</h1>
+<p>El analista de datos debe seleccionar buenos hiperparámetros para el algoritmo que se esté trabajando. Como se sabe que lkos hiperparámetros no son optimizados por el algoritmo de aprendizaje por si solo; el analista debe ajustar la mejor combinación de hiperparámetros.</p>
+<p>Una forma usual de realizar esto es, si se tienen suficientes datos para tener un conjunto de validación decente (cada calse tiene al menos un par de docenas de ejemplos) y el número de hiperparámetros y sus rangos no son muy grandes; se puede utilizar <strong>grid search</strong>. Este método es la más simple estrategia para ajustar los hiperparámetros.</p>
+<p>Asuma que entrenamos un SVM y queremos ajustar dos hiperparámetros: el parámetro de penalización <span class="math inline">\(C\)</span> (un número real positivo) y el kernel (si es ‘linear’ o ‘rbf’). Si es la primera vez trabajando con el datset y no tenemos un rango de valores para <span class="math inline">\(C\)</span>, un truco muy común es usar una escala logarítimica; entonces podemos tomar los valores de <span class="math inline">\([0.001, 0.01, 0.1, 1.0, 10, 100, 1000]\)</span>. Note que debido lo anterior tenemos 14 combinaciones de hiperparámetros diferentes: [(0.001, ‘linear’), (0.01, ‘linear’), (0.1, ‘linear’), (1.0, ‘linear’), (10, ‘linear’), (100, ‘linear’), (1000, ‘linear’), (0.001, ‘rbf’), (0.01, ‘rbf’), (0.1, ‘rbf’), (1.0, ‘rbf’), (10, ‘rbf’), (100, ‘rbf’), (1000, ‘rbf’)]</p>
+<p>Lo que se hace es tomar el conujunto de entrenamiento y entrenarlo con los 14 modelos diferentes. Luego, se evalúa el rendimiento de cada modelo con los datos de validación usando alguna métrica. Y se elige el que tenga la mejor métrica. Y por último se evalúa con el conjunto de prueba.</p>
+<p>Un problema es el consumo de tiempo. Para ello, hay técnicas más eficientes como <strong>random search</strong> y <strong>bayesian hyperparameter optimization</strong>.</p>
+<p>En el random search, uno le da una una distribución estadística para cada hiperparámetro y el número total de combinaciones que ser quieren realizar. La técnica bayesiana utiliza los resultados anteriores para elegir los próximos valores para evaluar.</p>
+<section id="validación-cruzada" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="validación-cruzada"><span class="header-section-number">6.1</span> Validación Cruzada</h2>
+<p>Cuando no se tienen muchos datos para ajustar los hiperparámetros. Entonces, podemos dividir el conjunto de entrenamiento en varios subconjuntos (<em>fold</em>) del mismo tamaño, lo usual es usar 5 folds. Así, se dividen los datos de entrenamiento en 5 folds <span class="math inline">\(\{F_1, F_2, F_3, F_4, F_5\}\)</span> cada una contiene el <span class="math inline">\(20\%\)</span> de los datos de entrenamiento. Así, se entrenan 5 modelos, de la siguiente forma: para el primer modelo <span class="math inline">\(f_1\)</span> se utilizan los folds <span class="math inline">\(F_2, F_3, F_4, F_5\)</span> y <span class="math inline">\(F_1\)</span> se utiliza como conjunto de validación; para el segundo modelo <span class="math inline">\(f_2\)</span> se utilizan los folds <span class="math inline">\(F_1, F_3, F_4, F_5\)</span> y el <span class="math inline">\(F_2\)</span> es el conjutno de validación; y aspi hasta completar <span class="math inline">\(f_5\)</span>.</p>
+<p>Se puede aplicar grid search con la validación cruzada para encontrar los mejores valores para los hiperparámetro de nuestro modelo.</p>
+</section>
+<section id="ejemplo" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="ejemplo"><span class="header-section-number">6.2</span> Ejemplo</h2>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>digits <span class="op">=</span> datasets.load_digits()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="bu">len</span>(digits.images)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> digits.images.reshape((n_samples, <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> digits.target <span class="op">==</span> <span class="dv">8</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.5</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_dataframe(filtered_cv_results):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Pretty print for filtered dataframe"""</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> mean_precision, std_precision, mean_recall, std_recall, params <span class="kw">in</span> <span class="bu">zip</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        filtered_cv_results[<span class="st">"mean_test_precision"</span>],</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        filtered_cv_results[<span class="st">"std_test_precision"</span>],</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        filtered_cv_results[<span class="st">"mean_test_recall"</span>],</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        filtered_cv_results[<span class="st">"std_test_recall"</span>],</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        filtered_cv_results[<span class="st">"params"</span>],</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    ):</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"precision: </span><span class="sc">{</span>mean_precision<span class="sc">:0.3f}</span><span class="ss"> (±</span><span class="sc">{</span>std_precision<span class="sc">:0.03f}</span><span class="ss">),"</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f" recall: </span><span class="sc">{</span>mean_recall<span class="sc">:0.3f}</span><span class="ss"> (±</span><span class="sc">{</span>std_recall<span class="sc">:0.03f}</span><span class="ss">),"</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f" for </span><span class="sc">{</span>params<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>()</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> refit_strategy(cv_results):</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Define the strategy to select the best estimator.</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">    The strategy defined here is to filter-out all results below a precision threshold</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">    of 0.98, rank the remaining by recall and keep all models with one standard</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">    deviation of the best by recall. Once these models are selected, we can select the</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">    fastest model to predict.</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">    cv_results : dict of numpy (masked) ndarrays</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">        CV results as returned by the `GridSearchCV`.</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">    best_index : int</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">        The index of the best estimator as it appears in `cv_results`.</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print the info about the grid-search for the different scores</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    precision_threshold <span class="op">=</span> <span class="fl">0.98</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    cv_results_ <span class="op">=</span> pd.DataFrame(cv_results)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"All grid-search results:"</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    print_dataframe(cv_results_)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter-out all results below the threshold</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    high_precision_cv_results <span class="op">=</span> cv_results_[</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>        cv_results_[<span class="st">"mean_test_precision"</span>] <span class="op">&gt;</span> precision_threshold</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Models with a precision higher than </span><span class="sc">{</span>precision_threshold<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    print_dataframe(high_precision_cv_results)</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    high_precision_cv_results <span class="op">=</span> high_precision_cv_results[</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>        [</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>            <span class="st">"mean_score_time"</span>,</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>            <span class="st">"mean_test_recall"</span>,</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>            <span class="st">"std_test_recall"</span>,</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>            <span class="st">"mean_test_precision"</span>,</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>            <span class="st">"std_test_precision"</span>,</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>            <span class="st">"rank_test_recall"</span>,</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>            <span class="st">"rank_test_precision"</span>,</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>            <span class="st">"params"</span>,</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Select the most performant models in terms of recall</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>    <span class="co"># (within 1 sigma from the best)</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    best_recall_std <span class="op">=</span> high_precision_cv_results[<span class="st">"mean_test_recall"</span>].std()</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    best_recall <span class="op">=</span> high_precision_cv_results[<span class="st">"mean_test_recall"</span>].<span class="bu">max</span>()</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>    best_recall_threshold <span class="op">=</span> best_recall <span class="op">-</span> best_recall_std</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>    high_recall_cv_results <span class="op">=</span> high_precision_cv_results[</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>        high_precision_cv_results[<span class="st">"mean_test_recall"</span>] <span class="op">&gt;</span> best_recall_threshold</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Out of the previously selected high precision models, we keep all the</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>        <span class="st">"the models within one standard deviation of the highest recall model:"</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>    print_dataframe(high_recall_cv_results)</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>    <span class="co"># From the best candidates, select the fastest model to predict</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>    fastest_top_recall_high_precision_index <span class="op">=</span> high_recall_cv_results[</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>        <span class="st">"mean_score_time"</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>    ].idxmin()</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="ch">\n</span><span class="st">The selected final model is the fastest to predict out of the previously</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>        <span class="st">"selected subset of best models based on precision and recall.</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Its scoring time is:</span><span class="ch">\n\n</span><span class="st">"</span></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>high_recall_cv_results<span class="sc">.</span>loc[fastest_top_recall_high_precision_index]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fastest_top_recall_high_precision_index</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ahora, se define el grid search</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> [<span class="st">'precision'</span>, <span class="st">'recall'</span>]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>tuned_params <span class="op">=</span> [</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'kernel'</span>:[<span class="st">'rbf'</span>], <span class="st">'gamma'</span>:[<span class="fl">1e-3</span>, <span class="fl">1e-4</span>], <span class="st">'C'</span>:[<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>]},</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'kernel'</span>:[<span class="st">'linear'</span>], <span class="st">'C'</span>:[<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>]}</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(SVC(), tuned_params, scoring<span class="op">=</span>scores, refit<span class="op">=</span>refit_strategy)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>All grid-search results:
+precision: 1.000 (±0.000), recall: 0.854 (±0.063), for {'C': 1, 'gamma': 0.001, 'kernel': 'rbf'}
+precision: 1.000 (±0.000), recall: 0.257 (±0.061), for {'C': 1, 'gamma': 0.0001, 'kernel': 'rbf'}
+precision: 1.000 (±0.000), recall: 0.877 (±0.069), for {'C': 10, 'gamma': 0.001, 'kernel': 'rbf'}
+precision: 0.968 (±0.039), recall: 0.780 (±0.083), for {'C': 10, 'gamma': 0.0001, 'kernel': 'rbf'}
+precision: 1.000 (±0.000), recall: 0.877 (±0.069), for {'C': 100, 'gamma': 0.001, 'kernel': 'rbf'}
+precision: 0.905 (±0.058), recall: 0.889 (±0.074), for {'C': 100, 'gamma': 0.0001, 'kernel': 'rbf'}
+precision: 1.000 (±0.000), recall: 0.877 (±0.069), for {'C': 1000, 'gamma': 0.001, 'kernel': 'rbf'}
+precision: 0.904 (±0.058), recall: 0.890 (±0.073), for {'C': 1000, 'gamma': 0.0001, 'kernel': 'rbf'}
+precision: 0.695 (±0.073), recall: 0.743 (±0.065), for {'C': 1, 'kernel': 'linear'}
+precision: 0.643 (±0.066), recall: 0.757 (±0.066), for {'C': 10, 'kernel': 'linear'}
+precision: 0.611 (±0.028), recall: 0.744 (±0.044), for {'C': 100, 'kernel': 'linear'}
+precision: 0.618 (±0.039), recall: 0.744 (±0.044), for {'C': 1000, 'kernel': 'linear'}
+
+Models with a precision higher than 0.98:
+precision: 1.000 (±0.000), recall: 0.854 (±0.063), for {'C': 1, 'gamma': 0.001, 'kernel': 'rbf'}
+precision: 1.000 (±0.000), recall: 0.257 (±0.061), for {'C': 1, 'gamma': 0.0001, 'kernel': 'rbf'}
+precision: 1.000 (±0.000), recall: 0.877 (±0.069), for {'C': 10, 'gamma': 0.001, 'kernel': 'rbf'}
+precision: 1.000 (±0.000), recall: 0.877 (±0.069), for {'C': 100, 'gamma': 0.001, 'kernel': 'rbf'}
+precision: 1.000 (±0.000), recall: 0.877 (±0.069), for {'C': 1000, 'gamma': 0.001, 'kernel': 'rbf'}
+
+Out of the previously selected high precision models, we keep all the
+the models within one standard deviation of the highest recall model:
+precision: 1.000 (±0.000), recall: 0.854 (±0.063), for {'C': 1, 'gamma': 0.001, 'kernel': 'rbf'}
+precision: 1.000 (±0.000), recall: 0.877 (±0.069), for {'C': 10, 'gamma': 0.001, 'kernel': 'rbf'}
+precision: 1.000 (±0.000), recall: 0.877 (±0.069), for {'C': 100, 'gamma': 0.001, 'kernel': 'rbf'}
+precision: 1.000 (±0.000), recall: 0.877 (±0.069), for {'C': 1000, 'gamma': 0.001, 'kernel': 'rbf'}
+
+
+The selected final model is the fastest to predict out of the previously
+selected subset of best models based on precision and recall.
+Its scoring time is:
+
+mean_score_time                                           0.008046
+mean_test_recall                                          0.877206
+std_test_recall                                           0.069196
+mean_test_precision                                            1.0
+std_test_precision                                             0.0
+rank_test_recall                                                 3
+rank_test_precision                                              1
+params                 {'C': 100, 'gamma': 0.001, 'kernel': 'rbf'}
+Name: 4, dtype: object</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GridSearchCV(estimator=SVC(),
+             param_grid=[{'C': [1, 10, 100, 1000], 'gamma': [0.001, 0.0001],
+                          'kernel': ['rbf']},
+                         {'C': [1, 10, 100, 1000], 'kernel': ['linear']}],
+             refit=&lt;function refit_strategy at 0x1329b8860&gt;,
+             scoring=['precision', 'recall'])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">GridSearchCV</label><div class="sk-toggleable__content"><pre>GridSearchCV(estimator=SVC(),
+             param_grid=[{'C': [1, 10, 100, 1000], 'gamma': [0.001, 0.0001],
+                          'kernel': ['rbf']},
+                         {'C': [1, 10, 100, 1000], 'kernel': ['linear']}],
+             refit=&lt;function refit_strategy at 0x1329b8860&gt;,
+             scoring=['precision', 'recall'])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">estimator: SVC</label><div class="sk-toggleable__content"><pre>SVC()</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">SVC</label><div class="sk-toggleable__content"><pre>SVC()</pre></div></div></div></div></div></div></div></div></div></div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/none\.com/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./3_descenso_del_gradiente.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Anatomía de un algoritmo de aprendizaje</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./5_redes_neuronales_y_aprendizaje_profundo.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Redes neurales</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
