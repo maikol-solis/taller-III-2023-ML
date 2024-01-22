@@ -16,8 +16,8 @@ book:
     - "index.md"
     - "1_introduccion.qmd"
     - "2_algoritmos_fundamentales.qmd"
-    - "3_gradient_descent.qmd"
-    # - "4_practica_basica.qmd"
+    - "3_descenso_del_gradiente.qmd"
+    - "4_practica_basica.qmd"
     - "5_redes_neuronales_y_aprendizaje_profundo.qmd"
 format:
   html:

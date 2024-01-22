@@ -1,0 +1,96 @@
+# Capítulo 5
+## 5.2:Selección de algoritmos
+
+Elegir un algoritmo puede ser una tarea difícil. En el caso de que se disponga de mucho tiempo se pueden probar varios, sin embargo no siempre es el caso, por lo que hay una serie de preguntas que se pueden realizar con el fin de hacer el proceso más eficiente.
+
+### Explicabilidad o interpretabilidad
+
+Con que facilidad el algoritmo logra explicar las predicciones que realiza, por lo general un modelo que realiza una predicción específica es dificíl de entender y aún más de explicar. Algunos ejemplos son los modelos de redes neuronales o el método de emsamble. Estos algoritmos que carecen de tal explicación se llaman algoritmo de caja negra.Por otro lado, los algoritmos de aprendizaje kNN, regresión lineal o árbol de decisión producen modelos que no siempre son los más precisos, sin embargo, la forma en que hacen su predicción es muy sencilla.
+
+**Ejemplo**
+
+<style>
+  /* Estilo para centrar la imagen */
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+ 
+  /* Estilo para centrar el nombre de la imagen */
+  figcaption {
+    text-align: center;
+  }
+ </style>
+ 
+  ![**Figura 1**. Método de emsamble](https://machinelearningmastery.com/wp-content/uploads/2020/07/Example-of-Combining-Decision-Boundaries-Using-an-Ensemble-768x573.png)
+
+
+
+
+ ![**Figura 2**. Método redes neuronales](red.ppm)
+
+### Requisitos de memoria
+
+Si el conjunto de datos se puede cargar de forma completa en la memoria RAM del servidor o computador, entonces la disponibilidad de logaritmos es amplia. Sin embargo, si ese no es el caso, se debe optar por logaritmos de aprendizaje incremental, estos pueden mejorar el modelo añadiendo más datos gradualmente, básicamente se adaptan a nuevos nuevos sin el olvidar la información ya existente.
+
+### Número de funciones y característica
+
+Algunos algoritmos, como las redes neuronales y el descenso de gradiente, pueden manejar un gran número de ejemplos y millones de características. Otros, como SVM, pueden ser muy modestos en su capacidad. Entonces, a la hora de escoger un logaritmo se debe considerar el tamaño de los datos y la cantidad de funciones.
+
+### Características categóricas frente a numéricas
+
+Algunos algoritmos solo pueden funcionar con datos numéricos, por lo que si se tienen datos en un formato categórico o no numérico, se deberá considerar un proceso para convertirlos en datos numéricos mediante técnicas como la codificación one-hot.
+
+### linealidad de los datos
+
+Si los datos son linealmente separables o pueden modelarse mediante un modelo lineal, se puede utilizar SVM, regresión logística o la regresión lineal, si no es el caso las redes neuronales o los algoritmos de conjunto, son una mejor opción.
+
+**Ejemplo**
+
+![**Figura 3**. Métodos lineales](Lineal.png)
+
+
+
+
+
+
+![**Figura 4**. No linealidad datos](nolineal.ppm)
+
+
+### Velocidad de entrenamiento
+
+Es el tiempo que tarda un algoritmo en aprender y crear un modelo. Las redes neuronales son conocidas por la considerable cantidad de tiempo que requieren para entrenar un modelo. Los algoritmos de máquina tradicionales como K-Vecinos más cercanos y Regresión logística toman mucho menos tiempo. Algunos algoritmos, como Bosque aleatorio, requieren diferentes tiempos de entrenamiento según los núcleos de CPU que se utilizan.
+
+**Ejemplo**
+
+![**Figura 5**. Bosque aleatorio](forest.png)
+
+### Velocidad de predicción
+
+Tiempo que le toma a un modelo hacer sus predicciones, en este caso se debe considerar qué tan rápido debe ser el modelo a la hora de generar predicciones y para que función se está utilizando el modelo escogido. Si no se quiere adivinar cuál es el mejor algoritmo para los datos, una forma de elegir es utilizar la prueba de validación.
+
+**Ejemplo**
+
+![**Figura 6**. Diagrama Selección del algoritmo](https://miro.medium.com/v2/resize:fit:640/1*2NR51X0FDjLB13u4WdYc4g.png)
+
+## 5.3:Three sets
+
+En Machine Learning, para el estudio y construcción de algoritmos que sean capaces de aprender de los datos y hacer predicciones utilizando esa información, se utiliza la construcción de un modelo matemático a partir de datos de entrada y estos datos para ser utilizados se dividen en conjuntos de datos, estos son: 
+
+1. Conjunto de entrenamiento
+2. Conjunto de validación
+3. Conjunto de prueba
+
+El conjunto de entrenamiento, suele ser el conjunto más grande y es el que se utiliza para construir el modelo, los conjuntos de validación y prueba suelen tener el mismo tamaño y esto son menores que en el conjunto de entrenamiento , tanto los conjuntos de validación y prueba no son usados para construir el modelo. A estos conjuntos se les suele llamar conjuntos esfera. 
+
+**Ejemplo**
+
+![**Figura 7**. Gráfico de proporciones](Gr%C3%A1fico.png)
+
+
+![**Figura 8**. Solución problemas](https://enriquecatala.com/img/posts/IOB_train_test_split/train_test.png) 
+
+
+
+
