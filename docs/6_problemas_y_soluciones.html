@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.256">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Taller de Verano: 100 páginas de Machine Learning - 7&nbsp; Problemas y soluciones</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./5_redes_neuronales_y_aprendizaje_profundo.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="custom_style.css">
+<meta property="og:title" content="Taller de Verano: 100 páginas de Machine Learning - 7&nbsp; Problemas y soluciones">
+<meta property="og:description" content="La regresión de Kernel es utilizada para los casos, que la entrada es un vector de características D-dimensional, con D > 3. La regresión del kernel es un método no paramétrico.">
+<meta property="og:site-name" content="Taller de Verano: 100 páginas de Machine Learning">
+<meta name="twitter:title" content="Taller de Verano: 100 páginas de Machine Learning - 7&nbsp; Problemas y soluciones">
+<meta name="twitter:description" content="La regresión de Kernel es utilizada para los casos, que la entrada es un vector de características D-dimensional, con D > 3. La regresión del kernel es un método no paramétrico.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Problemas y soluciones</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Taller de Verano: 100 páginas de Machine Learning</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Taller de verano</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1_introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cómo funciona el aprendizaje supervisado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2_algoritmos_fundamentales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algoritmos fundamentales</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3_descenso_del_gradiente.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Anatomía de un algoritmo de aprendizaje</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4_practica_basica.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capítulo 5</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5_redes_neuronales_y_aprendizaje_profundo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Redes neurales y Aprendizaje profundo</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./6_problemas_y_soluciones.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Problemas y soluciones</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#regresión-de-kernel" id="toc-regresión-de-kernel" class="nav-link active" data-scroll-target="#regresión-de-kernel"><span class="toc-section-number">7.1</span>  Regresión de Kernel</a></li>
+  <li><a href="#clasificación-multiclase" id="toc-clasificación-multiclase" class="nav-link" data-scroll-target="#clasificación-multiclase"><span class="toc-section-number">7.2</span>  Clasificación multiclase</a>
+  <ul class="collapse">
+  <li><a href="#uno-versus-el-resto-ovr" id="toc-uno-versus-el-resto-ovr" class="nav-link" data-scroll-target="#uno-versus-el-resto-ovr"><span class="toc-section-number">7.2.1</span>  Uno versus el resto (OVR)</a></li>
+  <li><a href="#implementación-en-python" id="toc-implementación-en-python" class="nav-link" data-scroll-target="#implementación-en-python"><span class="toc-section-number">7.2.2</span>  Implementación en python</a></li>
+  </ul></li>
+  <li><a href="#clasificación-con-una-clase" id="toc-clasificación-con-una-clase" class="nav-link" data-scroll-target="#clasificación-con-una-clase"><span class="toc-section-number">7.3</span>  Clasificación con una clase</a></li>
+  <li><a href="#clasificación-multi-etiqueta" id="toc-clasificación-multi-etiqueta" class="nav-link" data-scroll-target="#clasificación-multi-etiqueta"><span class="toc-section-number">7.4</span>  Clasificación multi-etiqueta</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-código" id="toc-ejemplo-código" class="nav-link" data-scroll-target="#ejemplo-código"><span class="toc-section-number">7.4.1</span>  Ejemplo código</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Problemas y soluciones</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="regresión-de-kernel" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="regresión-de-kernel"><span class="header-section-number">7.1</span> Regresión de Kernel</h2>
+<p>La regresión de Kernel es utilizada para los casos, que la entrada es un vector de características D-dimensional, con D &gt; 3. La regresión del kernel es un método no paramétrico. Eso significa que no hay parámetros que aprender. El modelo se basa en los datos mismos (como en kNN). En su forma más simple, en la regresión del kernel buscamos un modelo como este:</p>
+<p><span class="math display">\[
+f(x) = \dfrac{1}{N}\sum_{i=1}^{N}w_{i}y_{i}
+\]</span></p>
+<p>, donde <span class="math display">\[
+w_{i} = \dfrac{Nk(\dfrac{x_{i}-x}{b}))}{\sum_{i=1}^{N}k(\dfrac{x_{k}-x}{b})}
+\]</span></p>
+<p>La función k(·) es un núcleo(kernel). Puede tener diferentes formas, la más utilizada es el núcleo gaussiano:</p>
+<p><span class="math display">\[
+k(z)= \dfrac{1}{\sqrt{2\pi}}exp(\dfrac{-z^2}{2}).
+\]</span></p>
+<p>El valor b es un hiperparámetro que ajustamos usando el conjunto de validación.</p>
+<div id="exm-" class="theorem example">
+<p><span class="theorem-title"><strong>Ejemplo 7.1 </strong></span>&nbsp;</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.RandomState(<span class="dv">0</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">30</span>, num<span class="op">=</span><span class="dv">1_000</span>).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> np.sin(data).ravel()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>training_sample_indices <span class="op">=</span> rng.choice(np.arange(<span class="dv">0</span>, <span class="dv">400</span>), size<span class="op">=</span><span class="dv">40</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>training_data <span class="op">=</span> data[training_sample_indices]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>training_noisy_target <span class="op">=</span> target[training_sample_indices] <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> rng.randn(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">len</span>(training_sample_indices)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.plot(data, target, label<span class="op">=</span><span class="st">"True signal"</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    training_data,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    training_noisy_target,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="st">"Noisy measurements"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"data"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"target"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Illustration of the true generative process and </span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"noisy measurements available during training"</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-4-output-1.png" width="600" height="467"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ridge <span class="op">=</span> Ridge().fit(training_data, training_noisy_target)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>plt.plot(data, target, label<span class="op">=</span><span class="st">"True signal"</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    training_data,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    training_noisy_target,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="st">"Noisy measurements"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>plt.plot(data, ridge.predict(data), label<span class="op">=</span><span class="st">"Lineal regression"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"data"</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"target"</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(<span class="st">"Limitation of a linear model such as ridge"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-5-output-1.png" width="600" height="449"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.gaussian_process.kernels <span class="im">import</span> ExpSineSquared</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.kernel_ridge <span class="im">import</span> KernelRidge</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>kernel_ridge <span class="op">=</span> KernelRidge(kernel<span class="op">=</span>ExpSineSquared())</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>kernel_ridge.fit(training_data, training_noisy_target)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Fitting KernelRidge with default kernel: </span><span class="sc">{</span>time<span class="sc">.</span>time() <span class="op">-</span> start_time<span class="sc">:.3f}</span><span class="ss"> seconds"</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.plot(data, target, label<span class="op">=</span><span class="st">"True signal"</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">"dashed"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    training_data,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    training_noisy_target,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="st">"Noisy measurements"</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>plt.plot(</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    kernel_ridge.predict(data),</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="st">"Kernel ridge"</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    linestyle<span class="op">=</span><span class="st">"dashdot"</span>,</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"data"</span>)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"target"</span>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Kernel ridge regression with an exponential sine squared</span><span class="ch">\n</span><span class="st"> "</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"kernel using default hyperparameters"</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fitting KernelRidge with default kernel: 0.002 seconds</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-6-output-2.png" width="600" height="467"></p>
+</div>
+</div>
+<p>Este modelo ajustado no es exacto. De hecho, no configuramos los parámetros del kernel y en su lugar utilizamos los predeterminados. Podemos inspeccionarlos.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>kernel_ridge.kernel</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>ExpSineSquared(length_scale=1, periodicity=1)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> loguniform</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RandomizedSearchCV</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>param_distributions <span class="op">=</span> {</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"alpha"</span>: loguniform(<span class="fl">1e0</span>, <span class="fl">1e3</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"kernel__length_scale"</span>: loguniform(<span class="fl">1e-2</span>, <span class="fl">1e2</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"kernel__periodicity"</span>: loguniform(<span class="fl">1e0</span>, <span class="fl">1e1</span>),</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>kernel_ridge_tuned <span class="op">=</span> RandomizedSearchCV(</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    kernel_ridge,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    param_distributions<span class="op">=</span>param_distributions,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    n_iter<span class="op">=</span><span class="dv">500</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>kernel_ridge_tuned.fit(training_data, training_noisy_target)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Time for KernelRidge fitting: </span><span class="sc">{</span>time<span class="sc">.</span>time() <span class="op">-</span> start_time<span class="sc">:.3f}</span><span class="ss"> seconds"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Time for KernelRidge fitting: 5.883 seconds</code></pre>
+</div>
+</div>
+<p>Ajustar el modelo ahora es más costoso desde el punto de vista computacional ya que tenemos que probar varias combinaciones de hiperparámetros. Podemos echar un vistazo a los hiperparámetros encontrados para hacer algunas intuiciones.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>kernel_ridge_tuned.best_params_</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<pre><code>{'alpha': 1.991584977345022,
+ 'kernel__length_scale': 0.7986499491396734,
+ 'kernel__periodicity': 6.6072758064261095}</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>predictions_kr <span class="op">=</span> kernel_ridge_tuned.predict(data)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Time for KernelRidge predict: </span><span class="sc">{</span>time<span class="sc">.</span>time() <span class="op">-</span> start_time<span class="sc">:.3f}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.plot(data, target, label<span class="op">=</span><span class="st">"True signal"</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">"dashed"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    training_data,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    training_noisy_target,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="st">"Noisy measurements"</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>plt.plot(</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    predictions_kr,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="st">"Kernel ridge"</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    linestyle<span class="op">=</span><span class="st">"dashdot"</span>,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"data"</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"target"</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Kernel ridge regression with an exponential sine squared</span><span class="ch">\n</span><span class="st"> "</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"kernel using tuned hyperparameters"</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Time for KernelRidge predict: 0.006 seconds</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-10-output-2.png" width="600" height="467"></p>
+</div>
+</div>
+</div>
+<p>Fuente: <a href="https://scikit-learn.org/stable/auto_examples/gaussian_process/plot_compare_gpr_krr.html#sphx-glr-auto-examples-gaussian-process-plot-compare-gpr-krr-py" class="uri">https://scikit-learn.org/stable/auto_examples/gaussian_process/plot_compare_gpr_krr.html#sphx-glr-auto-examples-gaussian-process-plot-compare-gpr-krr-py</a></p>
+</section>
+<section id="clasificación-multiclase" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="clasificación-multiclase"><span class="header-section-number">7.2</span> Clasificación multiclase</h2>
+<p>La clasificación multiclase se refiere a aquellos casos en los que los datos contienen etiquetas que pertenecen a una de las <span class="math inline">\(C\)</span> clases:</p>
+<p><span class="math display">\[
+y \in \{1,...,C\}
+\]</span></p>
+<p>Por ejemplo, se puede clasificar utilizando features extraídos de un set de imágenes de frutas. En este ejemplo las etiquetas <code>y</code> serían:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="st">"manzana"</span>, <span class="st">"pera"</span>, <span class="st">"naranja"</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Cada imagen es una muestra y puede ser clasificada como <strong>una</strong> de las tres posibles clases. La clasificación multiclase asume que cada muestra está asociada a <strong>una y solo una de las etiquetas</strong>.</p>
+<p>En el ejemplo, una fotografía no podría ser una pera y una naranja al mismo tiempo. Si esto no se cumple estaríamos ante un ejemplo de clasificación multietiqueta, que se verá más adelante.</p>
+<p>Existen algunos algoritmos de clasificación que se pueden extender para ser algoritmos de clasificación multiclase:</p>
+<ul>
+<li>ID3 y otros algoritmos de árboles de decisión</li>
+<li>Regresión logística reemplazando la función sigmoidal con la función softmax</li>
+<li>kNN</li>
+</ul>
+<p>Hay otros algoritmos que no se pueden extender a clasificación multiclase de forma simple, o en algunos casos, son mucho más eficientes en el caso de clasificación binaria. Ante esta situación, una estrategia común es llamada <strong>uno versus el resto (OVR)</strong>.</p>
+<section id="uno-versus-el-resto-ovr" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="uno-versus-el-resto-ovr"><span class="header-section-number">7.2.1</span> Uno versus el resto (OVR)</h3>
+<p>La idea detrás del enfoque de OVR es separar el problema de clasificación multiclase en múltiples casos de separación binaria.</p>
+<p>En la siguiente figura podemos observar una ilustración con dos tipos de problemas de clasificación: binaria y multiclase.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figuras/multiclass/img1.png" class="img-fluid figure-img" style="width:70.0%" alt="Problemas clasificación"></p>
+<p></p><figcaption class="figure-caption">Ilustración de problemas de clasificación</figcaption><p></p>
+</figure>
+</div>
+<p>Para la imagen de la derecha, un ejemplo de clasificación multiclase, podemos utilizar la estrategia de OVR, tal y como se muestra en la siguiente figura.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figuras/multiclass/img2.png" class="img-fluid figure-img" alt="Clasificación multiclase"></p>
+<p></p><figcaption class="figure-caption">Ilustración de la clasificación multiclase</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="implementación-en-python" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="implementación-en-python"><span class="header-section-number">7.2.2</span> Implementación en python</h3>
+<p><strong>Imports:</strong></p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.multiclass <span class="im">import</span> OneVsRestClassifier</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Creando datos aleatorios para clasificación:</strong></p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generando un array aleatorio de 1000 muestras, 10 features y una etiqueta de y=[0,1,2]</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_classification(n_samples<span class="op">=</span><span class="dv">1000</span>, n_features<span class="op">=</span><span class="dv">10</span>, n_informative<span class="op">=</span><span class="dv">5</span>, n_redundant<span class="op">=</span><span class="dv">5</span>, n_classes<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Separando el array en conjuntos de prueba (25 %) y entrenamiento (75 %)</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Colocando en dataframes para facilidad de presentación y graficación</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>df_train <span class="op">=</span> pd.DataFrame({<span class="st">"y"</span>:y_train, <span class="st">"x0"</span>:X_train[:,<span class="dv">0</span>], <span class="st">"x1"</span>:X_train[:,<span class="dv">1</span>], <span class="st">"x2"</span>:X_train[:,<span class="dv">2</span>], <span class="st">"x3"</span>:X_train[:,<span class="dv">3</span>], <span class="st">"x4"</span>:X_train[:,<span class="dv">4</span>], <span class="st">"x5"</span>:X_train[:,<span class="dv">5</span>], <span class="st">"x6"</span>:X_train[:,<span class="dv">6</span>], <span class="st">"x7"</span>:X_train[:,<span class="dv">7</span>], <span class="st">"x8"</span>:X_train[:,<span class="dv">8</span>], <span class="st">"x9"</span>:X_train[:,<span class="dv">9</span>]})</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>df_test <span class="op">=</span> pd.DataFrame({<span class="st">"y"</span>:y_test, <span class="st">"x0"</span>:X_test[:,<span class="dv">0</span>], <span class="st">"x1"</span>:X_test[:,<span class="dv">1</span>], <span class="st">"x2"</span>:X_test[:,<span class="dv">2</span>], <span class="st">"x3"</span>:X_test[:,<span class="dv">3</span>], <span class="st">"x4"</span>:X_test[:,<span class="dv">4</span>], <span class="st">"x5"</span>:X_test[:,<span class="dv">5</span>], <span class="st">"x6"</span>:X_test[:,<span class="dv">6</span>], <span class="st">"x7"</span>:X_test[:,<span class="dv">7</span>], <span class="st">"x8"</span>:X_test[:,<span class="dv">8</span>], <span class="st">"x9"</span>:X_test[:,<span class="dv">9</span>]})</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>df_train</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>y</th>
+      <th>x0</th>
+      <th>x1</th>
+      <th>x2</th>
+      <th>x3</th>
+      <th>x4</th>
+      <th>x5</th>
+      <th>x6</th>
+      <th>x7</th>
+      <th>x8</th>
+      <th>x9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>-0.730468</td>
+      <td>0.397713</td>
+      <td>2.074811</td>
+      <td>3.268605</td>
+      <td>2.406136</td>
+      <td>-1.596750</td>
+      <td>-1.097254</td>
+      <td>0.839374</td>
+      <td>0.296566</td>
+      <td>-0.135522</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>3.365775</td>
+      <td>-1.418898</td>
+      <td>1.872383</td>
+      <td>-0.693364</td>
+      <td>-3.133404</td>
+      <td>-2.877166</td>
+      <td>0.404063</td>
+      <td>-1.955554</td>
+      <td>-1.324028</td>
+      <td>1.988373</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>-3.921299</td>
+      <td>0.641428</td>
+      <td>-2.026409</td>
+      <td>-2.679728</td>
+      <td>2.478175</td>
+      <td>4.280245</td>
+      <td>0.959757</td>
+      <td>-1.031408</td>
+      <td>2.619929</td>
+      <td>-1.552321</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>-0.476039</td>
+      <td>-0.361355</td>
+      <td>0.966933</td>
+      <td>2.514187</td>
+      <td>3.982157</td>
+      <td>-1.931150</td>
+      <td>-0.354184</td>
+      <td>2.025803</td>
+      <td>-0.295005</td>
+      <td>-2.314401</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>-0.119220</td>
+      <td>-0.421085</td>
+      <td>0.706323</td>
+      <td>0.561597</td>
+      <td>-0.483120</td>
+      <td>0.058308</td>
+      <td>-0.852335</td>
+      <td>-0.952946</td>
+      <td>-0.161098</td>
+      <td>0.587163</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>745</th>
+      <td>2</td>
+      <td>-0.707565</td>
+      <td>-4.271104</td>
+      <td>1.374571</td>
+      <td>-0.328230</td>
+      <td>6.264860</td>
+      <td>-2.072022</td>
+      <td>0.239431</td>
+      <td>-1.271852</td>
+      <td>-0.637552</td>
+      <td>-5.091475</td>
+    </tr>
+    <tr>
+      <th>746</th>
+      <td>1</td>
+      <td>-0.514813</td>
+      <td>-0.473396</td>
+      <td>-2.421689</td>
+      <td>-1.699244</td>
+      <td>-0.952055</td>
+      <td>2.352776</td>
+      <td>-0.218440</td>
+      <td>0.078120</td>
+      <td>-0.600584</td>
+      <td>-0.977306</td>
+    </tr>
+    <tr>
+      <th>747</th>
+      <td>0</td>
+      <td>2.273762</td>
+      <td>1.123171</td>
+      <td>0.927239</td>
+      <td>2.014521</td>
+      <td>-1.140324</td>
+      <td>-2.785479</td>
+      <td>0.158036</td>
+      <td>2.155000</td>
+      <td>-0.954108</td>
+      <td>1.196839</td>
+    </tr>
+    <tr>
+      <th>748</th>
+      <td>0</td>
+      <td>5.365061</td>
+      <td>-7.979364</td>
+      <td>3.641793</td>
+      <td>0.967290</td>
+      <td>3.271363</td>
+      <td>-8.028106</td>
+      <td>-0.642597</td>
+      <td>-1.656500</td>
+      <td>-5.257335</td>
+      <td>-4.871621</td>
+    </tr>
+    <tr>
+      <th>749</th>
+      <td>1</td>
+      <td>0.202570</td>
+      <td>1.402667</td>
+      <td>1.272342</td>
+      <td>3.307607</td>
+      <td>-1.209962</td>
+      <td>-0.738314</td>
+      <td>-1.770443</td>
+      <td>1.023892</td>
+      <td>-0.361837</td>
+      <td>1.986999</td>
+    </tr>
+  </tbody>
+</table>
+<p>750 rows × 11 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.scatterplot(data<span class="op">=</span>df_train, x<span class="op">=</span><span class="st">"x0"</span>, y<span class="op">=</span><span class="st">"x1"</span>, hue<span class="op">=</span><span class="st">"y"</span>, palette<span class="op">=</span><span class="st">"tab10"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-14-output-1.png" width="587" height="429"></p>
+</div>
+</div>
+<p><strong>Definiendo el modelo OVR</strong></p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Se define el modelo a usar dentro del OVR, en este caso SVC, puede ser logistico u otro</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>modelo <span class="op">=</span> SVC()</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Entrenando el modelo con los datos de entrenamiento</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>clasificador <span class="op">=</span> OneVsRestClassifier(modelo).fit(X_train, y_train)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Probando el modelo OVR <code>clasificador</code></strong></p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probando el modelo con los datos de prueba</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>prediccion <span class="op">=</span> clasificador.predict(X_test)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Colocando los datos predichos en un dataframe</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>df_pred <span class="op">=</span> pd.DataFrame({<span class="st">"y"</span>:prediccion, <span class="st">"x0"</span>:X_test[:,<span class="dv">0</span>], <span class="st">"x1"</span>:X_test[:,<span class="dv">1</span>], <span class="st">"x2"</span>:X_test[:,<span class="dv">2</span>], <span class="st">"x3"</span>:X_test[:,<span class="dv">3</span>], <span class="st">"x4"</span>:X_test[:,<span class="dv">4</span>], <span class="st">"x5"</span>:X_test[:,<span class="dv">5</span>], <span class="st">"x6"</span>:X_test[:,<span class="dv">6</span>], <span class="st">"x7"</span>:X_test[:,<span class="dv">7</span>], <span class="st">"x8"</span>:X_test[:,<span class="dv">8</span>], <span class="st">"x9"</span>:X_test[:,<span class="dv">9</span>]})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>¿Cuál es el resultado del modelo <code>clasificador</code>?</p>
+<p>Nos da un vector con las etiquetas predichas:</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(prediccion)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[2 0 2 2 0 0 0 1 0 2 2 2 2 0 1 2 1 0 0 0 1 2 2 2 2 1 0 1 0 0 1 0 1 2 0 1 1
+ 0 1 2 0 1 0 2 2 0 0 0 2 2 1 1 1 0 2 2 1 0 2 0 0 0 0 2 2 1 1 2 2 1 1 1 2 0
+ 0 0 1 0 0 2 1 2 0 1 1 0 1 0 2 2 0 2 1 2 2 0 2 2 1 0 1 2 1 2 2 0 2 1 1 0 2
+ 0 0 0 2 2 2 2 0 2 0 0 1 2 2 2 0 1 0 0 0 2 0 0 0 0 1 0 1 2 0 1 0 1 2 2 1 2
+ 1 0 2 2 1 1 2 1 1 0 1 2 2 0 2 0 0 1 0 0 1 0 1 0 1 0 2 1 2 0 0 0 0 1 0 1 0
+ 2 0 2 2 0 0 1 0 2 0 0 1 2 0 2 0 1 2 2 1 2 1 2 2 2 2 0 1 1 2 2 1 0 2 0 2 2
+ 0 0 1 0 0 0 1 0 1 1 1 0 2 1 0 0 0 0 1 2 1 1 1 0 0 1 1 2]</code></pre>
+</div>
+</div>
+<p>Y con el método <code>score(X, y)</code> podemos obtener la <em>mean accuracy</em>, que es una métrica bastante exigente pues requiere que para cada muestra la etiqueta sea asignada correctamente:</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"mean accuracy = "</span>,clasificador.score(X_test, y_test))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>mean accuracy =  0.908</code></pre>
+</div>
+</div>
+<p>Luego, podemos comparar la gráfica del conjunto de prueba <code>df_test</code>, utilizando por ejemplo los features <span class="math inline">\(x_0\)</span> y <span class="math inline">\(x_1\)</span>:</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> sns.scatterplot(data<span class="op">=</span>df_test, x<span class="op">=</span><span class="st">"x0"</span>, y<span class="op">=</span><span class="st">"x1"</span>, hue<span class="op">=</span><span class="st">"y"</span>, palette<span class="op">=</span><span class="st">"tab10"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-19-output-1.png" width="587" height="429"></p>
+</div>
+</div>
+<p>Con la gráfica utilizando los mismos features <span class="math inline">\(x_0\)</span> y <span class="math inline">\(x_1\)</span> del conjunto de prueba pero esta vez con las etiquetas predichas por el modelo. Se marca una <em>x</em> roja sobre los puntos que fueron clasificados incorrectamente:</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> sns.scatterplot(data<span class="op">=</span>df_pred, x<span class="op">=</span><span class="st">"x0"</span>, y<span class="op">=</span><span class="st">"x1"</span>, hue<span class="op">=</span><span class="st">"y"</span>, palette<span class="op">=</span><span class="st">"tab10"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Compara los y de prueba vs. los y predichos para marcar los que no se clasificaron correctamente</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(prediccion)):</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> prediccion[i] <span class="op">!=</span> y_test[i]:</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        ax2.plot(df_pred[<span class="st">"x0"</span>].iloc[i], df_pred[<span class="st">"x1"</span>].iloc[i], <span class="st">"rx"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-20-output-1.png" width="587" height="429"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="clasificación-con-una-clase" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="clasificación-con-una-clase"><span class="header-section-number">7.3</span> Clasificación con una clase</h2>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate and plot a synthetic imbalanced classification dataset</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy <span class="im">import</span> where</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># define dataset</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_classification(n_samples<span class="op">=</span><span class="dv">10000</span>, n_features<span class="op">=</span><span class="dv">2</span>, n_redundant<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a> n_clusters_per_class<span class="op">=</span><span class="dv">1</span>, weights<span class="op">=</span>[<span class="fl">0.999</span>], flip_y<span class="op">=</span><span class="dv">0</span>, random_state<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># summarize class distribution</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>counter <span class="op">=</span> Counter(y)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(counter)</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter plot of examples by class label</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, _ <span class="kw">in</span> counter.items():</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a> row_ix <span class="op">=</span> where(y <span class="op">==</span> label)[<span class="dv">0</span>]</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a> pyplot.scatter(X[row_ix, <span class="dv">0</span>], X[row_ix, <span class="dv">1</span>], label<span class="op">=</span><span class="bu">str</span>(label))</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>pyplot.legend()</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>pyplot.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Counter({0: 9990, 1: 10})</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-21-output-2.png" width="569" height="411"></p>
+</div>
+</div>
+<p>Se ajusta el modelo correspondiente</p>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> f1_score</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> OneClassSVM</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># split into train/test sets</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>trainX, testX, trainy, testy <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.5</span>, random_state<span class="op">=</span><span class="dv">2</span>, stratify<span class="op">=</span>y)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># define outlier detection model</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> OneClassSVM(gamma<span class="op">=</span><span class="st">'scale'</span>, nu<span class="op">=</span><span class="fl">0.01</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># fit on majority class</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>trainX_clean <span class="op">=</span> trainX[trainy<span class="op">==</span><span class="dv">0</span>]</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>model.fit(trainX_clean)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co"># detect outliers in the test set</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>yhat <span class="op">=</span> model.predict(testX)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># mark inliers 1, outliers -1</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>testy_clean <span class="op">=</span> testy.copy()</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>testy_clean[testy <span class="op">==</span> <span class="dv">1</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>testy_clean[testy <span class="op">==</span> <span class="dv">0</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate score</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>score <span class="op">=</span> f1_score(testy_clean, yhat, pos_label<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'F1 Score: </span><span class="sc">%.3f</span><span class="st">'</span> <span class="op">%</span> score)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>F1 Score: 0.123</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define the meshgrid</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>x_min, x_max <span class="op">=</span> trainX[:, <span class="dv">0</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="dv">5</span>, trainX[:, <span class="dv">0</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="dv">5</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>y_min, y_max <span class="op">=</span> trainX[:, <span class="dv">1</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="dv">5</span>, trainX[:, <span class="dv">1</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="dv">5</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>x_ <span class="op">=</span> np.linspace(x_min, x_max, <span class="dv">500</span>)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>y_ <span class="op">=</span> np.linspace(y_min, y_max, <span class="dv">500</span>)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>xx, yy <span class="op">=</span> np.meshgrid(x_, y_)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co"># evaluate the decision function on the meshgrid</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> model.decision_function(np.c_[xx.ravel(), yy.ravel()])</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> z.reshape(xx.shape)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the decision function and the reduced data</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>plt.contourf(xx, yy, z, cmap<span class="op">=</span>plt.cm.PuBu)</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> plt.contour(xx, yy, z, levels<span class="op">=</span>[<span class="dv">0</span>], linewidths<span class="op">=</span><span class="dv">2</span>, colors<span class="op">=</span><span class="st">'darkred'</span>)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> plt.scatter(trainX[trainy <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>], trainX[trainy <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'white'</span>, edgecolors<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> plt.scatter(trainX[trainy <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>], trainX[trainy <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'gold'</span>, edgecolors<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>plt.legend([a.collections[<span class="dv">0</span>], b, c], [<span class="st">'learned frontier'</span>, <span class="st">'regular observations'</span>, <span class="st">'abnormal observations'</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">1.05</span>, <span class="dv">1</span>))</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'tight'</span>)</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T/ipykernel_24081/4105701295.py:21: MatplotlibDeprecationWarning:
+
+The collections attribute was deprecated in Matplotlib 3.8 and will be removed two minor releases later.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-23-output-2.png" width="588" height="411"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> svm</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.covariance <span class="im">import</span> EllipticEnvelope</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_blobs, make_moons</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> IsolationForest</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.kernel_approximation <span class="im">import</span> Nystroem</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> SGDOneClassSVM</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> LocalOutlierFactor</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>matplotlib.rcParams[<span class="st">"contour.negative_linestyle"</span>] <span class="op">=</span> <span class="st">"solid"</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Example settings</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="dv">300</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>outliers_fraction <span class="op">=</span> <span class="fl">0.15</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>n_outliers <span class="op">=</span> <span class="bu">int</span>(outliers_fraction <span class="op">*</span> n_samples)</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>n_inliers <span class="op">=</span> n_samples <span class="op">-</span> n_outliers</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a><span class="co"># define outlier/anomaly detection methods to be compared.</span></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a><span class="co"># the SGDOneClassSVM must be used in a pipeline with a kernel approximation</span></span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a><span class="co"># to give similar results to the OneClassSVM</span></span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>anomaly_algorithms <span class="op">=</span> [</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Robust covariance"</span>,</span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>        EllipticEnvelope(contamination<span class="op">=</span>outliers_fraction, random_state<span class="op">=</span><span class="dv">42</span>),</span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"One-Class SVM"</span>, svm.OneClassSVM(nu<span class="op">=</span>outliers_fraction, kernel<span class="op">=</span><span class="st">"rbf"</span>, gamma<span class="op">=</span><span class="fl">0.1</span>)),</span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"One-Class SVM (SGD)"</span>,</span>
+<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a>        make_pipeline(</span>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>            Nystroem(gamma<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_components<span class="op">=</span><span class="dv">150</span>),</span>
+<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a>            SGDOneClassSVM(</span>
+<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a>                nu<span class="op">=</span>outliers_fraction,</span>
+<span id="cb33-39"><a href="#cb33-39" aria-hidden="true" tabindex="-1"></a>                shuffle<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb33-40"><a href="#cb33-40" aria-hidden="true" tabindex="-1"></a>                fit_intercept<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb33-41"><a href="#cb33-41" aria-hidden="true" tabindex="-1"></a>                random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb33-42"><a href="#cb33-42" aria-hidden="true" tabindex="-1"></a>                tol<span class="op">=</span><span class="fl">1e-6</span>,</span>
+<span id="cb33-43"><a href="#cb33-43" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb33-44"><a href="#cb33-44" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb33-45"><a href="#cb33-45" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb33-46"><a href="#cb33-46" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb33-47"><a href="#cb33-47" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Isolation Forest"</span>,</span>
+<span id="cb33-48"><a href="#cb33-48" aria-hidden="true" tabindex="-1"></a>        IsolationForest(contamination<span class="op">=</span>outliers_fraction, random_state<span class="op">=</span><span class="dv">42</span>),</span>
+<span id="cb33-49"><a href="#cb33-49" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb33-50"><a href="#cb33-50" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb33-51"><a href="#cb33-51" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Local Outlier Factor"</span>,</span>
+<span id="cb33-52"><a href="#cb33-52" aria-hidden="true" tabindex="-1"></a>        LocalOutlierFactor(n_neighbors<span class="op">=</span><span class="dv">35</span>, contamination<span class="op">=</span>outliers_fraction),</span>
+<span id="cb33-53"><a href="#cb33-53" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb33-54"><a href="#cb33-54" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb33-55"><a href="#cb33-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-56"><a href="#cb33-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Define datasets</span></span>
+<span id="cb33-57"><a href="#cb33-57" aria-hidden="true" tabindex="-1"></a>blobs_params <span class="op">=</span> <span class="bu">dict</span>(random_state<span class="op">=</span><span class="dv">0</span>, n_samples<span class="op">=</span>n_inliers, n_features<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb33-58"><a href="#cb33-58" aria-hidden="true" tabindex="-1"></a>datasets <span class="op">=</span> [</span>
+<span id="cb33-59"><a href="#cb33-59" aria-hidden="true" tabindex="-1"></a>    make_blobs(centers<span class="op">=</span>[[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>]], cluster_std<span class="op">=</span><span class="fl">0.5</span>, <span class="op">**</span>blobs_params)[<span class="dv">0</span>],</span>
+<span id="cb33-60"><a href="#cb33-60" aria-hidden="true" tabindex="-1"></a>    make_blobs(centers<span class="op">=</span>[[<span class="dv">2</span>, <span class="dv">2</span>], [<span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>]], cluster_std<span class="op">=</span>[<span class="fl">0.5</span>, <span class="fl">0.5</span>], <span class="op">**</span>blobs_params)[<span class="dv">0</span>],</span>
+<span id="cb33-61"><a href="#cb33-61" aria-hidden="true" tabindex="-1"></a>    make_blobs(centers<span class="op">=</span>[[<span class="dv">2</span>, <span class="dv">2</span>], [<span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>]], cluster_std<span class="op">=</span>[<span class="fl">1.5</span>, <span class="fl">0.3</span>], <span class="op">**</span>blobs_params)[<span class="dv">0</span>],</span>
+<span id="cb33-62"><a href="#cb33-62" aria-hidden="true" tabindex="-1"></a>    <span class="fl">4.0</span></span>
+<span id="cb33-63"><a href="#cb33-63" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span> (</span>
+<span id="cb33-64"><a href="#cb33-64" aria-hidden="true" tabindex="-1"></a>        make_moons(n_samples<span class="op">=</span>n_samples, noise<span class="op">=</span><span class="fl">0.05</span>, random_state<span class="op">=</span><span class="dv">0</span>)[<span class="dv">0</span>]</span>
+<span id="cb33-65"><a href="#cb33-65" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.25</span>])</span>
+<span id="cb33-66"><a href="#cb33-66" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb33-67"><a href="#cb33-67" aria-hidden="true" tabindex="-1"></a>    <span class="fl">14.0</span> <span class="op">*</span> (np.random.RandomState(<span class="dv">42</span>).rand(n_samples, <span class="dv">2</span>) <span class="op">-</span> <span class="fl">0.5</span>),</span>
+<span id="cb33-68"><a href="#cb33-68" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb33-69"><a href="#cb33-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-70"><a href="#cb33-70" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare given classifiers under given settings</span></span>
+<span id="cb33-71"><a href="#cb33-71" aria-hidden="true" tabindex="-1"></a>xx, yy <span class="op">=</span> np.meshgrid(np.linspace(<span class="op">-</span><span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">150</span>), np.linspace(<span class="op">-</span><span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">150</span>))</span>
+<span id="cb33-72"><a href="#cb33-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-73"><a href="#cb33-73" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="bu">len</span>(anomaly_algorithms) <span class="op">*</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span>, <span class="fl">12.5</span>))</span>
+<span id="cb33-74"><a href="#cb33-74" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(</span>
+<span id="cb33-75"><a href="#cb33-75" aria-hidden="true" tabindex="-1"></a>    left<span class="op">=</span><span class="fl">0.02</span>, right<span class="op">=</span><span class="fl">0.98</span>, bottom<span class="op">=</span><span class="fl">0.001</span>, top<span class="op">=</span><span class="fl">0.96</span>, wspace<span class="op">=</span><span class="fl">0.05</span>, hspace<span class="op">=</span><span class="fl">0.01</span></span>
+<span id="cb33-76"><a href="#cb33-76" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-77"><a href="#cb33-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-78"><a href="#cb33-78" aria-hidden="true" tabindex="-1"></a>plot_num <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb33-79"><a href="#cb33-79" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.RandomState(<span class="dv">42</span>)</span>
+<span id="cb33-80"><a href="#cb33-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-81"><a href="#cb33-81" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i_dataset, X <span class="kw">in</span> <span class="bu">enumerate</span>(datasets):</span>
+<span id="cb33-82"><a href="#cb33-82" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add outliers</span></span>
+<span id="cb33-83"><a href="#cb33-83" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.concatenate([X, rng.uniform(low<span class="op">=-</span><span class="dv">6</span>, high<span class="op">=</span><span class="dv">6</span>, size<span class="op">=</span>(n_outliers, <span class="dv">2</span>))], axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb33-84"><a href="#cb33-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-85"><a href="#cb33-85" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, algorithm <span class="kw">in</span> anomaly_algorithms:</span>
+<span id="cb33-86"><a href="#cb33-86" aria-hidden="true" tabindex="-1"></a>        t0 <span class="op">=</span> time.time()</span>
+<span id="cb33-87"><a href="#cb33-87" aria-hidden="true" tabindex="-1"></a>        algorithm.fit(X)</span>
+<span id="cb33-88"><a href="#cb33-88" aria-hidden="true" tabindex="-1"></a>        t1 <span class="op">=</span> time.time()</span>
+<span id="cb33-89"><a href="#cb33-89" aria-hidden="true" tabindex="-1"></a>        plt.subplot(<span class="bu">len</span>(datasets), <span class="bu">len</span>(anomaly_algorithms), plot_num)</span>
+<span id="cb33-90"><a href="#cb33-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i_dataset <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb33-91"><a href="#cb33-91" aria-hidden="true" tabindex="-1"></a>            plt.title(name, size<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb33-92"><a href="#cb33-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-93"><a href="#cb33-93" aria-hidden="true" tabindex="-1"></a>        <span class="co"># fit the data and tag outliers</span></span>
+<span id="cb33-94"><a href="#cb33-94" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> name <span class="op">==</span> <span class="st">"Local Outlier Factor"</span>:</span>
+<span id="cb33-95"><a href="#cb33-95" aria-hidden="true" tabindex="-1"></a>            y_pred <span class="op">=</span> algorithm.fit_predict(X)</span>
+<span id="cb33-96"><a href="#cb33-96" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb33-97"><a href="#cb33-97" aria-hidden="true" tabindex="-1"></a>            y_pred <span class="op">=</span> algorithm.fit(X).predict(X)</span>
+<span id="cb33-98"><a href="#cb33-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-99"><a href="#cb33-99" aria-hidden="true" tabindex="-1"></a>        <span class="co"># plot the levels lines and the points</span></span>
+<span id="cb33-100"><a href="#cb33-100" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> name <span class="op">!=</span> <span class="st">"Local Outlier Factor"</span>:  <span class="co"># LOF does not implement predict</span></span>
+<span id="cb33-101"><a href="#cb33-101" aria-hidden="true" tabindex="-1"></a>            Z <span class="op">=</span> algorithm.predict(np.c_[xx.ravel(), yy.ravel()])</span>
+<span id="cb33-102"><a href="#cb33-102" aria-hidden="true" tabindex="-1"></a>            Z <span class="op">=</span> Z.reshape(xx.shape)</span>
+<span id="cb33-103"><a href="#cb33-103" aria-hidden="true" tabindex="-1"></a>            plt.contour(xx, yy, Z, levels<span class="op">=</span>[<span class="dv">0</span>], linewidths<span class="op">=</span><span class="dv">2</span>, colors<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb33-104"><a href="#cb33-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-105"><a href="#cb33-105" aria-hidden="true" tabindex="-1"></a>        colors <span class="op">=</span> np.array([<span class="st">"#377eb8"</span>, <span class="st">"#ff7f00"</span>])</span>
+<span id="cb33-106"><a href="#cb33-106" aria-hidden="true" tabindex="-1"></a>        plt.scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>], s<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span>colors[(y_pred <span class="op">+</span> <span class="dv">1</span>) <span class="op">//</span> <span class="dv">2</span>])</span>
+<span id="cb33-107"><a href="#cb33-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-108"><a href="#cb33-108" aria-hidden="true" tabindex="-1"></a>        plt.xlim(<span class="op">-</span><span class="dv">7</span>, <span class="dv">7</span>)</span>
+<span id="cb33-109"><a href="#cb33-109" aria-hidden="true" tabindex="-1"></a>        plt.ylim(<span class="op">-</span><span class="dv">7</span>, <span class="dv">7</span>)</span>
+<span id="cb33-110"><a href="#cb33-110" aria-hidden="true" tabindex="-1"></a>        plt.xticks(())</span>
+<span id="cb33-111"><a href="#cb33-111" aria-hidden="true" tabindex="-1"></a>        plt.yticks(())</span>
+<span id="cb33-112"><a href="#cb33-112" aria-hidden="true" tabindex="-1"></a>        plt.text(</span>
+<span id="cb33-113"><a href="#cb33-113" aria-hidden="true" tabindex="-1"></a>            <span class="fl">0.99</span>,</span>
+<span id="cb33-114"><a href="#cb33-114" aria-hidden="true" tabindex="-1"></a>            <span class="fl">0.01</span>,</span>
+<span id="cb33-115"><a href="#cb33-115" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"</span><span class="sc">%.2f</span><span class="st">s"</span> <span class="op">%</span> (t1 <span class="op">-</span> t0)).lstrip(<span class="st">"0"</span>),</span>
+<span id="cb33-116"><a href="#cb33-116" aria-hidden="true" tabindex="-1"></a>            transform<span class="op">=</span>plt.gca().transAxes,</span>
+<span id="cb33-117"><a href="#cb33-117" aria-hidden="true" tabindex="-1"></a>            size<span class="op">=</span><span class="dv">15</span>,</span>
+<span id="cb33-118"><a href="#cb33-118" aria-hidden="true" tabindex="-1"></a>            horizontalalignment<span class="op">=</span><span class="st">"right"</span>,</span>
+<span id="cb33-119"><a href="#cb33-119" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb33-120"><a href="#cb33-120" aria-hidden="true" tabindex="-1"></a>        plot_num <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb33-121"><a href="#cb33-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-122"><a href="#cb33-122" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-24-output-1.png" width="1309" height="1199"></p>
+</div>
+</div>
+</section>
+<section id="clasificación-multi-etiqueta" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="clasificación-multi-etiqueta"><span class="header-section-number">7.4</span> Clasificación multi-etiqueta</h2>
+<p>En la clasificación multietiqueta, cada ejemplo de entrenamiento no tiene sólo una etiqueta, sino varias. de ellas. Por ejemplo, si queremos describir una imagen, podríamos asignarle varias etiquetas: “gente”, “concierto”, “naturaleza”, o las tres a la vez.</p>
+<p>Si el número de valores posibles para las etiquetas es elevado, pero todos son de la misma naturaleza, se puede optar por transformar cada ejemplo etiquetado en varios ejemplos etiquetados, uno por etiqueta. Estos nuevos ejemplos tienen todos el mismo vector de características y una sola etiqueta. Esto se convierte en un problema de clasificación multiclase.Se puede resolver utilizando la estrategia de uno contra el resto. La única diferencia con el problema multiclase habitual es que se genera un nuevo hiperparámetro: Threshold (umbral).</p>
+<p>Si la puntuación de predicción para alguna etiqueta está por encima del umbral, esta etiqueta se predice para el vector de características de entrada. En este escenario, se pueden predecir múltiples etiquetas para un solo vector de características.El valor del umbral se elige utilizando el conjunto de validación. De forma análoga, los algoritmos que pueden convertirse de forma natural en multiclase (árboles de decisión, regresión logística y redes neuronales, entre otros) pueden aplicarse a problemas de clasificación multietiqueta, ya que, estos devuelven la puntuación de cada clase, entonces se puede definir un umbral y asignar varias etiquetas a un vector de características si el umbral está por encima de un valor elegido, usando de forma experimental el conjunto de validación.</p>
+<p>Los algoritmos de redes neuronales pueden entrenar de forma natural modelos de clasificación multietiqueta utilizando la función de costo de entropía cruzada binaria. La capa de salida de la red neuronal, en este caso,tiene una unidad por etiqueta. Cada unidad de la capa de salida tiene la función de activación sigmoidea.</p>
+<p>En los casos en los que el número de posibles valores que puede tomar cada etiqueta es pequeño, se puede converti en un problema multiclase utilizando un enfoque diferente. Imaginemos el siguiente problema. Se quiere etiquetar imágenes y las etiquetas pueden ser de dos tipos. El primer tipo de etiqueta puede tener dos valores posibles: {foto, pintura}; la etiqueta del segundo tipo puede tener tres valores posibles valores {retrato, paisaje, otro}. Se puede crear una nueva clase falsa para cada combinación de las dos clases originales, así:</p>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+Tabla
+</title>
+
+<style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+
+
+<table>
+<thead>
+<tr>
+<th>
+Clase falsa
+</th>
+<th>
+Clase real 1
+</th>
+<th>
+Clase real 2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+1
+</td>
+<td>
+Foto
+</td>
+<td>
+Retrato
+</td>
+</tr>
+<tr>
+<td>
+2
+</td>
+<td>
+Foto
+</td>
+<td>
+Paisaje
+</td>
+</tr>
+<tr>
+<td>
+3
+</td>
+<td>
+Foto
+</td>
+<td>
+Otro
+</td>
+</tr>
+<tr>
+<td>
+4
+</td>
+<td>
+Pintura
+</td>
+<td>
+Retrato
+</td>
+</tr>
+<tr>
+<td>
+5
+</td>
+<td>
+Pintura
+</td>
+<td>
+Paisaje
+</td>
+</tr>
+<tr>
+<td>
+6
+</td>
+<td>
+Pintura
+</td>
+<td>
+Otro
+</td>
+</tr>
+</tbody>
+
+</table>
+
+
+<p>Ahora se tienen los mismos ejemplos etiquetados, se sustituyen las etiquetas múltiples reales por una etiqueta falsa con valores de 1 a 6. Este enfoque funciona bien en la práctica cuando no hay demasiadas combinaciones posibles de clases. De lo contrario, es necesario utilizar muchos más datos de entrenamiento para compensar el aumento del número de clases.</p>
+<p>La principal ventaja de este enfoque es que mantiene correlacionadas las etiquetas, al contrario que los métodos vistos anteriormente que predicen cada etiqueta independientemente de la otra. La correlación entre etiquetas puede ser una propiedad esencial en muchos problemas. Por ejemplo, si quiere predecir si un mensaje de correo electrónico es spam o no_spam al mismo tiempo que como predecir si es correo ordinario o prioritario.</p>
+<section id="ejemplo-código" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="ejemplo-código"><span class="header-section-number">7.4.1</span> Ejemplo código</h3>
+<section id="formato-de-destino" class="level4" data-number="7.4.1.1">
+<h4 data-number="7.4.1.1" class="anchored" data-anchor-id="formato-de-destino"><span class="header-section-number">7.4.1.1</span> Formato de destino</h4>
+<p>Una representación válida de multi etiqueta es una matriz binaria y de forma densa o escasa . Cada columna representa una clase. Los 1’ en cada fila indican las clases positivas con las que se ha etiquetado una muestra. Un ejemplo de matriz densa para 3 muestras:(n_samples, n_classes)</p>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]])</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1 0 0 1]
+ [0 0 1 1]
+ [0 0 0 0]]</code></pre>
+</div>
+</div>
+<p>También se pueden crear matrices densas utilizando MultiLabelBinarizer</p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.sparse <span class="im">as</span> sparse</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]])</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>y_sparse <span class="op">=</span> sparse.csr_matrix(y)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_sparse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (0, 0)    1
+  (0, 3)    1
+  (1, 2)    1
+  (1, 3)    1</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_multilabel_classification</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.multioutput <span class="im">import</span> MultiOutputClassifier</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, hamming_loss</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate synthetic multi-label dataset</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_multilabel_classification(n_samples<span class="op">=</span><span class="dv">100</span>, n_features<span class="op">=</span><span class="dv">10</span>, n_classes<span class="op">=</span><span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and test sets</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a multi-label classifier</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> MultiOutputClassifier(KNeighborsClassifier())</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the classifier</span></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>classifier.fit(X_train, y_train)</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test set</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> classifier.predict(X_test)</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate accuracy and Hamming loss</span></span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>hamming_loss <span class="op">=</span> hamming_loss(y_test, y_pred)</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hamming Loss:"</span>, hamming_loss)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hamming Loss: 0.21</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/none\.com/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./5_redes_neuronales_y_aprendizaje_profundo.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Redes neurales y Aprendizaje profundo</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
