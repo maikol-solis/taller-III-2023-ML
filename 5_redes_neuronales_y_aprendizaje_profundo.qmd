@@ -1,4 +1,4 @@
-# Redes neurales
+# Redes neurales y Aprendizaje profundo
 
 ## Perceptrón y redes neuronales
 
@@ -6,7 +6,24 @@ El perceptrón en el modelo más secillo de las neuronas. Se le llama también *
 
 ![](./figuras/MLP01.svg){fig-align="center"}
 
-La idea es que cada uno de los *features* se multiplica por un peso $w_k$, se le suma un *bias* $b$ y al resultado de esta operación se le aplica la función de activación, que finalmente produce la salida $y$. Esta función de activación preferiblemente debe ser diferenciable y tres de las funciones más comunes son la función logística, la función tangente hiperbólica y la función lineal rectificada unitaria (ReLU):
+La idea es que cada uno de los *features* se multiplica por un peso $w_k$, se le suma un *bias* $b$ y al resultado de esta operación se le aplica la función de activación, que finalmente produce la salida $y$.
+
+Especifícamente una red neuronal es una función anidada de funciones de la forma:
+
+\begin{equation*}
+y = f_{NN}(x) = f_3(f_2(f_1(x))). 
+\end{equation*}
+en este caso, cada función $f_l$ es una función de la forma:
+
+\begin{equation*}
+f_l(z) = f_l(W_lz + b_l)
+\end{equation*}
+donde \(l\) es el número de la cada capa o *layer* de la red, \(W_l\) es la matriz de pesos y \(b_l\) es el vector de *bias*. 
+
+
+
+
+Las funciones de activación \(f_l\), deben ser preferiblemente diferenciable. Tres de las funciones más comunes son la función logística, la función tangente hiperbólica y la función lineal rectificada unitaria (ReLU):
 
 \begin{equation*}
 \text{logística: } f(x) = \frac{1}{1+e^{-x}}
@@ -33,13 +50,13 @@ cada uno de los bloques $P_{ij}$ es un perceptrón. En la figura, solo se tiene 
 
 Lo que se debe hacer ahora es que, a partir de los datos que se tienen, encontrar los valores de los pesos $w_k$ y $b_k$, es decir, entrenar a la red.
 
-## Entrenamiento de la red neuronal
+### Entrenamiento de la red neuronal
 
 Para entrenar la red, se debe buscar los valores. Para ello se minimiza una función de costo, como por ejemplo el error cuadrático medio.
 
  Para lograr la optimización se suele utilizar el descenso del gradiente, en un algoritmo llamado *Backpropagation*. Con el Backpropagation se calcula  el gradiente de la función de costo con respecto a los pesos de la red, de una manera eficiente. Se calculan el gradiente una capa a la vez , iterando hacia atrás desde la última capa.
 
-## Comandos en python
+### Comandos en python
 
 Con la libraría scikit se puede crear y entrenar fácilmente una red neuronal.
 
@@ -65,3 +82,182 @@ en la variable **hidden_layer_sizes** se pone el número de perceptrones para ca
 * `lbfgs` es un optimizador de la familia de métodos cuasi-Newton.
 * `sgd` se refiere al descenso estocástico del gradiente.
 * `adam` se refiere al optimizador estocástico del gradiente propuesto por Kingma, Diederik, and Jimmy Ba.
+
+
+## Aprendizaje profundo
+
+El aprendizaje profundo implica entrenar redes neuronales con más de dos capas no salidas. En el pasado, entrenar redes con muchas capas era difícil debido a los problemas de gradiente explotante y gradiente desvaneciente, siendo este último particularmente intratable por décadas. El gradiente desvaneciente ocurre durante la actualización de parámetros en las redes neuronales mediante la retropropagación, un algoritmo eficiente que utiliza la regla de la cadena. Sin embargo, en algunas situaciones, el gradiente puede ser tan pequeño que impide el cambio de valor en algunos parámetros, deteniendo el entrenamiento de la red.
+
+Las funciones de activación tradicionales, como la tangente hiperbólica, tienen gradientes en el rango (0, 1), lo que hace que el gradiente se reduzca exponencialmente con el número de capas, resultando en un entrenamiento muy lento de las capas iniciales. No obstante, las implementaciones modernas permiten entrenar redes neuronales muy profundas, con cientos o miles de capas, gracias a técnicas como la función de activación ReLU, que sufre menos del problema de gradiente desvaneciente, y redes neuronales de memoria a corto plazo largo (LSTM), así como conexiones saltadas en redes neuronales residuales.
+
+En la actualidad, dado que los problemas de gradiente explotante y desvaneciente están mayormente resueltos, el término "aprendizaje profundo" se refiere al entrenamiento de redes neuronales con herramientas algorítmicas y matemáticas modernas, independientemente de la profundidad de la red. En la práctica, muchos problemas empresariales se resuelven con redes neuronales de 2-3 capas ocultas entre las capas de entrada y salida.
+
+
+### Redes neuronales convolucionales
+
+Las redes neuronales convolucionales (CNN) son una clase de redes neuronales profundas, que se utilizan principalmente en el reconocimiento de imágenes y videos. Las CNN son muy similares a las redes neuronales estándar, pero en lugar de usar operaciones de matriz estándar en las capas ocultas, utilizan operaciones de convolución. Las CNN también incluyen operaciones de agrupación, que reducen la dimensionalidad de las características y aceleran el cálculo.
+
+![](./figuras/DL01.png){fig-align="center"}
+
+
+:::{#exm-}
+```{python}
+from keras.datasets import fashion_mnist
+(train_X,train_Y), (test_X,test_Y) = fashion_mnist.load_data()
+
+```
+
+```{python}
+import numpy as np
+from keras.utils import to_categorical
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+print('Training data shape : ', train_X.shape, train_Y.shape)
+
+print('Testing data shape : ', test_X.shape, test_Y.shape)
+
+# Find the unique numbers from the train labels
+classes = np.unique(train_Y)
+nClasses = len(classes)
+print('Total number of outputs : ', nClasses)
+print('Output classes : ', classes)
+
+```
+
+Podemos visualizar como se ve cada una de las imágenes:
+
+```{python}
+plt.figure(figsize=[5,5])
+
+# Display the first image in training data
+plt.subplot(121)
+plt.imshow(train_X[0,:,:], cmap='gray')
+plt.title("Ground Truth : {}".format(train_Y[0]))
+
+# Display the first image in testing data
+plt.subplot(122)
+plt.imshow(test_X[0,:,:], cmap='gray')
+plt.title("Ground Truth : {}".format(test_Y[0]))
+```
+
+las imagenes son matrices de 28x28, por lo que se deben aplanar para poder ser utilizadas en la red neuronal. El tamaño de la imagen es debe de ser de 28x28x1. 
+
+```{python}
+train_X = train_X.reshape(-1, 28,28, 1)
+test_X = test_X.reshape(-1, 28,28, 1)
+train_X.shape, test_X.shape
+```
+
+Como paso previo debemos convertir los datos a flotantes y normalizarlos:
+
+```{python}
+train_X = train_X.astype('float32')
+test_X = test_X.astype('float32')
+train_X = train_X / 255.
+test_X = test_X / 255.
+```
+
+Ahora debemos convertir los labels a one-hot encoding:
+
+```{python}
+# Change the labels from categorical to one-hot encoding
+train_Y_one_hot = to_categorical(train_Y)
+test_Y_one_hot = to_categorical(test_Y)
+
+# Display the change for category label using one-hot encoding
+print('Original label:', train_Y[0])
+print('After conversion to one-hot:', train_Y_one_hot[0])
+```
+
+Esto quiere dercir que `train_Y_one_hot` es una matriz de 60000x10 donde cada fila indica la clase a la que pertenece la imagen.
+
+Ahora debemos dividir los datos de entrenamiento en datos de entrenamiento y datos de validación:
+
+```{python}
+from sklearn.model_selection import train_test_split
+train_X,valid_X,train_label,valid_label = train_test_split(train_X, train_Y_one_hot, test_size=0.2, random_state=13)
+train_X.shape,valid_X.shape,train_label.shape,valid_label.shape
+```
+
+El modelo que se va a utilizar es el siguiente:
+
+![](./figuras/DL02.webp){fig-align="center"}
+
+Primero se importaran las librerías necesarias:
+
+```{python}
+import keras
+from tensorflow.python.keras.models import Input
+from keras.models import Sequential,Model
+from keras.layers import Dense, Dropout, Flatten
+from keras.layers import Conv2D, MaxPooling2D
+from keras.layers import BatchNormalization
+from keras.layers import LeakyReLU
+
+batch_size = 64
+epochs = 20
+num_classes = 10
+```
+
+Ahora si se crea el modelo:
+
+```{python}
+fashion_model = Sequential()
+fashion_model.add(Conv2D(32, kernel_size=(3, 3),activation='linear',padding='same',input_shape=(28,28,1)))
+fashion_model.add(LeakyReLU(alpha=0.1))
+fashion_model.add(MaxPooling2D((2, 2),padding='same'))
+fashion_model.add(Dropout(0.25))
+fashion_model.add(Conv2D(64, (3, 3), activation='linear',padding='same'))
+fashion_model.add(LeakyReLU(alpha=0.1))
+fashion_model.add(MaxPooling2D(pool_size=(2, 2),padding='same'))
+fashion_model.add(Dropout(0.25))
+fashion_model.add(Conv2D(128, (3, 3), activation='linear',padding='same'))
+fashion_model.add(LeakyReLU(alpha=0.1))                  
+fashion_model.add(MaxPooling2D(pool_size=(2, 2),padding='same'))
+fashion_model.add(Dropout(0.4))
+fashion_model.add(Flatten())
+fashion_model.add(Dense(128, activation='linear'))
+fashion_model.add(LeakyReLU(alpha=0.1))           
+fashion_model.add(Dropout(0.3))
+fashion_model.add(Dense(num_classes, activation='softmax'))
+
+```
+
+Compilamos 
+
+```{python}
+fashion_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),metrics=['accuracy'])
+fashion_model.summary()
+
+```
+
+Entremanos el modelo:
+
+```{python} 
+#| eval: false
+#| cache: true
+fashion_train_dropout = fashion_model.fit(train_X, train_label, batch_size=batch_size,epochs=epochs,verbose=1,validation_data=(valid_X, valid_label))
+```
+
+
+```{python}
+#| eval: false
+accuracy = fashion_train_dropout.history['acc']
+val_accuracy = fashion_train_dropout.history['val_acc']
+loss = fashion_train_dropout.history['loss']
+val_loss = fashion_train_dropout.history['val_loss']
+epochs = range(len(accuracy))
+plt.plot(epochs, accuracy, 'bo', label='Training accuracy')
+plt.plot(epochs, val_accuracy, 'b', label='Validation accuracy')
+plt.title('Training and validation accuracy')
+plt.legend()
+plt.figure()
+plt.plot(epochs, loss, 'bo', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.title('Training and validation loss')
+plt.legend()
+plt.show()
+```
+
+:::

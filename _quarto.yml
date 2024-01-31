@@ -19,6 +19,7 @@ book:
     - "3_descenso_del_gradiente.qmd"
     - "4_practica_basica.qmd"
     - "5_redes_neuronales_y_aprendizaje_profundo.qmd"
+    - "6_problemas_y_soluciones.qmd"
 format:
   html:
     theme: litera
