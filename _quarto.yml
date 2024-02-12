@@ -20,6 +20,8 @@ book:
     - "4_practica_basica.qmd"
     - "5_redes_neuronales_y_aprendizaje_profundo.qmd"
     - "6_problemas_y_soluciones.qmd"
+    - "7_practica_avanzada.qmd"
+    - "8_aprendizaje_no_supervisado.qmd"
 format:
   html:
     theme: litera

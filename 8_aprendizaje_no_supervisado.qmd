@@ -1,8 +1,9 @@
 # Aprendizaje no supervisado
 
 ## Estimación de densidad
-La estimación de la densidad es un problema de modelar la función de densidad (*pdf*) de la distribución desconcida del dataset. Sus aplicaciones principales son en la ditección de novedades e intrusiones. 
-Anteriormente se trabajó con la estimación de la *pdf* para el caso paramétrico con la distribución normal multivariada. Acá usaremos el método del kernel, ya que este es no paramétrico. 
+
+La estimación de la densidad es un problema de modelar la función de densidad (*pdf*) de la distribución desconcida del dataset. Sus aplicaciones principales son en la ditección de novedades e intrusiones.
+Anteriormente se trabajó con la estimación de la *pdf* para el caso paramétrico con la distribución normal multivariada. Acá usaremos el método del kernel, ya que este es no paramétrico.
 
 Así, sea $\{x_i\}_{i=1}^{N}$ un dataset de una dimensión donde las muestras son construidas a partir de una *pdf* desconocida $f$ con $x_i\in\mathbb{R}, \ \forall i=1, \ldots, N$. Estamos interesados en modelar la curva de la función $f$. Con nuestro modelo de kernel, denotado por $\hat{f}$, defindo como:
 $$
@@ -15,28 +16,30 @@ k(z) = \dfrac{1}{\sqrt{2\pi}}\exp\left(\dfrac{-z^2}{2}\right)
 \end{equation}
 Nosotros buscamos el valor de $h$ que minimiza la diferencia entre la curva original $f$ y la curva aproximada de nuestro modelo $f_{h}$. Una medida razonable para esta diferencia es el error cuadrático medio integrado (MISE, por sus siglas en inglés), definido por:
 $$
-MISE(b) = \mathbb{E}\left[\int_{\mathbb{R}}\left(\hat{f}_{h}(x)-f(x)\right)^2dx\right]   
+MISE(b) = \mathbb{E}\left[\int_{\mathbb{R}}\left(\hat{f}_{h}(x)-f(x)\right)^2dx\right]
 $${#eq-mise}
 
 En la ecuación (@eq-mise) la integral $\int_{\mathbb{R}}$ remplaza a la sumatoria $\displaystyle\sum_{i=1}^{N}$ que empleamos en el promedio, mientras que la esperanza $\mathbb{E}$ reemplaza el promedio $\dfrac{1}{N}$.
 
 Notese que cuando la función de pérdida es continua como la función de $\left(\hat{f}_{h}(x)-f(x)\right)^2$, se reemplaza la sumatoria por la integrasl. El operador de esperanza $\mathbb{E}$ siginifica que queremos que $h$ sea el óptimo para todos las posibilidades del set de entrenamiento. Esto es importante debido a que $\hat{f}_{h}$ es definido en un conjunto finito de datos de alguna distribución de probabilidad; mientras que la *pdf* real $f$ está definida en un dominio infinito $\mathbb{R}$.
 
-Note que, reescribiendo el lado derecho de la (@eq-mise), obtenemos 
+Note que, reescribiendo el lado derecho de la (@eq-mise), obtenemos
 $$
-\mathbb{E}\left[\int_{\mathbb{R}}\hat{f}_{h}^{2}(x)dx\right] 
--2\mathbb{E}\left[\int_{\mathbb{R}}\hat{f}_{h}(x)f(x)dx\right] 
+\mathbb{E}\left[\int_{\mathbb{R}}\hat{f}_{h}^{2}(x)dx\right]
+-2\mathbb{E}\left[\int_{\mathbb{R}}\hat{f}_{h}(x)f(x)dx\right]
+
 + \mathbb{E}\left[\int_{\mathbb{R}}f^{2}(x)dx\right]
+
 $$
 
 Note que el tercer término es independiente de $h$ y podría ser ignorado. Un estimador insesgado del primer término está dado por $\int_{\mathbb{R}}\hat{f}_{b}^{2}(x)dx$, mientras que el estimador insesgado para el segundo término está aproximado por $\dfrac{-2}{N}\displaystyle\sum_{i=1}^{N}\hat{f}_{h}^{(i)}(x_i)$, donde $\hat{f}_{h}^{(i)}(x_i)$ es el kernel con los datos de entrenamiento menos el dato $x_i$.
 
-El término $\displaystyle\sum_{i=1}^{N}\hat{f}_{h}^{(i)}(x_i)$ es conocindo como el estimador de dejar una estimación por fuera (*leave one out estimate*); es una forma de validación cruzada donde cada *fold* contienen una muestra. 
+El término $\displaystyle\sum_{i=1}^{N}\hat{f}_{h}^{(i)}(x_i)$ es conocindo como el estimador de dejar una estimación por fuera (*leave one out estimate*); es una forma de validación cruzada donde cada *fold* contienen una muestra.
 Además, se puede ver como $\int_{\mathbb{R}}\hat{f}_{h}(x)f(x)dx$ es la esperanza de la función $\hat{f}_{h}$, esto por que $f$ es una función de densidad. Se puede demostra que el estimador *leave one out estimate* es un estimador insesgado para $\mathbb{E}\left[\int_{\mathbb{R}}\hat{f}_{h}(x)f(x)dx\right]$.
 
 Ahora, para hallar el valor óptimo $h^*$ para $h$, queremos minimizar la función de costo definida por:
 $$
-\displaystyle\int_{\mathbb{R}}\hat{f}_{h}^{2}(x)dx - \dfrac{2}{N}\displaystyle\sum_{i=1}^{N}\hat{f}_{h}^{(i)}(x_i)
+\displaystyle\int_{\mathbb{R}}\hat{f}*{h}^{2}(x)dx - \dfrac{2}{N}\displaystyle\sum*{i=1}^{N}\hat{f}_{h}^{(i)}(x_i)
 $$
 
 Se puede hallar $h^*$ utilizando *grid search*¨. Para $D$ dimensiones, el término del error $x-x_i$ de la (@eq-fhat) puede ser reemplazado por la norma euclidea $||\mathbb{x}-\mathbb{x}_{i}||$.
@@ -173,9 +176,9 @@ La agrupación es un problema de aprender a asignar una etiqueta a ejemplos apro
 
 ## K-Medias
 
-El algoritmo de agrupamiento de k-medias funciona de la siguiente manera: 
+El algoritmo de agrupamiento de k-medias funciona de la siguiente manera:
 
-Primero, el analista tiene que elegir k - el número de clases (o grupos). Luego colocamos aleatoriamente k vectores de características, llamados centroides, en el espacio de características. 
+Primero, el analista tiene que elegir k - el número de clases (o grupos). Luego colocamos aleatoriamente k vectores de características, llamados centroides, en el espacio de características.
 
 Luego calculamos la distancia desde cada ejemplo x a cada centroide usando alguna métrica, como la distancia euclidiana. Luego asignamos el centroide más cercano a cada ejemplo (como si etiquetáramos cada ejemplo con una identificación de centroide como etiqueta). Para cada centroide, calculamos el vector de características promedio de los ejemplos etiquetados con él. Estas características promedio los vectores se convierten en las nuevas ubicaciones de los centroides.
 
@@ -222,3 +225,222 @@ kmeans.fit(data)
 plt.scatter(x, y, c=kmeans.labels_)
 plt.show()
 ```
+
+## Reducción de dimensionalidad
+
+### Análisis de componentes principales (PCA)
+
+### UMAP
+
+ UMAP (Uniform Manifold Approximation and Projection) es un algoritmo de aprendizaje de manifolds para la reducción de dimensionalidad, superior a t-SNE por su eficiencia y versatilidad. Desarrollado por Leland McInnes, John Healy y James Melville en 2018, UMAP se fundamenta en el análisis topológico de datos, ofreciendo una metodología robusta para visualizar y analizar datos en alta dimensión.
+
+El algoritmo construye representaciones topológicas de los datos mediante aproximaciones locales del manifold y uniendo estas representaciones en un conjunto simplicial difuso. Minimiza la entropía cruzada entre las representaciones topológicas de los espacios de alta y baja dimensión para lograr una proyección coherente.
+
+ Se dará un resumen básico del método, sin embargo se recomienda leer el artículo original de UMAP para una comprensión más profunda.
+
+### Análisis topológico de datos y complejos simpliciales
+
+ Geometricamente, un \(k\)-simplex es un objeto \(k\)-dimensional que es simplemente la envolutra convexa de \(k+1\) puntos en un espacio \(k\)-dimensional. Un 0-simplex es un vértice, un 1-simplex es una arista, un 2-simplex es un triángulo, un 3-simplex es un tetraedro, etc.
+
+![](https://umap-learn.readthedocs.io/en/latest/_images/simplices.png)
+
+Un complejo simplicial \(K\) es una colección de simplexes que cumple con dos propiedades:
+
+1. Cada cara de un simplex en \(K\) también está en \(K\).
+2. La intersección de dos simplexes en \(\sigma_{1}, \sigma_{2} \in K\) es una cara de ambos \(\sigma_{1}\) y \(\sigma_{2}\).
+
+![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy83NDkzMzg1LWViNjY0NDgxNWMxYzk2YTgucG5n?x-oss-process=image/format,png#pic_center)
+
+### Construcción intuitiva de UMAP
+
+Un conjunto de datos es solo una colección finita de puntos en un espacio. En general para entender las características topoloficas, necesitas crear una covertura abierta del espacio. Si los datos están en un espacio métrico, una forma de aproximar esas coverturas abiertas es con bolas abiertas alrededor de cada punto.
+
+Por ejemplo, suponga que se tiene un conjunto con esta forma:
+
+![](https://umap-learn.readthedocs.io/en/latest/_images/how_umap_works_raw_data.png)
+
+Si se toma cada punto y se dibuja una bola alrededor de él, se obtiene algo como esto:
+
+![](https://umap-learn.readthedocs.io/en/latest/_images/how_umap_works_open_cover.png)
+
+Podemos generar un complejo simplicial a través de un complejo Vietoris-Rips. Este complejo se construye tomando cada bola y creando una arista entre cada par de bolas que se superponen. Luego, se crean triángulos entre cada terna de bolas que se superponen, y así sucesivamente.
+
+![](https://umap-learn.readthedocs.io/en/latest/_images/how_umap_works_basic_graph.png)
+
+Esto genera que ahora los datos estén representados a través de un grafo en baja dimensión.
+
+### Adaptación del problema a datos reales
+
+**Problema #1: Escogencia del radio**
+
+La técnica anterior tiene un problema, no sabemos de antemano el radio óptimo de las bolas. Entonces:
+
++ Radio es muy pequeno -> No se capturan las relaciones entre los puntos
++ Radio es muy grande -> Se pierde la estructura local de los datos
+
+**Solución:** Asumir que los datos son uniformes en la variedad 
+
+![](https://umap-learn.readthedocs.io/en/latest/_images/how_umap_works_uniform_distribution_cover.png)
+
+El problema es que este tipo de supuesto no es real para toda la variedad. El problema es que la noción de distancia varía de punto a punto. En algunos puntos es más largo otros más corto. 
+
+Sin embargo, podemos construir una aproximación de uniformidad local de los puntos usando la geometría Riemaniana. Esto es que la bola alrededor de un punto se extiende hasta los \(k\) vecinos más cercanos. Así que cada punto tendrá su propia función de distancia. 
+
+Desde un punto topológico, \(k\) significa qué tanto queremos estimar la métrica Riemaniana localmente. Si \(k\) es pequeño se explicaría features muy locales. Si \(k\) es grande, el features sería más global. 
+
+![](https://umap-learn.readthedocs.io/en/latest/_images/how_umap_works_local_metric_open_cover.png)
+
+### Un beneficio de la geometría Riemaniana
+
+
+Se puede tener un espacio métrico asociado con cada punto. Es decir, cada punto puede medir distancia de forma significativa de modo que se puede estimar el peso de las aristas del grafo con las distancias que se genera. 
+
+Ahora, pensemos que si en lugar de decir que la covertura fue una un "si" o "no", fuera un concepto más difuso como un valor de 0 a 1. Entonces, a partir del cierto punto, el valor se vuelve mas cercano a 0 conforme nos alejamos de este. 
+
+![](https://umap-learn.readthedocs.io/en/latest/_images/how_umap_works_fuzzy_open_cover.png)
+ 
+
+**Problema #2: El manifold podría no estar conectado totalmente.**
+
+Es decir, el manifold podría ser simplemente un montón de islas de puntos sin vecinos muy cercanos. 
+
+**Solución:** Usar la conectividad local. 
+
+El algoritmo asume que el manifold es **localmente conexo**. Debido a la maldición de la dimensionalidad, los datos en un espacio de alta dimensión tienen una mayor distancia, pero también pueden ser más similares entre sí. Esto significa que la distancia al primer vecino más cercano puede ser bastante grande, pero la distancia al décimo vecino más cercano suele ser solo ligeramente mayor (relativamente hablando). La restricción de conectividad local asegura que nos centremos en la diferencia de distancia entre los vecinos más cercanos, no en la distancia absoluta (lo que muestra que la diferencia entre vecinos es pequeña).
+
+
+**Problema 3: Incompatibilidad de la métrica local.**
+
+Cada punto tiene una métrica local asociada, y desde el punto de vista del punto \(a\), la distancia desde el punto a hasta el punto b puede ser 1.5, pero desde el punto de vista del punto \(b\), la distancia desde el punto b hasta el punto a podría ser solo 0.6.
+
+Basándonos en la intuición del gráfico, se puede considerar que esto es un borde dirigido con diferentes pesos, como se muestra en la siguiente figura:
+
+![](https://umap-learn.readthedocs.io/en/latest/_images/how_umap_works_raw_graph.png)
+
+Combinar los dos bordes inconsistentes con pesos a y b juntos, entonces deberíamos tener un peso combinado \(a+b-a\cdot b\). La forma de pensar esto es que el peso es en realidad la probabilidad de que exista el borde (1-símplex). Entonces, el peso combinado es la probabilidad de que exista al menos un borde.
+
+Si aplicamos este proceso para fusionar todos los conjuntos simpliciales difusos juntos, terminamos con un solo complejo simplicial difuso, que podemos considerar nuevamente como un gráfico ponderado. En términos de cálculo, simplemente aplicamos la fórmula de combinación de pesos de bordes a todo el gráfico (el peso de los no bordes es 0). Al final, obtenemos algo como esto.
+
+![](https://umap-learn.readthedocs.io/en/latest/_images/how_umap_works_umap_graph.png)
+
+Entonces, asumiendo que ahora tenemos una representación topológica difusa de los datos (hablando matemáticamente, capturará la topología del manifold detrás de los datos), ¿cómo lo convertimos en una representación de baja dimensión?
+
+### Encontrando una representación de baja dimensión
+
+La representación de baja dimensión debe tener la misma estructura topologica fuzzy de los datos. Tenemos dos problemas acá: 1. Cómo determinar la representación fuzzy en el espacio de baja dimensión y 2. cómo encontrar una buena. 
+
+Para 1., básicamente se haraá el mismo proceso pero con un espacio de \(\mathbb{R}^2\) o \(\mathbb{R}^3\). 
+
+Con 2., el problema se resuelve calibrando las mismas distancias de la topología difusa en la variedad con respecto a la distancias de la topología en \(\mathbb{R}^{2}\). 
+
+
+Recordando el método de procesamiento de peso anterior, interpretamos el peso como la probabilidad de la existencia de un símplex. Dado que las dos topologías que estamos comparando comparten el mismo 0-símplex, es concebible que estamos comparando dos vectores de probabilidad indexados por el 1-símplex. Suponiendo que estos son todas variables de Bernoulli (el símplex final existe o no, y la probabilidad es un parámetro de la distribución de Bernoulli), la elección correcta aquí es la entropía cruzada.
+
+Para entender el proceso priero definamos algunos conceptos. 
+
+Usando los \(k\) vecinos más cercanos para \(x_i\) es el conjunto de puntos \(\{x_{i_{1}}, \dots, x_{i_{k}}\}\) tal que: 
+
+\[
+\rho_{i} = \min_{1 \leq j \leq k} d(x_{i}, x_{i_{j}})
+\] 
+
+La función de peso para el 1-símplex \(\{x_{i}, x_{j}\}\) es:
+
+\[
+w_{h}(x_{i}, x_{j}) = \exp\left(-\dfrac{d(x_{i}, x_{j}) - \rho_{i}}{\sigma_{i}}\right)
+\]
+ 
+Si el conjunto de todos los posibles 1-símplexes entre \(x_i\) y \(x_j\) y la función ponderada hace que \(w_h(x_{i}, x_{j})\) sea el peso de ese simplex en la dimensión alta, y $w_l(x_i^{l}, x_j^{l})$ en la dimensión baja, entonces la entropía cruzada es:
+
+\[
+\sum_{i=1}^{N} \sum_{j=1}^{N} w_{h}(x_{i}, x_{j}) \frac{\log(w_{h}(x_{i}, x_{j}))}{\log(w_{l}(x^{l}_{i}, x^{l}_{j}))} + (1-w_{h}(x_{i}, x_{j})) \frac{\log(1-w_{h}(x_{i}, x_{j}))}{\log(1-w_{l}(x^{l}_{i}, x^{l}_{j}))}
+\]
+
+Desde la perspectiva de los gráficos, minimizar la entropía cruzada se puede considerar como un algoritmo de diseño de gráficos dirigido por fuerza.
+
+El primer ítem, \(w_h(e) \log(w_h(e)/w_l(e))\) proporciona atracción entre los puntos \(e\) cuando hay un peso mayor en el espacio de alta dimensión. Al minimizar este sumando \(w_l(e)\) debe ser lo más grande posible y la distancia entre puntos es lo más pequeña posible.
+
+El segundo sumando, \((1 - w_h(e)) \log((1 - w_h(e))/(1 - w_l(e)))\) proporciona fuerza repulsiva entre los dos segmentos de  \(e\) cuando \(w_h(e)\) es pequeño. Al hacer \(w_l(e)\) lo más pequeño posible, se minimiza esta parte. 
+
+
+### Ejemplos 
+
+```{python}
+import umap
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_digits
+import pandas
+
+# Cargar el conjunto de datos
+digits = load_digits()
+data = digits.data
+target = digits.target
+
+# Instanciar UMAP y reducir la dimensionalidad
+reducer = umap.UMAP(random_state=42)
+data_reduced = reducer.fit_transform(data)
+data_reduced = pandas.DataFrame(data_reduced, columns=["x", "y"])
+# Visualizar el resultado
+
+plt.figure(figsize=(12, 10))
+sns.scatterplot(data= data_reduced,x = "x", y="y", hue=target, palette='tab10')
+plt.title('UMAP projection of the Digits dataset')
+plt.show()
+
+# Compare el ressultado con PCA
+
+from sklearn.decomposition import PCA
+
+pca = PCA(n_components=2)
+data_pca = pca.fit_transform(data)
+data_pca = pandas.DataFrame(data_pca, columns=["x", "y"])
+
+plt.figure(figsize=(12, 10))
+sns.scatterplot(data= data_pca,x = "x", y="y", hue=target, palette='tab10')
+plt.title('PCA projection of the Digits dataset')
+plt.show()
+```
+
+
+```{python}
+import umap.umap_ as umap
+from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.svm import SVC
+
+# Cargar el conjunto de datos
+digits = load_digits()
+data = digits.data
+target = digits.target
+
+# Dividir el conjunto de datos
+X_train, X_test, y_train, y_test = train_test_split(data, target, test_size=0.25, random_state=42)
+
+# Reducción de dimensionalidad con UMAP
+umap_reducer = umap.UMAP(random_state=42)
+X_train_reduced = umap_reducer.fit_transform(X_train)
+X_test_reduced = umap_reducer.transform(X_test)
+
+
+# Claificación con SVM
+svm = SVC()
+svm.fit(X_train_reduced, y_train)
+
+# Predicción y evaluación
+y_pred = svm.predict(X_test_reduced)
+print("Accuracy con UMAP:", accuracy_score(y_test, y_pred))
+
+# Clasificación con SVM
+svm = SVC()
+svm.fit(X_train, y_train)
+
+# Predicción y evaluación
+y_pred = svm.predict(X_test)
+print("Accuracy sin UMAP:", accuracy_score(y_test, y_pred))
+
+
+```
+
