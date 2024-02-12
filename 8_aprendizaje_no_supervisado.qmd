@@ -1,0 +1,224 @@
+# Aprendizaje no supervisado
+
+## Estimación de densidad
+La estimación de la densidad es un problema de modelar la función de densidad (*pdf*) de la distribución desconcida del dataset. Sus aplicaciones principales son en la ditección de novedades e intrusiones. 
+Anteriormente se trabajó con la estimación de la *pdf* para el caso paramétrico con la distribución normal multivariada. Acá usaremos el método del kernel, ya que este es no paramétrico. 
+
+Así, sea $\{x_i\}_{i=1}^{N}$ un dataset de una dimensión donde las muestras son construidas a partir de una *pdf* desconocida $f$ con $x_i\in\mathbb{R}, \ \forall i=1, \ldots, N$. Estamos interesados en modelar la curva de la función $f$. Con nuestro modelo de kernel, denotado por $\hat{f}$, defindo como:
+$$
+\hat{f}_h(x) = \dfrac{1}{Nh}\sum_{i=1}^{N} k\left(\dfrac{x-x_i}{h}\right)
+$${#eq-fhat}
+
+Donde $h$ es un hiperparámetro que controla la relación sesgo-varianza. Acá usaremos el kernel gaussiano:
+\begin{equation}
+k(z) = \dfrac{1}{\sqrt{2\pi}}\exp\left(\dfrac{-z^2}{2}\right)
+\end{equation}
+Nosotros buscamos el valor de $h$ que minimiza la diferencia entre la curva original $f$ y la curva aproximada de nuestro modelo $f_{h}$. Una medida razonable para esta diferencia es el error cuadrático medio integrado (MISE, por sus siglas en inglés), definido por:
+$$
+MISE(b) = \mathbb{E}\left[\int_{\mathbb{R}}\left(\hat{f}_{h}(x)-f(x)\right)^2dx\right]   
+$${#eq-mise}
+
+En la ecuación (@eq-mise) la integral $\int_{\mathbb{R}}$ remplaza a la sumatoria $\displaystyle\sum_{i=1}^{N}$ que empleamos en el promedio, mientras que la esperanza $\mathbb{E}$ reemplaza el promedio $\dfrac{1}{N}$.
+
+Notese que cuando la función de pérdida es continua como la función de $\left(\hat{f}_{h}(x)-f(x)\right)^2$, se reemplaza la sumatoria por la integrasl. El operador de esperanza $\mathbb{E}$ siginifica que queremos que $h$ sea el óptimo para todos las posibilidades del set de entrenamiento. Esto es importante debido a que $\hat{f}_{h}$ es definido en un conjunto finito de datos de alguna distribución de probabilidad; mientras que la *pdf* real $f$ está definida en un dominio infinito $\mathbb{R}$.
+
+Note que, reescribiendo el lado derecho de la (@eq-mise), obtenemos 
+$$
+\mathbb{E}\left[\int_{\mathbb{R}}\hat{f}_{h}^{2}(x)dx\right] 
+-2\mathbb{E}\left[\int_{\mathbb{R}}\hat{f}_{h}(x)f(x)dx\right] 
++ \mathbb{E}\left[\int_{\mathbb{R}}f^{2}(x)dx\right]
+$$
+
+Note que el tercer término es independiente de $h$ y podría ser ignorado. Un estimador insesgado del primer término está dado por $\int_{\mathbb{R}}\hat{f}_{b}^{2}(x)dx$, mientras que el estimador insesgado para el segundo término está aproximado por $\dfrac{-2}{N}\displaystyle\sum_{i=1}^{N}\hat{f}_{h}^{(i)}(x_i)$, donde $\hat{f}_{h}^{(i)}(x_i)$ es el kernel con los datos de entrenamiento menos el dato $x_i$.
+
+El término $\displaystyle\sum_{i=1}^{N}\hat{f}_{h}^{(i)}(x_i)$ es conocindo como el estimador de dejar una estimación por fuera (*leave one out estimate*); es una forma de validación cruzada donde cada *fold* contienen una muestra. 
+Además, se puede ver como $\int_{\mathbb{R}}\hat{f}_{h}(x)f(x)dx$ es la esperanza de la función $\hat{f}_{h}$, esto por que $f$ es una función de densidad. Se puede demostra que el estimador *leave one out estimate* es un estimador insesgado para $\mathbb{E}\left[\int_{\mathbb{R}}\hat{f}_{h}(x)f(x)dx\right]$.
+
+Ahora, para hallar el valor óptimo $h^*$ para $h$, queremos minimizar la función de costo definida por:
+$$
+\displaystyle\int_{\mathbb{R}}\hat{f}_{h}^{2}(x)dx - \dfrac{2}{N}\displaystyle\sum_{i=1}^{N}\hat{f}_{h}^{(i)}(x_i)
+$$
+
+Se puede hallar $h^*$ utilizando *grid search*¨. Para $D$ dimensiones, el término del error $x-x_i$ de la (@eq-fhat) puede ser reemplazado por la norma euclidea $||\mathbb{x}-\mathbb{x}_{i}||$.
+
+```{python}
+#Importar las librerías
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import norm
+from sklearn.neighbors import KernelDensity
+
+# ----------------------------------------------------------------------
+# Plot the progression of histograms to kernels
+np.random.seed(1)
+N = 20
+X = np.concatenate(
+    (np.random.normal(0, 1, int(0.3 * N)), np.random.normal(5, 1, int(0.7 * N)))
+)[:, np.newaxis]
+X_plot = np.linspace(-5, 10, 1000)[:, np.newaxis]
+bins = np.linspace(-5, 10, 10)
+
+fig, ax = plt.subplots(2, 2, sharex=True, sharey=True)
+fig.subplots_adjust(hspace=0.05, wspace=0.05)
+
+# Histograma
+ax[0, 0].hist(X[:, 0], bins=bins, fc="#AAAAFF", density=True)
+ax[0, 0].text(-3.5, 0.31, "Histograma")
+
+# Histograma con las particiones desplazadas
+ax[0, 1].hist(X[:, 0], bins=bins + 0.75, fc="#AAAAFF", density=True)
+ax[0, 1].text(-3.5, 0.31, "Histograma, bins desplazados")
+
+# tophat KDE
+kde = KernelDensity(kernel="tophat", bandwidth=0.75).fit(X)
+log_dens = kde.score_samples(X_plot)
+ax[1, 0].fill(X_plot[:, 0], np.exp(log_dens), fc="#AAAAFF")
+ax[1, 0].text(-3.5, 0.31, "Tophat Kernel Density")
+
+# Gaussian KDE
+kde = KernelDensity(kernel="gaussian", bandwidth=0.75).fit(X)
+log_dens = kde.score_samples(X_plot)
+ax[1, 1].fill(X_plot[:, 0], np.exp(log_dens), fc="#AAAAFF")
+ax[1, 1].text(-3.5, 0.31, "Gaussian Kernel Density")
+
+for axi in ax.ravel():
+    axi.plot(X[:, 0], np.full(X.shape[0], -0.01), "+k")
+    axi.set_xlim(-4, 9)
+    axi.set_ylim(-0.02, 0.34)
+
+for axi in ax[:, 0]:
+    axi.set_ylabel("Normalized Density")
+
+for axi in ax[1, :]:
+    axi.set_xlabel("x")
+
+# ----------------------------------------------------------------------
+# Plot all available kernels
+X_plot = np.linspace(-6, 6, 1000)[:, None]
+X_src = np.zeros((1, 1))
+
+fig, ax = plt.subplots(2, 3, sharex=True, sharey=True)
+fig.subplots_adjust(left=0.05, right=0.95, hspace=0.05, wspace=0.05)
+
+
+def format_func(x, loc):
+    if x == 0:
+        return "0"
+    elif x == 1:
+        return "h"
+    elif x == -1:
+        return "-h"
+    else:
+        return "%ih" % x
+
+
+for i, kernel in enumerate(
+    ["gaussian", "tophat", "epanechnikov", "exponential", "linear", "cosine"]
+):
+    axi = ax.ravel()[i]
+    log_dens = KernelDensity(kernel=kernel).fit(X_src).score_samples(X_plot)
+    axi.fill(X_plot[:, 0], np.exp(log_dens), "-k", fc="#AAAAFF")
+    axi.text(-2.6, 0.95, kernel)
+
+    axi.xaxis.set_major_formatter(plt.FuncFormatter(format_func))
+    axi.xaxis.set_major_locator(plt.MultipleLocator(1))
+    axi.yaxis.set_major_locator(plt.NullLocator())
+
+    axi.set_ylim(0, 1.05)
+    axi.set_xlim(-2.9, 2.9)
+
+ax[0, 1].set_title("Kernels Disponibles")
+
+# ----------------------------------------------------------------------
+# Plot a 1D density example
+N = 100
+np.random.seed(1)
+X = np.concatenate(
+    (np.random.normal(0, 1, int(0.3 * N)), np.random.normal(5, 1, int(0.7 * N)))
+)[:, np.newaxis]
+
+X_plot = np.linspace(-5, 10, 1000)[:, np.newaxis]
+
+true_dens = 0.3 * norm(0, 1).pdf(X_plot[:, 0]) + 0.7 * norm(5, 1).pdf(X_plot[:, 0])
+
+fig, ax = plt.subplots()
+ax.fill(X_plot[:, 0], true_dens, fc="black", alpha=0.2, label="input distribution")
+colors = ["navy", "cornflowerblue", "darkorange"]
+kernels = ["gaussian", "tophat", "epanechnikov"]
+lw = 2
+
+for color, kernel in zip(colors, kernels):
+    kde = KernelDensity(kernel=kernel, bandwidth=0.5).fit(X)
+    log_dens = kde.score_samples(X_plot)
+    ax.plot(
+        X_plot[:, 0],
+        np.exp(log_dens),
+        color=color,
+        lw=lw,
+        linestyle="-",
+        label="kernel = '{0}'".format(kernel),
+    )
+
+ax.text(6, 0.38, "N={0} points".format(N))
+
+ax.legend(loc="upper left")
+ax.plot(X[:, 0], -0.005 - 0.01 * np.random.random(X.shape[0]), "+k")
+
+ax.set_xlim(-4, 9)
+ax.set_ylim(-0.02, 0.4)
+plt.show()
+```
+
+La agrupación es un problema de aprender a asignar una etiqueta a ejemplos aprovechando un no etiquetado conjunto de datos. Debido a que el conjunto de datos no está etiquetado en absoluto, decidir si el modelo aprendido es óptimo es mucho más complicado que en el aprendizaje supervisado. Existe una variedad de algoritmos de agrupamiento y, desafortunadamente, es difícil saber cuál es el mejor calidad para su conjunto de datos. Generalmente, el rendimiento de cada algoritmo depende de las propiedades desconocidas de la distribución de probabilidad de la que se extrajo el conjunto de datos.
+
+## K-Medias
+
+El algoritmo de agrupamiento de k-medias funciona de la siguiente manera: 
+
+Primero, el analista tiene que elegir k - el número de clases (o grupos). Luego colocamos aleatoriamente k vectores de características, llamados centroides, en el espacio de características. 
+
+Luego calculamos la distancia desde cada ejemplo x a cada centroide usando alguna métrica, como la distancia euclidiana. Luego asignamos el centroide más cercano a cada ejemplo (como si etiquetáramos cada ejemplo con una identificación de centroide como etiqueta). Para cada centroide, calculamos el vector de características promedio de los ejemplos etiquetados con él. Estas características promedio los vectores se convierten en las nuevas ubicaciones de los centroides.
+
+El valor de k, el número de clusters, es un hiperparámetro que los datos deben ajustar. Existen algunas técnicas para seleccionar k. Ninguno de ellos ha demostrado ser óptimo. La mayoría de requieren que el analista haga una “suposición fundamentada” observando algunas métricas o examinando visualmente las asignaciones de grupos. Más adelante en este capítulo, consideraremos una técnica lo que permite elegir un valor razonablemente bueno para k sin mirar los datos y hacer suposiciones.
+
+### Ejemplo
+
+Visualización de datos
+
+```{python}
+import matplotlib.pyplot as plt
+
+x = [4, 5, 10, 4, 3, 11, 14 , 6, 10, 12]
+y = [21, 19, 24, 17, 16, 25, 24, 22, 21, 21]
+
+plt.scatter(x, y)
+plt.show()
+```
+
+Método del codo para seleccionar la cantidad de k:
+
+```{python}
+from sklearn.cluster import KMeans
+
+data = list(zip(x, y))
+inertias = []
+
+for i in range(1,11):
+    kmeans = KMeans(n_clusters=i, n_init="auto")
+    kmeans.fit(data)
+    inertias.append(kmeans.inertia_)
+
+plt.plot(range(1,11), inertias, marker='o')
+plt.title('Elbow method')
+plt.xlabel('Number of clusters')
+plt.ylabel('Inertia')
+plt.show()
+```
+
+```{python}
+kmeans = KMeans(n_clusters=2, n_init="auto")
+kmeans.fit(data)
+
+plt.scatter(x, y, c=kmeans.labels_)
+plt.show()
+```

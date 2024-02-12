@@ -256,6 +256,18 @@ df_train
 ax = sns.scatterplot(data=df_train, x="x0", y="x1", hue="y", palette="tab10")
 ```
 
+```{python}
+import umap
+
+reducer = umap.UMAP(n_neighbors=5)
+embedding = reducer.fit_transform(X)
+embedding.shape
+```
+```{python}
+plt.scatter(embedding[:,0], embedding[:,1],c=y)
+
+```
+
 **Definiendo el modelo OVR**
 
 ```{python}
@@ -338,7 +350,7 @@ from sklearn.svm import OneClassSVM
 # split into train/test sets
 trainX, testX, trainy, testy = train_test_split(X, y, test_size=0.5, random_state=2, stratify=y)
 # define outlier detection model
-model = OneClassSVM(gamma='scale', nu=0.01)
+model = OneClassSVM(gamma='scale', kernel="rbf", nu=0.01)
 # fit on majority class
 trainX_clean = trainX[trainy==0]
 model.fit(trainX_clean)
@@ -357,8 +369,8 @@ print('F1 Score: %.3f' % score)
 import numpy as np
 import matplotlib.pyplot as plt
 # define the meshgrid
-x_min, x_max = trainX[:, 0].min() - 5, trainX[:, 0].max() + 5
-y_min, y_max = trainX[:, 1].min() - 5, trainX[:, 1].max() + 5
+x_min, x_max = trainX[:, 0].min() - 1, trainX[:, 0].max() + 1
+y_min, y_max = trainX[:, 1].min() - 1, trainX[:, 1].max() + 1
 
 x_ = np.linspace(x_min, x_max, 500)
 y_ = np.linspace(y_min, y_max, 500)
