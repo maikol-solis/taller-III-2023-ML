@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.256">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,11 +17,12 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -93,6 +64,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./7_practica_avanzada.html" rel="next">
 <link href="./5_redes_neuronales_y_aprendizaje_profundo.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -109,7 +81,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
@@ -118,22 +96,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-match-text": "resultado adicional en este documento",
     "search-more-matches-text": "resultados adicionales en este documento",
     "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancelar",
-    "search-submit-button-title": "Enviar"
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="custom_style.css">
 <meta property="og:title" content="Taller de Verano: 100 páginas de Machine Learning - 7&nbsp; Problemas y soluciones">
-<meta property="og:description" content="La regresión de Kernel es utilizada para los casos, que la entrada es un vector de características D-dimensional, con D > 3. La regresión del kernel es un método no paramétrico.">
-<meta property="og:site-name" content="Taller de Verano: 100 páginas de Machine Learning">
+<meta property="og:description" content="">
+<meta property="og:site_name" content="Taller de Verano: 100 páginas de Machine Learning">
 <meta name="twitter:title" content="Taller de Verano: 100 páginas de Machine Learning - 7&nbsp; Problemas y soluciones">
-<meta name="twitter:description" content="La regresión de Kernel es utilizada para los casos, que la entrada es un vector de características D-dimensional, con D > 3. La regresión del kernel es un método no paramétrico.">
+<meta name="twitter:description" content="">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -141,11 +149,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Problemas y soluciones</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./6_problemas_y_soluciones.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Problemas y soluciones</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -153,73 +166,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Taller de Verano: 100 páginas de Machine Learning</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Buscar"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Taller de verano</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Taller de verano</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cómo funciona el aprendizaje supervisado</span></a>
+  <a href="./1_introduccion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cómo funciona el aprendizaje supervisado</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_algoritmos_fundamentales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algoritmos fundamentales</span></a>
+  <a href="./2_algoritmos_fundamentales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algoritmos fundamentales</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_descenso_del_gradiente.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Anatomía de un algoritmo de aprendizaje</span></a>
+  <a href="./3_descenso_del_gradiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Anatomía de un algoritmo de aprendizaje</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_practica_basica.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capítulo 5</span></a>
+  <a href="./4_practica_basica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Capítulo 5</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./5_redes_neuronales_y_aprendizaje_profundo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Redes neurales y Aprendizaje profundo</span></a>
+  <a href="./5_redes_neuronales_y_aprendizaje_profundo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Redes neurales y Aprendizaje profundo</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./6_problemas_y_soluciones.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Problemas y soluciones</span></a>
+  <a href="./6_problemas_y_soluciones.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Problemas y soluciones</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./7_practica_avanzada.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Práctica avanzada</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./8_aprendizaje_no_supervisado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aprendizaje no supervisado</span></span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#regresión-de-kernel" id="toc-regresión-de-kernel" class="nav-link active" data-scroll-target="#regresión-de-kernel"><span class="toc-section-number">7.1</span>  Regresión de Kernel</a></li>
-  <li><a href="#clasificación-multiclase" id="toc-clasificación-multiclase" class="nav-link" data-scroll-target="#clasificación-multiclase"><span class="toc-section-number">7.2</span>  Clasificación multiclase</a>
+  <li><a href="#regresión-de-kernel" id="toc-regresión-de-kernel" class="nav-link active" data-scroll-target="#regresión-de-kernel"><span class="header-section-number">7.1</span> Regresión de Kernel</a></li>
+  <li><a href="#clasificación-multiclase" id="toc-clasificación-multiclase" class="nav-link" data-scroll-target="#clasificación-multiclase"><span class="header-section-number">7.2</span> Clasificación multiclase</a>
   <ul class="collapse">
-  <li><a href="#uno-versus-el-resto-ovr" id="toc-uno-versus-el-resto-ovr" class="nav-link" data-scroll-target="#uno-versus-el-resto-ovr"><span class="toc-section-number">7.2.1</span>  Uno versus el resto (OVR)</a></li>
-  <li><a href="#implementación-en-python" id="toc-implementación-en-python" class="nav-link" data-scroll-target="#implementación-en-python"><span class="toc-section-number">7.2.2</span>  Implementación en python</a></li>
+  <li><a href="#uno-versus-el-resto-ovr" id="toc-uno-versus-el-resto-ovr" class="nav-link" data-scroll-target="#uno-versus-el-resto-ovr"><span class="header-section-number">7.2.1</span> Uno versus el resto (OVR)</a></li>
+  <li><a href="#implementación-en-python" id="toc-implementación-en-python" class="nav-link" data-scroll-target="#implementación-en-python"><span class="header-section-number">7.2.2</span> Implementación en python</a></li>
   </ul></li>
-  <li><a href="#clasificación-con-una-clase" id="toc-clasificación-con-una-clase" class="nav-link" data-scroll-target="#clasificación-con-una-clase"><span class="toc-section-number">7.3</span>  Clasificación con una clase</a></li>
-  <li><a href="#clasificación-multi-etiqueta" id="toc-clasificación-multi-etiqueta" class="nav-link" data-scroll-target="#clasificación-multi-etiqueta"><span class="toc-section-number">7.4</span>  Clasificación multi-etiqueta</a>
+  <li><a href="#clasificación-con-una-clase" id="toc-clasificación-con-una-clase" class="nav-link" data-scroll-target="#clasificación-con-una-clase"><span class="header-section-number">7.3</span> Clasificación con una clase</a></li>
+  <li><a href="#clasificación-multi-etiqueta" id="toc-clasificación-multi-etiqueta" class="nav-link" data-scroll-target="#clasificación-multi-etiqueta"><span class="header-section-number">7.4</span> Clasificación multi-etiqueta</a>
   <ul class="collapse">
-  <li><a href="#ejemplo-código" id="toc-ejemplo-código" class="nav-link" data-scroll-target="#ejemplo-código"><span class="toc-section-number">7.4.1</span>  Ejemplo código</a></li>
+  <li><a href="#ejemplo-código" id="toc-ejemplo-código" class="nav-link" data-scroll-target="#ejemplo-código"><span class="header-section-number">7.4.1</span> Ejemplo código</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -229,7 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Problemas y soluciones</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Problemas y soluciones</span></h1>
 </div>
 
 
@@ -242,7 +275,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
   
 
+
 </header>
+
 
 <section id="regresión-de-kernel" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="regresión-de-kernel"><span class="header-section-number">7.1</span> Regresión de Kernel</h2>
@@ -259,7 +294,7 @@ k(z)= \dfrac{1}{\sqrt{2\pi}}exp(\dfrac{-z^2}{2}).
 \]</span></p>
 <p>El valor b es un hiperparámetro que ajustamos usando el conjunto de validación.</p>
 <div id="exm-" class="theorem example">
-<p><span class="theorem-title"><strong>Ejemplo 7.1 </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Ejemplo 7.1</strong></span> &nbsp;</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -292,7 +327,11 @@ k(z)= \dfrac{1}{\sqrt{2\pi}}exp(\dfrac{-z^2}{2}).
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"noisy measurements available during training"</span></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="6_problemas_y_soluciones_files/figure-html/cell-4-output-1.png" width="600" height="467"></p>
+<div>
+<figure class="figure">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-4-output-1.png" width="600" height="467" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="cell" data-execution_count="4">
@@ -313,7 +352,11 @@ k(z)= \dfrac{1}{\sqrt{2\pi}}exp(\dfrac{-z^2}{2}).
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"target"</span>)</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(<span class="st">"Limitation of a linear model such as ridge"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="6_problemas_y_soluciones_files/figure-html/cell-5-output-1.png" width="600" height="449"></p>
+<div>
+<figure class="figure">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-5-output-1.png" width="600" height="449" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="cell" data-execution_count="5">
@@ -355,7 +398,11 @@ k(z)= \dfrac{1}{\sqrt{2\pi}}exp(\dfrac{-z^2}{2}).
 <pre><code>Fitting KernelRidge with default kernel: 0.002 seconds</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="6_problemas_y_soluciones_files/figure-html/cell-6-output-2.png" width="600" height="467"></p>
+<div>
+<figure class="figure">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-6-output-2.png" width="600" height="467" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Este modelo ajustado no es exacto. De hecho, no configuramos los parámetros del kernel y en su lugar utilizamos los predeterminados. Podemos inspeccionarlos.</p>
@@ -427,7 +474,11 @@ k(z)= \dfrac{1}{\sqrt{2\pi}}exp(\dfrac{-z^2}{2}).
 <pre><code>Time for KernelRidge predict: 0.006 seconds</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="6_problemas_y_soluciones_files/figure-html/cell-10-output-2.png" width="600" height="467"></p>
+<div>
+<figure class="figure">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-10-output-2.png" width="600" height="467" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -459,14 +510,14 @@ y \in \{1,...,C\}
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figuras/multiclass/img1.png" class="img-fluid figure-img" style="width:70.0%" alt="Problemas clasificación"></p>
-<p></p><figcaption class="figure-caption">Ilustración de problemas de clasificación</figcaption><p></p>
+<figcaption>Ilustración de problemas de clasificación</figcaption>
 </figure>
 </div>
 <p>Para la imagen de la derecha, un ejemplo de clasificación multiclase, podemos utilizar la estrategia de OVR, tal y como se muestra en la siguiente figura.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figuras/multiclass/img2.png" class="img-fluid figure-img" alt="Clasificación multiclase"></p>
-<p></p><figcaption class="figure-caption">Ilustración de la clasificación multiclase</figcaption><p></p>
+<figcaption>Ilustración de la clasificación multiclase</figcaption>
 </figure>
 </div>
 </section>
@@ -501,183 +552,184 @@ y \in \{1,...,C\}
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>df_train</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="38">
-
 <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>y</th>
-      <th>x0</th>
-      <th>x1</th>
-      <th>x2</th>
-      <th>x3</th>
-      <th>x4</th>
-      <th>x5</th>
-      <th>x6</th>
-      <th>x7</th>
-      <th>x8</th>
-      <th>x9</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2</td>
-      <td>-0.730468</td>
-      <td>0.397713</td>
-      <td>2.074811</td>
-      <td>3.268605</td>
-      <td>2.406136</td>
-      <td>-1.596750</td>
-      <td>-1.097254</td>
-      <td>0.839374</td>
-      <td>0.296566</td>
-      <td>-0.135522</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>3.365775</td>
-      <td>-1.418898</td>
-      <td>1.872383</td>
-      <td>-0.693364</td>
-      <td>-3.133404</td>
-      <td>-2.877166</td>
-      <td>0.404063</td>
-      <td>-1.955554</td>
-      <td>-1.324028</td>
-      <td>1.988373</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2</td>
-      <td>-3.921299</td>
-      <td>0.641428</td>
-      <td>-2.026409</td>
-      <td>-2.679728</td>
-      <td>2.478175</td>
-      <td>4.280245</td>
-      <td>0.959757</td>
-      <td>-1.031408</td>
-      <td>2.619929</td>
-      <td>-1.552321</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2</td>
-      <td>-0.476039</td>
-      <td>-0.361355</td>
-      <td>0.966933</td>
-      <td>2.514187</td>
-      <td>3.982157</td>
-      <td>-1.931150</td>
-      <td>-0.354184</td>
-      <td>2.025803</td>
-      <td>-0.295005</td>
-      <td>-2.314401</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0</td>
-      <td>-0.119220</td>
-      <td>-0.421085</td>
-      <td>0.706323</td>
-      <td>0.561597</td>
-      <td>-0.483120</td>
-      <td>0.058308</td>
-      <td>-0.852335</td>
-      <td>-0.952946</td>
-      <td>-0.161098</td>
-      <td>0.587163</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>745</th>
-      <td>2</td>
-      <td>-0.707565</td>
-      <td>-4.271104</td>
-      <td>1.374571</td>
-      <td>-0.328230</td>
-      <td>6.264860</td>
-      <td>-2.072022</td>
-      <td>0.239431</td>
-      <td>-1.271852</td>
-      <td>-0.637552</td>
-      <td>-5.091475</td>
-    </tr>
-    <tr>
-      <th>746</th>
-      <td>1</td>
-      <td>-0.514813</td>
-      <td>-0.473396</td>
-      <td>-2.421689</td>
-      <td>-1.699244</td>
-      <td>-0.952055</td>
-      <td>2.352776</td>
-      <td>-0.218440</td>
-      <td>0.078120</td>
-      <td>-0.600584</td>
-      <td>-0.977306</td>
-    </tr>
-    <tr>
-      <th>747</th>
-      <td>0</td>
-      <td>2.273762</td>
-      <td>1.123171</td>
-      <td>0.927239</td>
-      <td>2.014521</td>
-      <td>-1.140324</td>
-      <td>-2.785479</td>
-      <td>0.158036</td>
-      <td>2.155000</td>
-      <td>-0.954108</td>
-      <td>1.196839</td>
-    </tr>
-    <tr>
-      <th>748</th>
-      <td>0</td>
-      <td>5.365061</td>
-      <td>-7.979364</td>
-      <td>3.641793</td>
-      <td>0.967290</td>
-      <td>3.271363</td>
-      <td>-8.028106</td>
-      <td>-0.642597</td>
-      <td>-1.656500</td>
-      <td>-5.257335</td>
-      <td>-4.871621</td>
-    </tr>
-    <tr>
-      <th>749</th>
-      <td>1</td>
-      <td>0.202570</td>
-      <td>1.402667</td>
-      <td>1.272342</td>
-      <td>3.307607</td>
-      <td>-1.209962</td>
-      <td>-0.738314</td>
-      <td>-1.770443</td>
-      <td>1.023892</td>
-      <td>-0.361837</td>
-      <td>1.986999</td>
-    </tr>
-  </tbody>
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">y</th>
+<th data-quarto-table-cell-role="th">x0</th>
+<th data-quarto-table-cell-role="th">x1</th>
+<th data-quarto-table-cell-role="th">x2</th>
+<th data-quarto-table-cell-role="th">x3</th>
+<th data-quarto-table-cell-role="th">x4</th>
+<th data-quarto-table-cell-role="th">x5</th>
+<th data-quarto-table-cell-role="th">x6</th>
+<th data-quarto-table-cell-role="th">x7</th>
+<th data-quarto-table-cell-role="th">x8</th>
+<th data-quarto-table-cell-role="th">x9</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2</td>
+<td>-0.730468</td>
+<td>0.397713</td>
+<td>2.074811</td>
+<td>3.268605</td>
+<td>2.406136</td>
+<td>-1.596750</td>
+<td>-1.097254</td>
+<td>0.839374</td>
+<td>0.296566</td>
+<td>-0.135522</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>3.365775</td>
+<td>-1.418898</td>
+<td>1.872383</td>
+<td>-0.693364</td>
+<td>-3.133404</td>
+<td>-2.877166</td>
+<td>0.404063</td>
+<td>-1.955554</td>
+<td>-1.324028</td>
+<td>1.988373</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2</td>
+<td>-3.921299</td>
+<td>0.641428</td>
+<td>-2.026409</td>
+<td>-2.679728</td>
+<td>2.478175</td>
+<td>4.280245</td>
+<td>0.959757</td>
+<td>-1.031408</td>
+<td>2.619929</td>
+<td>-1.552321</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2</td>
+<td>-0.476039</td>
+<td>-0.361355</td>
+<td>0.966933</td>
+<td>2.514187</td>
+<td>3.982157</td>
+<td>-1.931150</td>
+<td>-0.354184</td>
+<td>2.025803</td>
+<td>-0.295005</td>
+<td>-2.314401</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>0</td>
+<td>-0.119220</td>
+<td>-0.421085</td>
+<td>0.706323</td>
+<td>0.561597</td>
+<td>-0.483120</td>
+<td>0.058308</td>
+<td>-0.852335</td>
+<td>-0.952946</td>
+<td>-0.161098</td>
+<td>0.587163</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">745</td>
+<td>2</td>
+<td>-0.707565</td>
+<td>-4.271104</td>
+<td>1.374571</td>
+<td>-0.328230</td>
+<td>6.264860</td>
+<td>-2.072022</td>
+<td>0.239431</td>
+<td>-1.271852</td>
+<td>-0.637552</td>
+<td>-5.091475</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">746</td>
+<td>1</td>
+<td>-0.514813</td>
+<td>-0.473396</td>
+<td>-2.421689</td>
+<td>-1.699244</td>
+<td>-0.952055</td>
+<td>2.352776</td>
+<td>-0.218440</td>
+<td>0.078120</td>
+<td>-0.600584</td>
+<td>-0.977306</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">747</td>
+<td>0</td>
+<td>2.273762</td>
+<td>1.123171</td>
+<td>0.927239</td>
+<td>2.014521</td>
+<td>-1.140324</td>
+<td>-2.785479</td>
+<td>0.158036</td>
+<td>2.155000</td>
+<td>-0.954108</td>
+<td>1.196839</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">748</td>
+<td>0</td>
+<td>5.365061</td>
+<td>-7.979364</td>
+<td>3.641793</td>
+<td>0.967290</td>
+<td>3.271363</td>
+<td>-8.028106</td>
+<td>-0.642597</td>
+<td>-1.656500</td>
+<td>-5.257335</td>
+<td>-4.871621</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">749</td>
+<td>1</td>
+<td>0.202570</td>
+<td>1.402667</td>
+<td>1.272342</td>
+<td>3.307607</td>
+<td>-1.209962</td>
+<td>-0.738314</td>
+<td>-1.770443</td>
+<td>1.023892</td>
+<td>-0.361837</td>
+<td>1.986999</td>
+</tr>
+</tbody>
 </table>
+
 <p>750 rows × 11 columns</p>
 </div>
 </div>
@@ -685,7 +737,11 @@ y \in \{1,...,C\}
 <div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.scatterplot(data<span class="op">=</span>df_train, x<span class="op">=</span><span class="st">"x0"</span>, y<span class="op">=</span><span class="st">"x1"</span>, hue<span class="op">=</span><span class="st">"y"</span>, palette<span class="op">=</span><span class="st">"tab10"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="6_problemas_y_soluciones_files/figure-html/cell-14-output-1.png" width="587" height="429"></p>
+<div>
+<figure class="figure">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-14-output-1.png" width="587" height="429" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p><strong>Definiendo el modelo OVR</strong></p>
@@ -728,7 +784,11 @@ y \in \{1,...,C\}
 <div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> sns.scatterplot(data<span class="op">=</span>df_test, x<span class="op">=</span><span class="st">"x0"</span>, y<span class="op">=</span><span class="st">"x1"</span>, hue<span class="op">=</span><span class="st">"y"</span>, palette<span class="op">=</span><span class="st">"tab10"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="6_problemas_y_soluciones_files/figure-html/cell-19-output-1.png" width="587" height="429"></p>
+<div>
+<figure class="figure">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-19-output-1.png" width="587" height="429" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Con la gráfica utilizando los mismos features <span class="math inline">\(x_0\)</span> y <span class="math inline">\(x_1\)</span> del conjunto de prueba pero esta vez con las etiquetas predichas por el modelo. Se marca una <em>x</em> roja sobre los puntos que fueron clasificados incorrectamente:</p>
@@ -739,7 +799,11 @@ y \in \{1,...,C\}
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> prediccion[i] <span class="op">!=</span> y_test[i]:</span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        ax2.plot(df_pred[<span class="st">"x0"</span>].iloc[i], df_pred[<span class="st">"x1"</span>].iloc[i], <span class="st">"rx"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="6_problemas_y_soluciones_files/figure-html/cell-20-output-1.png" width="587" height="429"></p>
+<div>
+<figure class="figure">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-20-output-1.png" width="587" height="429" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -769,7 +833,11 @@ y \in \{1,...,C\}
 <pre><code>Counter({0: 9990, 1: 10})</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="6_problemas_y_soluciones_files/figure-html/cell-21-output-2.png" width="569" height="411"></p>
+<div>
+<figure class="figure">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-21-output-2.png" width="569" height="411" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Se ajusta el modelo correspondiente</p>
@@ -828,7 +896,11 @@ The collections attribute was deprecated in Matplotlib 3.8 and will be removed t
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="6_problemas_y_soluciones_files/figure-html/cell-23-output-2.png" width="588" height="411"></p>
+<div>
+<figure class="figure">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-23-output-2.png" width="588" height="411" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="cell" data-execution_count="23">
@@ -955,7 +1027,11 @@ The collections attribute was deprecated in Matplotlib 3.8 and will be removed t
 <span id="cb33-121"><a href="#cb33-121" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-122"><a href="#cb33-122" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="6_problemas_y_soluciones_files/figure-html/cell-24-output-1.png" width="1309" height="1199"></p>
+<div>
+<figure class="figure">
+<p><img src="6_problemas_y_soluciones_files/figure-html/cell-24-output-1.png" width="1309" height="1199" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -973,7 +1049,6 @@ The collections attribute was deprecated in Matplotlib 3.8 and will be removed t
 <title>
 Tabla
 </title>
-
 <style>
         table {
             width: 100%;
@@ -988,7 +1063,6 @@ Tabla
             background-color: #f2f2f2;
         }
     </style>
-
 
 
 <table>
@@ -1073,7 +1147,6 @@ Otro
 </td>
 </tr>
 </tbody>
-
 </table>
 
 
@@ -1174,9 +1247,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1212,10 +1299,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("none\.com");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1225,8 +1329,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1241,6 +1354,238 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1278,32 +1623,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp(/none\.com/);
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
-    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-      }
-    }
 });
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./5_redes_neuronales_y_aprendizaje_profundo.html" class="pagination-link">
+      <a href="./5_redes_neuronales_y_aprendizaje_profundo.html" class="pagination-link  aria-label=" &lt;span="" neurales="" y="" aprendizaje="" profundo&lt;="" span&gt;"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Redes neurales y Aprendizaje profundo</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./7_practica_avanzada.html" class="pagination-link" aria-label="<span class='chapter-number'>8</span>&nbsp; <span class='chapter-title'>Práctica avanzada</span>">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Práctica avanzada</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 

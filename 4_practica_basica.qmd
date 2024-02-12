@@ -28,7 +28,7 @@ Con que facilidad el algoritmo logra explicar las predicciones que realiza, por 
 
 
 
- ![**Figura 2**. Método redes neuronales](red.ppm)
+ <!-- ![**Figura 2**. Método redes neuronales](red.ppm) -->
 
 ### Requisitos de memoria
 
@@ -48,14 +48,14 @@ Si los datos son linealmente separables o pueden modelarse mediante un modelo li
 
 **Ejemplo**
 
-![**Figura 3**. Métodos lineales](Lineal.png)
+<!-- ![**Figura 3**. Métodos lineales](Lineal.png) -->
 
 
 
 
 
 
-![**Figura 4**. No linealidad datos](nolineal.ppm)
+<!-- ![**Figura 4**. No linealidad datos](nolineal.ppm) -->
 
 
 ### Velocidad de entrenamiento
@@ -64,7 +64,7 @@ Es el tiempo que tarda un algoritmo en aprender y crear un modelo. Las redes neu
 
 **Ejemplo**
 
-![**Figura 5**. Bosque aleatorio](forest.png)
+<!-- ![**Figura 5**. Bosque aleatorio](forest.png) -->
 
 ### Velocidad de predicción
 
@@ -86,7 +86,7 @@ El conjunto de entrenamiento, suele ser el conjunto más grande y es el que se u
 
 **Ejemplo**
 
-![**Figura 7**. Gráfico de proporciones](Gr%C3%A1fico.png)
+<!-- ![**Figura 7**. Gráfico de proporciones](Gr%C3%A1fico.png) -->
 
 
 ![**Figura 8**. Solución problemas](https://enriquecatala.com/img/posts/IOB_train_test_split/train_test.png) 

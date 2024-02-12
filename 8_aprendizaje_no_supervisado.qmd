@@ -24,13 +24,11 @@ En la ecuación (@eq-mise) la integral $\int_{\mathbb{R}}$ remplaza a la sumator
 Notese que cuando la función de pérdida es continua como la función de $\left(\hat{f}_{h}(x)-f(x)\right)^2$, se reemplaza la sumatoria por la integrasl. El operador de esperanza $\mathbb{E}$ siginifica que queremos que $h$ sea el óptimo para todos las posibilidades del set de entrenamiento. Esto es importante debido a que $\hat{f}_{h}$ es definido en un conjunto finito de datos de alguna distribución de probabilidad; mientras que la *pdf* real $f$ está definida en un dominio infinito $\mathbb{R}$.
 
 Note que, reescribiendo el lado derecho de la (@eq-mise), obtenemos
-$$
+\begin{equation*}
 \mathbb{E}\left[\int_{\mathbb{R}}\hat{f}_{h}^{2}(x)dx\right]
 -2\mathbb{E}\left[\int_{\mathbb{R}}\hat{f}_{h}(x)f(x)dx\right]
-
 + \mathbb{E}\left[\int_{\mathbb{R}}f^{2}(x)dx\right]
-
-$$
+\end{equation*}
 
 Note que el tercer término es independiente de $h$ y podría ser ignorado. Un estimador insesgado del primer término está dado por $\int_{\mathbb{R}}\hat{f}_{b}^{2}(x)dx$, mientras que el estimador insesgado para el segundo término está aproximado por $\dfrac{-2}{N}\displaystyle\sum_{i=1}^{N}\hat{f}_{h}^{(i)}(x_i)$, donde $\hat{f}_{h}^{(i)}(x_i)$ es el kernel con los datos de entrenamiento menos el dato $x_i$.
 
@@ -383,7 +381,7 @@ data_reduced = reducer.fit_transform(data)
 data_reduced = pandas.DataFrame(data_reduced, columns=["x", "y"])
 # Visualizar el resultado
 
-plt.figure(figsize=(12, 10))
+
 sns.scatterplot(data= data_reduced,x = "x", y="y", hue=target, palette='tab10')
 plt.title('UMAP projection of the Digits dataset')
 plt.show()
@@ -396,7 +394,6 @@ pca = PCA(n_components=2)
 data_pca = pca.fit_transform(data)
 data_pca = pandas.DataFrame(data_pca, columns=["x", "y"])
 
-plt.figure(figsize=(12, 10))
 sns.scatterplot(data= data_pca,x = "x", y="y", hue=target, palette='tab10')
 plt.title('PCA projection of the Digits dataset')
 plt.show()
@@ -419,11 +416,14 @@ target = digits.target
 # Dividir el conjunto de datos
 X_train, X_test, y_train, y_test = train_test_split(data, target, test_size=0.25, random_state=42)
 
+
+
+```
+```{python}
 # Reducción de dimensionalidad con UMAP
 umap_reducer = umap.UMAP(random_state=42)
 X_train_reduced = umap_reducer.fit_transform(X_train)
 X_test_reduced = umap_reducer.transform(X_test)
-
 
 # Claificación con SVM
 svm = SVC()
@@ -432,7 +432,9 @@ svm.fit(X_train_reduced, y_train)
 # Predicción y evaluación
 y_pred = svm.predict(X_test_reduced)
 print("Accuracy con UMAP:", accuracy_score(y_test, y_pred))
+```
 
+```{python}
 # Clasificación con SVM
 svm = SVC()
 svm.fit(X_train, y_train)
@@ -441,6 +443,21 @@ svm.fit(X_train, y_train)
 y_pred = svm.predict(X_test)
 print("Accuracy sin UMAP:", accuracy_score(y_test, y_pred))
 
+```
+
+```{python}
+# Reducción de dimensionalidad con PCA
+pca = PCA(n_components=2)
+X_train_pca = pca.fit_transform(X_train)
+X_test_pca = pca.transform(X_test)
+
+# Clasificación con SVM
+svm = SVC()
+svm.fit(X_train_pca, y_train)
+
+# Predicción y evaluación
+y_pred = svm.predict(X_test_pca)
+print("Accuracy con PCA:", accuracy_score(y_test, y_pred))
 
 ```
 
