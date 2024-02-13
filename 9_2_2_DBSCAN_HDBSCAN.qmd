@@ -1,0 +1,132 @@
+### DBSCAN: Density Based spatial clustering of applications with noise
+
+Es uno de los métodos de aprendizaje no supervisado más utilizados para realizar agrupamientos basados en densidad. Tiene diferencias respecto a otros métodos de agrupamiento:
+
+| **K-Means** | **DBSCAN** |
+|---|---|
+| Basado en centroides | Basado en densidad |
+| Es sensible al número de clusters que definamos | No hay que definir el número de clusters |
+| Los clusters son esféricos y convexos | Los clusters pueden tener cualquier forma |
+| No funciona bien si tenemos muchos outliers,  pueden afectar la forma del cluster | Funciona bien con outliers y ruido |
+|  Definimos un parámetro: número de clusters| Debemos definir dos parámetros: $\varepsilon$ y $n$ |
+
+![Comparación K-Means vs. DBSCAN](figuras/scan/comparacion.jpg){fig-alt="Kmeans vs dbscan"}
+
+#### Pasos del algoritmo DBSCAN
+
+1. Definimos parámetros: $\varepsilon$: radio para buscar los $\varepsilon$-vecinos (`eps`) y $n$: cantidad mínima de vecinos (`min_samples`).
+2. Se revisan todos los puntos $x_i$ contando cuantos puntos vecinos tienen (cuantos puntos tienen una distancia menor o igual a $\varepsilon$ desde $x_i$).
+3. Si la cantidad anterior es mayor o igual a $n$, definimos a $x$ como un *punto central*.
+4. Luego escogemos un punto aleatorio $x$ y lo asignamos al cluster $I$.
+5. Todos los puntos centrales que sean vecinos de $x$ se agregan al cluster $I$.
+6. Se agregan todos los puntos de borde que sean vecinos de un punto central. Los puntos de borde se pueden unir a un cluster, pero no pueden usarse para unir a otros puntos al cluster.
+7. Se repite el procedimiento hasta que no tengamos puntos centrales o vecinos para agregar a clusters.
+8. Los puntos que no se agregaron a ningún cluster se identifican como outliers.
+
+#### Ejemplo DBSCAN en python
+
+**Imports**
+```{python}
+import pandas as pd
+import seaborn as sns
+import numpy as np
+import matplotlib.pyplot as plt
+
+from kneed import KneeLocator
+from sklearn.cluster import DBSCAN
+from sklearn.neighbors import NearestNeighbors
+from collections import Counter
+```
+
+**Buscando un dataset**
+```{python}
+df = pd.read_csv("https://reneshbedre.github.io/assets/posts/tsne/tsne_scores.csv")
+#df = pd.DataFrame(np.load('datos/clusterable_data.npy'))
+df.head(2)
+```
+
+```{python}
+print(df.shape)
+```
+
+```{python}
+p = sns.scatterplot(data = df, x = df["t-SNE-1"], y = df["t-SNE-2"], alpha=0.15)
+```
+
+**Buscando el parámetro $\varepsilon$**
+```{python}
+# n_neighbors = 5 as kneighbors function returns distance of point to itself (i.e. first column will be zeros) 
+nbrs = NearestNeighbors(n_neighbors = 5).fit(df)
+# Find the k-neighbors of a point
+neigh_dist, neigh_ind = nbrs.kneighbors(df)
+# sort the neighbor distances (lengths to points) in ascending order
+# axis = 0 represents sort along first axis i.e. sort along row
+sort_neigh_dist = np.sort(neigh_dist, axis = 0)
+
+k_dist = sort_neigh_dist[:, 4]
+plt.plot(k_dist)
+plt.ylabel("k-NN distance")
+plt.xlabel("Sorted observations (4th NN)")
+plt.show()
+```
+
+Para estimar el punto del codo también podemos utilizar `kneeLocator` del paquete `kneed`:
+```{python}
+kneedle = KneeLocator(x = range(1, len(neigh_dist)+1), y = k_dist, S = 1.0, 
+                      curve = "concave", direction = "increasing", online=True)
+
+# get the estimate of knee point
+print(kneedle.knee_y)
+```
+
+A partir de esto utilizaremos un valor de $\varepsilon = 4.54$
+
+**Regla de dedo para definir $n$**
+
+Una regla que podemos utilizar para definir $n$ de manera general está dada por:
+$$
+n = 2 * número\hspace{5pt}de\hspace{5pt}dimensiones
+$$
+
+En este caso, definiremos $n = 2 * 2 = 4$
+
+**Implementando DBSCAN**
+```{python}
+clusters = DBSCAN(eps = 4.54, min_samples = 4).fit(df)
+# get cluster labels
+clusters.labels_
+```
+
+Acá podemos ver las etiquetas asignadas. `-1` corresponde a los outliers.
+```{python}
+set(clusters.labels_)
+```
+
+Luego podemos obtener la cantidad de datos en cada cluster:
+```{python}
+Counter(clusters.labels_)
+```
+**Visualizando clusters**
+```{python}
+p = sns.scatterplot(data = df, x = df["t-SNE-1"], y = df["t-SNE-2"], hue = clusters.labels_, legend = "full", palette = "deep")
+sns.move_legend(p, "upper right", bbox_to_anchor = (1.17, 1.), title = 'Clusters')
+plt.show()
+```
+### HDBSCAN
+
+HDBSCAN es un algoritmo que extiende a DBSCAN, convirtiéndolo en un algoritmo de agrupamiento jerárquico, utilizando técnicas para extraer un extraer un agrupamiento plano (como DBSCAN) pero basado en el concepto de persistencia de los clusters.
+
+```{python}
+import hdbscan
+```
+
+```{python}
+clusterer = hdbscan.HDBSCAN(min_cluster_size=15).fit(df)
+```
+
+
+```{python}
+p = sns.scatterplot(data = df, x = df["t-SNE-1"], y = df["t-SNE-2"], hue = clusterer.labels_, legend = "full", palette = "deep")
+sns.move_legend(p, "upper right", bbox_to_anchor = (1.35, 1.), title = 'Clusters HDBSCAN')
+plt.show()
+```
